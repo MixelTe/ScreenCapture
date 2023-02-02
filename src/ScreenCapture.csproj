@@ -135,6 +135,7 @@
     <Content Include="Properties\imgs\close.png" />
     <Content Include="Properties\imgs\file_add.png" />
     <Content Include="Properties\imgs\github.png" />
+    <None Include="Properties\imgs\hide.png" />
     <Content Include="Properties\imgs\icon.ico" />
     <Content Include="Properties\imgs\icon.png" />
     <Content Include="Properties\imgs\icon_.png" />
@@ -144,6 +145,7 @@
     <Content Include="Properties\imgs\selection.png" />
     <Content Include="Properties\imgs\selection_remove.png" />
     <Content Include="Properties\imgs\settings.png" />
+    <None Include="Properties\imgs\show.png" />
     <Content Include="Properties\imgs\stop.png" />
     <Content Include="Properties\imgs\stop_start.png" />
   </ItemGroup>

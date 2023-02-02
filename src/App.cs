@@ -14,10 +14,13 @@ namespace ScreenCapture
 		public static App Ins;
 		public readonly NotifyIcon TrayIcon;
 		public readonly List<Form> Pictures = new List<Form>();
+		private bool _hideAll = false;
+		private ToolStripMenuItem _itemHideAll;
 
 		public App()
 		{
 			Ins = this;
+			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, HideAll);
 			TrayIcon = new NotifyIcon()
 			{
 				Icon = Resources.AppIcon,
@@ -26,6 +29,7 @@ namespace ScreenCapture
 					Items = { 
 						new ToolStripMenuItem("Exit", Resources.close, Exit),
 						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
+						_itemHideAll,
 					}
 				},
 				Visible = true,
@@ -42,6 +46,9 @@ namespace ScreenCapture
 				Pictures.ForEach(f => f.Hide());
 				var form = new FormCapture();
 				Pictures.ForEach(f => f.Show());
+				_hideAll = false;
+				_itemHideAll.Text = "Hide all";
+				_itemHideAll.Image = Resources.hide;
 				form.Show();
 			}
 			else if (me.Button == MouseButtons.Middle)
@@ -72,6 +79,23 @@ namespace ScreenCapture
 			for (int i = Pictures.Count - 1; i >= 0; i--)
 			{
 				Pictures[i].Close();
+			}
+		}
+
+		void HideAll(object sender, EventArgs e)
+		{
+			_hideAll = !_hideAll;
+			if (_hideAll)
+			{
+				Pictures.ForEach(f => f.Hide());
+				_itemHideAll.Text = "Show all";
+				_itemHideAll.Image = Resources.show;
+			}
+			else
+			{
+				Pictures.ForEach(f => f.Show());
+				_itemHideAll.Text = "Hide all";
+				_itemHideAll.Image = Resources.hide;
 			}
 		}
 	}
