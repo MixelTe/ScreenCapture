@@ -132,6 +132,7 @@
   <ItemGroup>
     <Content Include="icon.ico" />
     <Content Include="Properties\imgs\.gitignore" />
+    <None Include="Properties\imgs\circle.ico" />
     <Content Include="Properties\imgs\close.png" />
     <Content Include="Properties\imgs\file_add.png" />
     <Content Include="Properties\imgs\github.png" />
@@ -139,6 +140,9 @@
     <Content Include="Properties\imgs\icon.ico" />
     <Content Include="Properties\imgs\icon.png" />
     <Content Include="Properties\imgs\icon_.png" />
+    <None Include="Properties\imgs\pencil.png" />
+    <None Include="Properties\imgs\pencil.ico" />
+    <None Include="Properties\imgs\pencil.cur" />
     <Content Include="Properties\imgs\reload_settings.png" />
     <Content Include="Properties\imgs\restart.png" />
     <Content Include="Properties\imgs\select.png" />

@@ -1,14 +1,21 @@
-﻿using System;
+﻿using ScreenCapture.Properties;
+using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace ScreenCapture
 {
 	public partial class FormPicture : Form
 	{
+		private readonly Cursor _pencil = new Cursor(Resources.pencil.Handle);
+		private readonly Cursor _circle = new Cursor(Resources.circle.Handle);
 		private readonly Bitmap _picture;
+		private readonly Bitmap _drawings;
 		private bool _dragging = false;
+		private int _drawing = 0;
 		private Point _dragDif;
+		private Point _lastPos;
 
 		public FormPicture(Bitmap picture, Point location)
 		{
@@ -17,9 +24,13 @@ namespace ScreenCapture
 			Location = location;						 
 			Size = picture.Size;						 
 			DrawBorder(picture);						 
-			BackgroundImage = picture;					 
-			Cursor = Cursors.Arrow;						 
-														 
+			BackgroundImage = picture;
+
+			_drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
+			PictureDraw.Location = Point.Empty;
+			PictureDraw.Size = Size;
+			PictureDraw.Image = _drawings;
+
 			App.Ins.Pictures.Add(this);					 
 		}												 
 		protected override CreateParams CreateParams	 
@@ -35,7 +46,8 @@ namespace ScreenCapture
 
 		private void FormPicture_Click(object sender, EventArgs e)
 		{
-			if ((e as MouseEventArgs).Button == MouseButtons.Right)
+			if ((e as MouseEventArgs).Button == MouseButtons.Right 
+				&& !ModifierKeys.HasFlag(Keys.Control))
 			{
 				Close();
 			}
@@ -59,8 +71,22 @@ namespace ScreenCapture
 
 		private void FormPicture_MouseDown(object sender, MouseEventArgs e)
 		{
-			_dragging = true;
-			_dragDif = Point.Subtract(Location, new Size(Cursor.Position));
+			if (ModifierKeys.HasFlag(Keys.Control))
+			{
+				_drawing = e.Button == MouseButtons.Right ? -1 : 1;
+				_lastPos = Point.Subtract(Cursor.Position, new Size(Location));
+				Draw();
+				if (e.Button == MouseButtons.Right)
+					Cursor = _circle;
+				else
+					Cursor = _pencil;
+			}
+			else
+			{
+				_dragging = true;
+				_dragDif = Point.Subtract(Location, new Size(Cursor.Position));
+				Cursor = Cursors.SizeAll;
+			}
 		}
 
 		private void FormPicture_MouseMove(object sender, MouseEventArgs e)
@@ -68,17 +94,92 @@ namespace ScreenCapture
 			if (_dragging)
 			{
 				Location = Point.Add(Cursor.Position, new Size(_dragDif));
+				Cursor = Cursors.SizeAll;
+			}
+			else if (_drawing != 0)
+			{
+				if (e.Button == MouseButtons.Right)
+					Cursor = _circle;
+				else
+					Cursor = _pencil;
+				var pos = Point.Subtract(Cursor.Position, new Size(Location));
+				Draw(pos);
+				_lastPos = pos;
+			}
+			else
+			{
+				if (ModifierKeys.HasFlag(Keys.Control))
+				{
+					if (e.Button == MouseButtons.Right)
+						Cursor = _circle;
+					else
+						Cursor = _pencil;
+				}
+				else
+				{
+					Cursor = Cursors.Default;
+				}
 			}
 		}
 
 		private void FormPicture_MouseUp(object sender, MouseEventArgs e)
 		{
 			_dragging = false;
+			_drawing = 0;
 		}
 
 		private void FormPicture_FormClosed(object sender, FormClosedEventArgs e)
 		{
+			_drawings.Dispose();
 			App.Ins.Pictures.Remove(this);
+		}
+
+		private void Draw()
+		{
+			using (var g = Graphics.FromImage(PictureDraw.Image))
+			{
+				if (_drawing > 0)
+				{
+					g.FillEllipse(Brushes.Lime, new Rectangle(_lastPos, new Size(1, 1)));
+				}
+				else
+				{
+					g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+					g.FillEllipse(Brushes.Transparent, new Rectangle(_lastPos, Size.Empty).Inflate(16));
+				}
+				PictureDraw.Image = PictureDraw.Image;
+			}
+		}
+		private void Draw(Point p)
+		{
+			using (var g = Graphics.FromImage(PictureDraw.Image))
+			{
+				if (_drawing > 0)
+				{
+					g.DrawLine(Pens.Lime, _lastPos, p);
+				}
+				else
+				{
+					g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+					g.FillEllipse(Brushes.Transparent, new Rectangle(p, Size.Empty).Inflate(16));
+				}
+				PictureDraw.Image = PictureDraw.Image;
+			}
+		}
+
+		private void FormPicture_Key(object sender, KeyEventArgs e)
+		{
+			if (ModifierKeys.HasFlag(Keys.Control))
+			{
+				if (MouseButtons == MouseButtons.Right)
+					Cursor = _circle;
+				else
+					Cursor = _pencil;
+			}
+			else
+			{
+				Cursor = Cursors.Default;
+			}
 		}
 	}
 }
