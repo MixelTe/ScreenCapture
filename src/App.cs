@@ -28,7 +28,8 @@ namespace ScreenCapture
 						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
 					}
 				},
-				Visible = true
+				Visible = true,
+				Text = "Screen Capture v1"
 			};
 			TrayIcon.Click += TrayIcon_Click;
 		}
