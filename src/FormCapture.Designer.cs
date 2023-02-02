@@ -41,6 +41,7 @@
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "FormCapture";
 			this.Text = "ScreenCapture";
+			this.TopMost = true;
 			this.Click += new System.EventHandler(this.FormCapture_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormCapture_Paint);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormCapture_MouseDown);

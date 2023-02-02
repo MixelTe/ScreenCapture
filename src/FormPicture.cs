@@ -6,34 +6,43 @@ namespace ScreenCapture
 {
 	public partial class FormPicture : Form
 	{
+		private readonly Bitmap _picture;
 		private bool _dragging = false;
 		private Point _dragDif;
 
 		public FormPicture(Bitmap picture, Point location)
 		{
-			InitializeComponent();
-			Location = location;
-			Size = picture.Size;
-			DrawBorder(picture);
-			BackgroundImage = picture;
-			Cursor = Cursors.Arrow;
+			_picture = picture.Clone(new Rectangle(Point.Empty, picture.Size), picture.PixelFormat);
+			InitializeComponent();						 
+			Location = location;						 
+			Size = picture.Size;						 
+			DrawBorder(picture);						 
+			BackgroundImage = picture;					 
+			Cursor = Cursors.Arrow;						 
+														 
+			App.Ins.Pictures.Add(this);					 
+		}												 
+		protected override CreateParams CreateParams	 
+		{
+			get
+			{
+				CreateParams cp = base.CreateParams;
+				cp.ExStyle |= 0x80; // WS_EX_TOOLWINDOW
+				//cp.ClassStyle |= 0x20000; // CS_DROPSHADOW
+				return cp;
+			}
 		}
-		//protected override CreateParams CreateParams
-		//{
-		//	get
-		//	{
-		//		const int CS_DROPSHADOW = 0x20000;
-		//		CreateParams cp = base.CreateParams;
-		//		cp.ClassStyle |= CS_DROPSHADOW;
-		//		return cp;
-		//	}
-		//}
 
 		private void FormPicture_Click(object sender, EventArgs e)
 		{
 			if ((e as MouseEventArgs).Button == MouseButtons.Right)
 			{
 				Close();
+			}
+			else if ((e as MouseEventArgs).Button == MouseButtons.Middle)
+			{
+				Clipboard.SetImage(_picture);
+				App.Ins.TrayIcon.ShowBalloonTip(0, "Copy image", "Image is copied!", ToolTipIcon.Info);
 			}
 		}
 
@@ -65,6 +74,11 @@ namespace ScreenCapture
 		private void FormPicture_MouseUp(object sender, MouseEventArgs e)
 		{
 			_dragging = false;
+		}
+
+		private void FormPicture_FormClosed(object sender, FormClosedEventArgs e)
+		{
+			App.Ins.Pictures.Remove(this);
 		}
 	}
 }

@@ -40,8 +40,11 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "FormPicture";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ScreenCapture";
+			this.TopMost = true;
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPicture_FormClosed);
 			this.Click += new System.EventHandler(this.FormPicture_Click);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseDown);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseMove);
