@@ -96,6 +96,7 @@
     <Compile Include="FormPicture.Designer.cs">
       <DependentUpon>FormPicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hotkey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormCapture.resx">
@@ -124,7 +125,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="ScreenCapture_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

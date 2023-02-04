@@ -9,15 +9,28 @@ namespace ScreenCapture
 {
 	internal static class Program
 	{
+		public static Hotkey Hotkey = new Hotkey
+		{
+			KeyCode = Keys.Oemtilde,
+			Shift = true
+		};
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
 		static void Main()
 		{
-			Application.EnableVisualStyles();
-			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new App());
+			try
+			{
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+				Application.Run(new App());
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show($"Error\n{ex.Message}", "Screen Capture", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+			Hotkey.Unregister();
 		}
 
 		public static Rectangle Inflate(this Rectangle rect, int v)
