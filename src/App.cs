@@ -16,6 +16,7 @@ namespace ScreenCapture
 		public readonly List<Form> Pictures = new List<Form>();
 		private readonly ToolStripMenuItem _itemHideAll;
 		private bool _hideAll = false;
+		private bool _captureOpened = false;
 
 		public App()
 		{
@@ -33,7 +34,7 @@ namespace ScreenCapture
 					}
 				},
 				Visible = true,
-				Text = "Screen Capture v1.1"
+				Text = "Screen Capture v1.2"
 			};
 			TrayIcon.Click += TrayIcon_Click;
 
@@ -73,8 +74,14 @@ namespace ScreenCapture
 
 		void Capture()
 		{
+			if (_captureOpened) return;
+			_captureOpened = true;
 			Pictures.ForEach(f => f.Hide());
 			var form = new FormCapture();
+			form.FormClosed += (object sender, FormClosedEventArgs e) =>
+			{
+				_captureOpened = false;
+			};
 			Pictures.ForEach(f => f.Show());
 			_hideAll = false;
 			_itemHideAll.Text = "Hide all";

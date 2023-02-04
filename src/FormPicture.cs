@@ -1,5 +1,6 @@
 ﻿using ScreenCapture.Properties;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
@@ -8,8 +9,10 @@ namespace ScreenCapture
 {
 	public partial class FormPicture : Form
 	{
-		private readonly Cursor _pencil = new Cursor(Resources.pencil.Handle);
-		private readonly Cursor _circle = new Cursor(Resources.circle.Handle);
+		private readonly static Icon _iconPencil = Resources.pencil;
+		private readonly static Icon _iconCircle = Resources.circle;
+		private readonly static Cursor _pencil = new Cursor(_iconPencil.Handle);
+		private readonly static Cursor _circle = new Cursor(_iconCircle.Handle);
 		private readonly Bitmap _picture;
 		private readonly Bitmap _drawings;
 		private bool _dragging = false;
