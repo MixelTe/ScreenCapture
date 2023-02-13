@@ -1,5 +1,5 @@
 # Screen Capture
-### [Download](https://github.com/MixelTe/ScreenCapture/releases/download/v1.2/ScreenCapture.exe)
+### [Download](https://github.com/MixelTe/ScreenCapture/releases/download/v1.2.1/ScreenCapture.exe)
 Capture screen zone and show it as window
 
 ## Usage

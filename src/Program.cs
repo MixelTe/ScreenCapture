@@ -4,33 +4,43 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Threading;
 
 namespace ScreenCapture
 {
 	internal static class Program
 	{
-		public static Hotkey Hotkey = new Hotkey
-		{
-			KeyCode = Keys.Oemtilde,
-			Shift = true
-		};
-		/// <summary>
-		/// The main entry point for the application.
-		/// </summary>
+		public static Hotkey Hotkey;
+		public static Mutex mutex;
+
 		[STAThread]
 		static void Main()
 		{
-			try
+			mutex = new Mutex(true, "ScreenCapture{27b4fde6-827f-41dd-b0da-c325bc820645}", out var isNewCreated);
+
+			if (isNewCreated)
 			{
-				Application.EnableVisualStyles();
-				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new App());
+				Hotkey = new Hotkey
+				{
+					KeyCode = Keys.Oemtilde,
+					Shift = true
+				};
+				try
+				{
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					Application.Run(new App());
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error\n{ex.Message}", "Screen Capture", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				Hotkey.Unregister();
 			}
-			catch (Exception ex)
+			else
 			{
-				MessageBox.Show($"Error\n{ex.Message}", "Screen Capture", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				MessageBox.Show("Already launched", "Screen Capture");
 			}
-			Hotkey.Unregister();
 		}
 
 		public static Rectangle Inflate(this Rectangle rect, int v)

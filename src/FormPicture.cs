@@ -34,8 +34,8 @@ namespace ScreenCapture
 			PictureDraw.Size = Size;
 			PictureDraw.Image = _drawings;
 
-			App.Ins.Pictures.Add(this);					 
-		}												 
+			App.Ins.Pictures.Add(this);
+		}
 		protected override CreateParams CreateParams	 
 		{
 			get
