@@ -10,6 +10,8 @@ namespace ScreenCapture
 {
 	internal static class Program
 	{
+		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenCapture";
+		public static Settings Settings = new Settings();
 		public static Hotkey Hotkey;
 		public static Mutex mutex;
 
@@ -17,13 +19,16 @@ namespace ScreenCapture
 		static void Main()
 		{
 			mutex = new Mutex(true, "ScreenCapture{27b4fde6-827f-41dd-b0da-c325bc820645}", out var isNewCreated);
+			Settings.Load();
 
 			if (isNewCreated)
 			{
 				Hotkey = new Hotkey
 				{
-					KeyCode = Keys.Oemtilde,
-					Shift = true
+					KeyCode = Settings.Hotkey & Keys.KeyCode,
+					Control = (Settings.Hotkey & Keys.Control) != 0,
+					Shift = (Settings.Hotkey & Keys.Shift) != 0,
+					Alt = (Settings.Hotkey & Keys.Alt) != 0
 				};
 				try
 				{

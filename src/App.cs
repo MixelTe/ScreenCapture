@@ -17,6 +17,7 @@ namespace ScreenCapture
 		private readonly ToolStripMenuItem _itemHideAll;
 		private bool _hideAll = false;
 		private bool _captureOpened = false;
+		private FormSettings _formSettings;
 
 		public App()
 		{
@@ -30,6 +31,7 @@ namespace ScreenCapture
 					Items = { 
 						new ToolStripMenuItem("Exit", Resources.close, Exit),
 						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
+						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
 						_itemHideAll,
 					}
 				},
@@ -46,7 +48,10 @@ namespace ScreenCapture
 
 		private void Hotkey_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
 		{
-			Capture();
+			if (_formSettings?.ChangingHotkey != true)
+			{
+				Capture();
+			}
 		}
 
 		private void TrayIcon_Click(object sender, EventArgs e)
@@ -101,6 +106,19 @@ namespace ScreenCapture
 			for (int i = Pictures.Count - 1; i >= 0; i--)
 			{
 				Pictures[i].Close();
+			}
+		}
+
+		void OpenSettings(object sender, EventArgs e)
+		{
+			if (_formSettings == null || _formSettings.IsDisposed)
+			{
+				_formSettings = new FormSettings();
+				_formSettings.Show();
+			}
+			else
+			{
+				_formSettings.Focus();
 			}
 		}
 
