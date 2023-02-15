@@ -36,7 +36,7 @@ namespace ScreenCapture
 					}
 				},
 				Visible = true,
-				Text = "Screen Capture v1.2"
+				Text = "Screen Capture v1.3"
 			};
 			TrayIcon.Click += TrayIcon_Click;
 
