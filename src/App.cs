@@ -16,19 +16,19 @@ namespace ScreenCapture
 		public readonly List<Form> Pictures = new List<Form>();
 		private readonly ToolStripMenuItem _itemHideAll;
 		private bool _hideAll = false;
-		private bool _captureOpened = false;
+		private FormCapture _formCapture;
 		private FormSettings _formSettings;
 
 		public App()
 		{
 			Ins = this;
-			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, HideAll);
+			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, TogglePicturesVisibility);
 			TrayIcon = new NotifyIcon()
 			{
 				Icon = Resources.AppIcon,
 				ContextMenuStrip = new ContextMenuStrip()
 				{
-					Items = { 
+					Items = {
 						new ToolStripMenuItem("Exit", Resources.close, Exit),
 						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
 						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
@@ -79,19 +79,20 @@ namespace ScreenCapture
 
 		void Capture()
 		{
-			if (_captureOpened) return;
-			_captureOpened = true;
-			Pictures.ForEach(f => f.Hide());
-			var form = new FormCapture();
-			form.FormClosed += (object sender, FormClosedEventArgs e) =>
+			if (_formCapture != null && !_formCapture.IsDisposed)
 			{
-				_captureOpened = false;
+				TogglePicturesVisibility();
+				_formCapture.Close();
+				return;
+			}
+			Pictures.ForEach(f => f.Hide());
+			_formCapture = new FormCapture();
+			_formCapture.FormClosing += (object sender, FormClosingEventArgs e) =>
+			{
+				if (_formCapture.PictureCaptured || !_hideAll)
+					ShowPictures();
 			};
-			Pictures.ForEach(f => f.Show());
-			_hideAll = false;
-			_itemHideAll.Text = "Hide all";
-			_itemHideAll.Image = Resources.hide;
-			form.Show();
+			_formCapture.Show();
 		}
 
 		void Exit(object sender, EventArgs e)
@@ -122,21 +123,25 @@ namespace ScreenCapture
 			}
 		}
 
-		void HideAll(object sender, EventArgs e)
+		void TogglePicturesVisibility(object sender, EventArgs e) => TogglePicturesVisibility();
+		void TogglePicturesVisibility()
 		{
-			_hideAll = !_hideAll;
-			if (_hideAll)
-			{
-				Pictures.ForEach(f => f.Hide());
-				_itemHideAll.Text = "Show all";
-				_itemHideAll.Image = Resources.show;
-			}
-			else
-			{
-				Pictures.ForEach(f => f.Show());
-				_itemHideAll.Text = "Hide all";
-				_itemHideAll.Image = Resources.hide;
-			}
+			if (_hideAll) ShowPictures();
+			else HidePictures();
+		}
+		void HidePictures()
+		{
+			_hideAll = true;
+			Pictures.ForEach(f => f.Hide());
+			_itemHideAll.Text = "Show all";
+			_itemHideAll.Image = Resources.show;
+		}
+		void ShowPictures()
+		{
+			_hideAll = false;
+			Pictures.ForEach(f => f.Show());
+			_itemHideAll.Text = "Hide all";
+			_itemHideAll.Image = Resources.hide;
 		}
 	}
 }

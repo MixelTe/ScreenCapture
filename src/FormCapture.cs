@@ -12,6 +12,7 @@ namespace ScreenCapture
 {
 	public partial class FormCapture : Form
 	{
+		public bool PictureCaptured = false;
 		private Point _selectionStart = new Point(-1, -1);
 		private Rectangle _selection;
 
@@ -83,6 +84,7 @@ namespace ScreenCapture
 
 			var form = new FormPicture(picture, _selection.Location);
 			form.Show();
+			PictureCaptured = true;
 			Close();
 		}
 	}
