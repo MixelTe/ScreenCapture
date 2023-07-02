@@ -37,6 +37,8 @@
 			this.label2 = new System.Windows.Forms.Label();
 			this.Btn_penColor = new System.Windows.Forms.Button();
 			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.label3 = new System.Windows.Forms.Label();
+			this.TextBox1 = new System.Windows.Forms.TextBox();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -63,7 +65,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 105);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 150);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(54, 21);
@@ -117,11 +119,38 @@
 			// 
 			this.ColorDialog1.FullOpen = true;
 			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.label3.Location = new System.Drawing.Point(194, 6);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(2, 171);
+			this.label3.TabIndex = 7;
+			// 
+			// TextBox1
+			// 
+			this.TextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+			this.TextBox1.Cursor = System.Windows.Forms.Cursors.Default;
+			this.TextBox1.Location = new System.Drawing.Point(202, 12);
+			this.TextBox1.Multiline = true;
+			this.TextBox1.Name = "TextBox1";
+			this.TextBox1.ReadOnly = true;
+			this.TextBox1.Size = new System.Drawing.Size(197, 157);
+			this.TextBox1.TabIndex = 9;
+			this.TextBox1.Text = resources.GetString("TextBox1.Text");
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(198, 136);
+			this.ClientSize = new System.Drawing.Size(411, 181);
+			this.Controls.Add(this.TextBox1);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.Btn_penColor);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.CB_border);
@@ -153,5 +182,7 @@
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Button Btn_penColor;
 		private System.Windows.Forms.ColorDialog ColorDialog1;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox TextBox1;
 	}
 }
