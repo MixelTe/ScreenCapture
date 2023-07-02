@@ -26,7 +26,8 @@ namespace ScreenCapture
 			InitializeComponent();						 
 			Location = location;						 
 			Size = picture.Size;						 
-			DrawBorder(picture);						 
+			if (Program.Settings.DrawBorder)
+				DrawBorder(picture);
 			BackgroundImage = picture;
 
 			_drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
@@ -42,7 +43,8 @@ namespace ScreenCapture
 			{
 				CreateParams cp = base.CreateParams;
 				cp.ExStyle |= 0x80; // WS_EX_TOOLWINDOW
-				//cp.ClassStyle |= 0x20000; // CS_DROPSHADOW
+				if (Program.Settings.DrawShadow)
+					cp.ClassStyle |= 0x20000; // CS_DROPSHADOW
 				return cp;
 			}
 		}

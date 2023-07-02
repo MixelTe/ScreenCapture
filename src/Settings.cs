@@ -10,6 +10,8 @@ namespace ScreenCapture
 	internal class Settings
 	{
 		public Keys Hotkey = Keys.Oemtilde | Keys.Control;
+		public bool DrawBorder = true;
+		public bool DrawShadow = true;
 
 		public void Load()
 		{

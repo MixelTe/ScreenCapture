@@ -48,7 +48,7 @@ namespace ScreenCapture
 		{
 			// No work done here!
 		}
-		
+
 		public Hotkey(Keys keyCode, bool shift, bool control, bool alt, bool windows)
 		{
 			// Assign properties
@@ -60,6 +60,15 @@ namespace ScreenCapture
 
 			// Register us as a message filter
 			Application.AddMessageFilter(this);
+		}
+
+		public void SetHotkey(Keys hotkey)
+		{
+			_keyCode = hotkey & Keys.KeyCode;
+			_control = (hotkey & Keys.Control) != 0;
+			_shift = (hotkey & Keys.Shift) != 0;
+			_alt = (hotkey & Keys.Alt) != 0;
+			Reregister();
 		}
 
 		public Hotkey Clone()

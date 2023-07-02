@@ -23,13 +23,8 @@ namespace ScreenCapture
 
 			if (isNewCreated)
 			{
-				Hotkey = new Hotkey
-				{
-					KeyCode = Settings.Hotkey & Keys.KeyCode,
-					Control = (Settings.Hotkey & Keys.Control) != 0,
-					Shift = (Settings.Hotkey & Keys.Shift) != 0,
-					Alt = (Settings.Hotkey & Keys.Alt) != 0
-				};
+				Hotkey = new Hotkey();
+				Hotkey.SetHotkey(Settings.Hotkey);
 				try
 				{
 					Application.EnableVisualStyles();

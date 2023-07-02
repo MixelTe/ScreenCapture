@@ -32,6 +32,8 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.Inp_hotkey = new System.Windows.Forms.TextBox();
 			this.Btn_reset = new System.Windows.Forms.Button();
+			this.CB_shadow = new System.Windows.Forms.CheckBox();
+			this.CB_border = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -48,7 +50,7 @@
 			// 
 			this.Inp_hotkey.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.Inp_hotkey.Location = new System.Drawing.Point(76, 8);
-			this.Inp_hotkey.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Inp_hotkey.Margin = new System.Windows.Forms.Padding(2);
 			this.Inp_hotkey.Name = "Inp_hotkey";
 			this.Inp_hotkey.Size = new System.Drawing.Size(111, 20);
 			this.Inp_hotkey.TabIndex = 2;
@@ -57,8 +59,9 @@
 			// 
 			// Btn_reset
 			// 
-			this.Btn_reset.Location = new System.Drawing.Point(9, 35);
-			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.Btn_reset.Location = new System.Drawing.Point(9, 80);
+			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(54, 21);
 			this.Btn_reset.TabIndex = 1;
@@ -66,11 +69,35 @@
 			this.Btn_reset.UseVisualStyleBackColor = true;
 			this.Btn_reset.Click += new System.EventHandler(this.Btn_reset_Click);
 			// 
+			// CB_shadow
+			// 
+			this.CB_shadow.AutoSize = true;
+			this.CB_shadow.Location = new System.Drawing.Point(13, 33);
+			this.CB_shadow.Name = "CB_shadow";
+			this.CB_shadow.Size = new System.Drawing.Size(91, 17);
+			this.CB_shadow.TabIndex = 3;
+			this.CB_shadow.Text = "Draw shadow";
+			this.CB_shadow.UseVisualStyleBackColor = true;
+			this.CB_shadow.CheckedChanged += new System.EventHandler(this.CB_shadow_CheckedChanged);
+			// 
+			// CB_border
+			// 
+			this.CB_border.AutoSize = true;
+			this.CB_border.Location = new System.Drawing.Point(13, 56);
+			this.CB_border.Name = "CB_border";
+			this.CB_border.Size = new System.Drawing.Size(84, 17);
+			this.CB_border.TabIndex = 4;
+			this.CB_border.Text = "Draw border";
+			this.CB_border.UseVisualStyleBackColor = true;
+			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(198, 66);
+			this.ClientSize = new System.Drawing.Size(198, 111);
+			this.Controls.Add(this.CB_border);
+			this.Controls.Add(this.CB_shadow);
 			this.Controls.Add(this.Btn_reset);
 			this.Controls.Add(this.Inp_hotkey);
 			this.Controls.Add(this.label1);
@@ -92,5 +119,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.TextBox Inp_hotkey;
 		private System.Windows.Forms.Button Btn_reset;
+		private System.Windows.Forms.CheckBox CB_shadow;
+		private System.Windows.Forms.CheckBox CB_border;
 	}
 }
