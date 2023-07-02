@@ -34,6 +34,9 @@
 			this.Btn_reset = new System.Windows.Forms.Button();
 			this.CB_shadow = new System.Windows.Forms.CheckBox();
 			this.CB_border = new System.Windows.Forms.CheckBox();
+			this.label2 = new System.Windows.Forms.Label();
+			this.Btn_penColor = new System.Windows.Forms.Button();
+			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -60,7 +63,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 80);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 105);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(54, 21);
@@ -91,11 +94,36 @@
 			this.CB_border.UseVisualStyleBackColor = true;
 			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
 			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(11, 78);
+			this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(52, 13);
+			this.label2.TabIndex = 5;
+			this.label2.Text = "Pen color";
+			// 
+			// Btn_penColor
+			// 
+			this.Btn_penColor.Location = new System.Drawing.Point(76, 75);
+			this.Btn_penColor.Name = "Btn_penColor";
+			this.Btn_penColor.Size = new System.Drawing.Size(111, 20);
+			this.Btn_penColor.TabIndex = 6;
+			this.Btn_penColor.UseVisualStyleBackColor = true;
+			this.Btn_penColor.Click += new System.EventHandler(this.Btn_penColor_Click);
+			// 
+			// ColorDialog1
+			// 
+			this.ColorDialog1.FullOpen = true;
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(198, 111);
+			this.ClientSize = new System.Drawing.Size(198, 136);
+			this.Controls.Add(this.Btn_penColor);
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.CB_border);
 			this.Controls.Add(this.CB_shadow);
 			this.Controls.Add(this.Btn_reset);
@@ -122,5 +150,8 @@
 		private System.Windows.Forms.Button Btn_reset;
 		private System.Windows.Forms.CheckBox CB_shadow;
 		private System.Windows.Forms.CheckBox CB_border;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Button Btn_penColor;
+		private System.Windows.Forms.ColorDialog ColorDialog1;
 	}
 }

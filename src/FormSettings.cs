@@ -28,6 +28,7 @@ namespace ScreenCapture
 			Inp_hotkey.Text = Program.Hotkey.ToString();
 			CB_border.Checked = Program.Settings.DrawBorder;
 			CB_shadow.Checked = Program.Settings.DrawShadow;
+			Btn_penColor.BackColor = Program.Settings.PenColor;
 			_settingValues = false;
 		}
 
@@ -55,9 +56,7 @@ namespace ScreenCapture
 
 		private void Btn_reset_Click(object sender, EventArgs e)
 		{
-			Program.Settings.Hotkey = new Settings().Hotkey;
-			Program.Settings.DrawBorder = true;
-			Program.Settings.DrawShadow = true;
+			Program.Settings = new Settings();
 			Program.Settings.Save();
 
 			Program.Hotkey.SetHotkey(Program.Settings.Hotkey);
@@ -77,6 +76,17 @@ namespace ScreenCapture
 			if (_settingValues) return;
 			Program.Settings.DrawBorder = CB_border.Checked;
 			Program.Settings.Save();
+		}
+
+		private void Btn_penColor_Click(object sender, EventArgs e)
+		{
+			ColorDialog1.Color = Program.Settings.PenColor;
+			if (ColorDialog1.ShowDialog(this) == DialogResult.OK)
+			{
+				Program.Settings.PenColor = ColorDialog1.Color;
+				Program.Settings.Save();
+				Btn_penColor.BackColor = Program.Settings.PenColor;
+			}
 		}
 	}
 }

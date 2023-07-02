@@ -19,6 +19,7 @@ namespace ScreenCapture
 		private int _drawing = 0;
 		private Point _dragDif;
 		private Point _lastPos;
+		private Pen _pen;
 
 		public FormPicture(Bitmap picture, Point location)
 		{
@@ -34,6 +35,8 @@ namespace ScreenCapture
 			PictureDraw.Location = Point.Empty;
 			PictureDraw.Size = Size;
 			PictureDraw.Image = _drawings;
+
+			_pen = new Pen(Program.Settings.PenColor);
 
 			App.Ins.Pictures.Add(this);
 		}
@@ -161,7 +164,7 @@ namespace ScreenCapture
 			{
 				if (_drawing > 0)
 				{
-					g.DrawLine(Pens.Lime, _lastPos, p);
+					g.DrawLine(_pen, _lastPos, p);
 				}
 				else
 				{
