@@ -15,11 +15,11 @@ namespace ScreenCapture
 		private readonly static Cursor _circle = new Cursor(_iconCircle.Handle);
 		private readonly Bitmap _picture;
 		private readonly Bitmap _drawings;
+		private readonly Pen _pen;
 		private bool _dragging = false;
 		private int _drawing = 0;
 		private Point _dragDif;
 		private Point _lastPos;
-		private Pen _pen;
 
 		public FormPicture(Bitmap picture, Point location)
 		{

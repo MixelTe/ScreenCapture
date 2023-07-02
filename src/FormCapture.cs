@@ -28,6 +28,33 @@ namespace ScreenCapture
 			BackgroundImage = screenPicture;
 			Size = size;
 			Cursor = Cursors.Cross;
+			if (Program.Settings.DrawVignette)
+				DrawVignette();
+		}
+
+		private void DrawVignette()
+		{
+			var color = Program.Settings.VignetteColor;
+			var alpha = Program.Settings.VignetteColor.A / 255f;
+			var steps = Program.Settings.VignetteSize;
+
+			var w = Width;
+			var h = Height;
+			PB_vignette.Location = new Point(0, 0);
+			PB_vignette.Width = w;
+			PB_vignette.Height = h;
+
+			var image = new Bitmap(w, h);
+			using (var g = Graphics.FromImage(image))
+			{
+				for (int i = 0; i < steps; i++)
+				{
+					var a = (int)Math.Floor(alpha / steps * (steps - i) * 255);
+					var c = Color.FromArgb(a, color);
+					g.DrawRectangle(new Pen(c), i, i, w - i * 2 - 1, h - i * 2 - 1);
+				}
+			}
+			PB_vignette.Image = image;
 		}
 
 		private void FormCapture_Click(object sender, EventArgs e)

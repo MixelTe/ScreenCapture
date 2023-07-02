@@ -29,6 +29,10 @@ namespace ScreenCapture
 			CB_border.Checked = Program.Settings.DrawBorder;
 			CB_shadow.Checked = Program.Settings.DrawShadow;
 			Btn_penColor.BackColor = Program.Settings.PenColor;
+			CB_vignette.Checked = Program.Settings.DrawVignette;
+			Panel_vignette.Enabled = Program.Settings.DrawVignette;
+			Btn_vignette.BackColor = Program.Settings.VignetteColor;
+			Inp_vignette.Value = Program.Settings.VignetteSize;
 			_settingValues = false;
 		}
 
@@ -87,6 +91,39 @@ namespace ScreenCapture
 				Program.Settings.Save();
 				Btn_penColor.BackColor = Program.Settings.PenColor;
 			}
+		}
+
+		private void CB_vignette_CheckedChanged(object sender, EventArgs e)
+		{
+			if (_settingValues) return;
+			Panel_vignette.Enabled = CB_vignette.Checked;
+			Program.Settings.DrawVignette = CB_vignette.Checked;
+			Program.Settings.Save();
+		}
+
+		private void Btn_vignette_Click(object sender, EventArgs e)
+		{
+			ColorDialog1.Color = Program.Settings.VignetteColor;
+			if (ColorDialog1.ShowDialog(this) == DialogResult.OK)
+			{
+				Program.Settings.VignetteColor = ColorDialog1.Color;
+				Program.Settings.Save();
+				Btn_vignette.BackColor = Program.Settings.VignetteColor;
+			}
+		}
+
+		private void Inp_vignette_ValueChanged(object sender, EventArgs e)
+		{
+			if (_settingValues) return;
+			Program.Settings.VignetteSize = (int)Inp_vignette.Value;
+			Program.Settings.Save();
+		}
+
+		private void Inp_vignette_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (_settingValues) return;
+			Program.Settings.VignetteSize = (int)Inp_vignette.Value;
+			Program.Settings.Save();
 		}
 	}
 }

@@ -14,6 +14,9 @@ namespace ScreenCapture
 		public bool DrawBorder = true;
 		public bool DrawShadow = true;
 		public Color PenColor = Color.Lime;
+		public bool DrawVignette = true;
+		public Color VignetteColor = Color.DarkViolet;
+		public int VignetteSize = 10;
 
 		public void Load()
 		{
