@@ -18,6 +18,7 @@ namespace ScreenCapture
 		private bool _hideAll = false;
 		private FormCapture _formCapture;
 		private FormSettings _formSettings;
+		private FormAbout _formAbout;
 
 		public App()
 		{
@@ -29,14 +30,16 @@ namespace ScreenCapture
 				ContextMenuStrip = new ContextMenuStrip()
 				{
 					Items = {
-						new ToolStripMenuItem("Exit", Resources.close, Exit),
-						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
 						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
+						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
 						_itemHideAll,
+						new ToolStripSeparator(),
+						new ToolStripMenuItem("About", null, OpenAbout),
+						new ToolStripMenuItem("Quit", Resources.close, Quit),
 					}
 				},
 				Visible = true,
-				Text = "Screen Capture v1.3"
+				Text = $"Screen Capture v{Application.ProductVersion}"
 			};
 			TrayIcon.Click += TrayIcon_Click;
 
@@ -95,7 +98,7 @@ namespace ScreenCapture
 			_formCapture.Show();
 		}
 
-		void Exit(object sender, EventArgs e)
+		void Quit(object sender, EventArgs e)
 		{
 			TrayIcon.Visible = false;
 
@@ -142,6 +145,19 @@ namespace ScreenCapture
 			Pictures.ForEach(f => f.Show());
 			_itemHideAll.Text = "Hide all";
 			_itemHideAll.Image = Resources.hide;
+		}
+
+		void OpenAbout(object sender, EventArgs e)
+		{
+			if (_formAbout == null || _formAbout.IsDisposed)
+			{
+				_formAbout = new FormAbout();
+				_formAbout.Show();
+			}
+			else
+			{
+				_formAbout.Focus();
+			}
 		}
 	}
 }

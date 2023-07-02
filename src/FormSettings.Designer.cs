@@ -108,6 +108,7 @@
 			this.Name = "FormSettings";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "Screen Capture: Settings";
+			this.TopMost = true;
 			this.Click += new System.EventHandler(this.FormSettings_Click);
 			this.ResumeLayout(false);
 			this.PerformLayout();
