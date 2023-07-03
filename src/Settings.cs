@@ -17,6 +17,7 @@ namespace ScreenCapture
 		public bool DrawVignette = true;
 		public Color VignetteColor = Color.FromArgb(128, Color.DarkViolet);
 		public int VignetteSize = 16;
+		public float ZoomStep = 1.15f;
 
 		public void Load()
 		{

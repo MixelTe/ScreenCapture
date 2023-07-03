@@ -15,6 +15,7 @@ namespace ScreenCapture
 		public bool PictureCaptured = false;
 		private Point _selectionStart = new Point(-1, -1);
 		private Rectangle _selection;
+		private readonly Pen _pen;
 
 		public FormCapture()
 		{
@@ -28,6 +29,7 @@ namespace ScreenCapture
 			BackgroundImage = screenPicture;
 			Size = size;
 			Cursor = Cursors.Cross;
+			_pen = new Pen(Program.Settings.PenColor);
 			if (Program.Settings.DrawVignette)
 				DrawVignette();
 		}
@@ -84,7 +86,7 @@ namespace ScreenCapture
 
 		private void FormCapture_Paint(object sender, PaintEventArgs e)
 		{
-			e.Graphics.DrawRectangle(Pens.Lime, _selection);
+			e.Graphics.DrawRectangle(_pen, _selection);
 		}
 
 		private void UpdateSelection(Point mousePos)

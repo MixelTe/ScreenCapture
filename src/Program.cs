@@ -42,10 +42,5 @@ namespace ScreenCapture
 				MessageBox.Show("Already launched", "Screen Capture");
 			}
 		}
-
-		public static Rectangle Inflate(this Rectangle rect, int v)
-		{
-			return new Rectangle(rect.X - v, rect.Y - v, rect.Width + v * 2, rect.Height + v * 2);
-		}
 	}
 }

@@ -35,8 +35,8 @@
 			// 
 			// PictureDraw
 			// 
-			this.PictureDraw.Anchor = System.Windows.Forms.AnchorStyles.None;
 			this.PictureDraw.BackColor = System.Drawing.Color.Transparent;
+			this.PictureDraw.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.PictureDraw.Enabled = false;
 			this.PictureDraw.Location = new System.Drawing.Point(191, 94);
 			this.PictureDraw.Name = "PictureDraw";
@@ -48,6 +48,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.ClientSize = new System.Drawing.Size(800, 450);
 			this.Controls.Add(this.PictureDraw);
 			this.DoubleBuffered = true;
@@ -60,7 +61,9 @@
 			this.TopMost = true;
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPicture_FormClosed);
 			this.Click += new System.EventHandler(this.FormPicture_Click);
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPicture_Paint);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPicture_Key);
+			this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.FormPicture_KeyPress);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormPicture_Key);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseDown);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseMove);

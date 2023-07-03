@@ -51,6 +51,9 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.ColorInp_pen = new ColorInput.ColorInput();
 			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.panel6 = new System.Windows.Forms.Panel();
+			this.Inp_zoomStep = new System.Windows.Forms.NumericUpDown();
+			this.label6 = new System.Windows.Forms.Label();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -59,6 +62,8 @@
 			this.panel5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Inp_vignette)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.panel6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_zoomStep)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -85,7 +90,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 215);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 219);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(54, 21);
@@ -133,7 +138,7 @@
 			this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.label3.Location = new System.Drawing.Point(186, 6);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(2, 236);
+			this.label3.Size = new System.Drawing.Size(2, 240);
 			this.label3.TabIndex = 7;
 			// 
 			// TextBox1
@@ -146,7 +151,7 @@
 			this.TextBox1.Multiline = true;
 			this.TextBox1.Name = "TextBox1";
 			this.TextBox1.ReadOnly = true;
-			this.TextBox1.Size = new System.Drawing.Size(197, 222);
+			this.TextBox1.Size = new System.Drawing.Size(197, 226);
 			this.TextBox1.TabIndex = 9;
 			this.TextBox1.Text = resources.GetString("TextBox1.Text");
 			// 
@@ -171,10 +176,11 @@
 			this.flowLayoutPanel1.Controls.Add(this.CB_shadow);
 			this.flowLayoutPanel1.Controls.Add(this.CB_border);
 			this.flowLayoutPanel1.Controls.Add(this.panel1);
+			this.flowLayoutPanel1.Controls.Add(this.panel6);
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(9, 6);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(175, 204);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(175, 208);
 			this.flowLayoutPanel1.TabIndex = 11;
 			// 
 			// panel2
@@ -296,17 +302,56 @@
 			// ColorInp_pen
 			// 
 			this.ColorInp_pen.Color = System.Drawing.Color.Empty;
-			this.ColorInp_pen.Location = new System.Drawing.Point(59, 2);
+			this.ColorInp_pen.Location = new System.Drawing.Point(76, 2);
 			this.ColorInp_pen.Name = "ColorInp_pen";
-			this.ColorInp_pen.Size = new System.Drawing.Size(111, 20);
+			this.ColorInp_pen.Size = new System.Drawing.Size(94, 20);
 			this.ColorInp_pen.TabIndex = 6;
 			this.ColorInp_pen.ColorChanged += new System.EventHandler(this.ColorInp_pen_ColorChanged);
+			// 
+			// panel6
+			// 
+			this.panel6.Controls.Add(this.Inp_zoomStep);
+			this.panel6.Controls.Add(this.label6);
+			this.panel6.Location = new System.Drawing.Point(0, 177);
+			this.panel6.Margin = new System.Windows.Forms.Padding(0);
+			this.panel6.Name = "panel6";
+			this.panel6.Size = new System.Drawing.Size(172, 28);
+			this.panel6.TabIndex = 14;
+			// 
+			// Inp_zoomStep
+			// 
+			this.Inp_zoomStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.Inp_zoomStep.Location = new System.Drawing.Point(76, 5);
+			this.Inp_zoomStep.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.Inp_zoomStep.Name = "Inp_zoomStep";
+			this.Inp_zoomStep.Size = new System.Drawing.Size(93, 20);
+			this.Inp_zoomStep.TabIndex = 1;
+			this.Inp_zoomStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.Inp_zoomStep.ValueChanged += new System.EventHandler(this.Inp_zoomStep_ValueChanged);
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(0, 7);
+			this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(68, 13);
+			this.label6.TabIndex = 0;
+			this.label6.Text = "Zoom step %";
 			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(403, 246);
+			this.ClientSize = new System.Drawing.Size(403, 250);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.TextBox1);
 			this.Controls.Add(this.label3);
@@ -334,6 +379,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.Inp_vignette)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.panel1.PerformLayout();
+			this.panel6.ResumeLayout(false);
+			this.panel6.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_zoomStep)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -363,5 +411,8 @@
 		private System.Windows.Forms.ColorDialog ColorDialog1;
 		private ColorInput.ColorInput ColorInp_vignette;
 		private ColorInput.ColorInput ColorInp_pen;
+		private System.Windows.Forms.Panel panel6;
+		private System.Windows.Forms.NumericUpDown Inp_zoomStep;
+		private System.Windows.Forms.Label label6;
 	}
 }

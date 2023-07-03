@@ -33,6 +33,7 @@ namespace ScreenCapture
 			Panel_vignette.Enabled = Program.Settings.DrawVignette;
 			ColorInp_vignette.Color = Program.Settings.VignetteColor;
 			Inp_vignette.Value = Program.Settings.VignetteSize;
+			Inp_zoomStep.Value = ((decimal)Program.Settings.ZoomStep - 1) * 100;
 			_settingValues = false;
 		}
 
@@ -106,6 +107,13 @@ namespace ScreenCapture
 		private void ColorInp_vignette_ColorChanged(object sender, EventArgs e)
 		{
 			Program.Settings.VignetteColor = ColorInp_vignette.Color;
+			Program.Settings.Save();
+		}
+
+		private void Inp_zoomStep_ValueChanged(object sender, EventArgs e)
+		{
+			if (_settingValues) return;
+			Program.Settings.ZoomStep = 1 + (int)Inp_zoomStep.Value / 100f;
 			Program.Settings.Save();
 		}
 	}

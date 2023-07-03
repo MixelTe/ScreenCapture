@@ -130,7 +130,9 @@ Middle click -&gt; open image from clipboard
 Middle click -&gt; copy
 Right click -&gt; close
 Ctrl + Left button -&gt; draw
-Ctrl + Right button -&gt; erase</value>
+Ctrl + Right button -&gt; erase
+Scroll wheel -&gt; zoom
+Key 0 -&gt; reset zoom</value>
   </data>
   <metadata name="ColorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
