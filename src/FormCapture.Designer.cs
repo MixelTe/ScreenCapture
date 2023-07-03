@@ -53,6 +53,7 @@
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "FormCapture";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ScreenCapture";
 			this.TopMost = true;
 			this.Click += new System.EventHandler(this.FormCapture_Click);

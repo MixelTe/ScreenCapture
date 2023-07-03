@@ -15,7 +15,7 @@ namespace ScreenCapture
 		public bool PictureCaptured = false;
 		private Point _selectionStart = new Point(-1, -1);
 		private Rectangle _selection;
-		private readonly Pen _pen;
+		private Pen _pen;
 
 		public FormCapture()
 		{
@@ -32,6 +32,16 @@ namespace ScreenCapture
 			_pen = new Pen(Program.Settings.PenColor);
 			if (Program.Settings.DrawVignette)
 				DrawVignette();
+			Disposed += OnDisposed;
+		}
+
+		private void OnDisposed(object sender, EventArgs e)
+		{
+			if (_pen != null)
+			{
+				_pen.Dispose();
+				_pen = null;
+			}
 		}
 
 		private void DrawVignette()
@@ -53,7 +63,10 @@ namespace ScreenCapture
 				{
 					var a = (int)Math.Floor(alpha / steps * (steps - i) * 255);
 					var c = Color.FromArgb(a, color);
-					g.DrawRectangle(new Pen(c), i, i, w - i * 2 - 1, h - i * 2 - 1);
+					using (var pen = new Pen(c))
+					{
+						g.DrawRectangle(pen, i, i, w - i * 2 - 1, h - i * 2 - 1);
+					}
 				}
 			}
 			PB_vignette.Image = image;

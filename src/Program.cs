@@ -13,6 +13,7 @@ namespace ScreenCapture
 		public static readonly string KeyName = @"HKEY_CURRENT_USER\Software\MixelTe\ScreenCapture";
 		public static Settings Settings = new Settings();
 		public static Hotkey Hotkey;
+		public static Hotkey HotkeyPalette;
 		public static Mutex mutex;
 
 		[STAThread]
@@ -25,6 +26,8 @@ namespace ScreenCapture
 			{
 				Hotkey = new Hotkey();
 				Hotkey.SetHotkey(Settings.Hotkey);
+				HotkeyPalette = new Hotkey();
+				HotkeyPalette.SetHotkey(Settings.HotkeyPalette);
 				try
 				{
 					Application.EnableVisualStyles();
@@ -36,6 +39,7 @@ namespace ScreenCapture
 					MessageBox.Show($"Error\n{ex.Message}", "Screen Capture", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 				Hotkey.Unregister();
+				HotkeyPalette.Unregister();
 			}
 			else
 			{

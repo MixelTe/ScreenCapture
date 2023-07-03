@@ -11,6 +11,8 @@ namespace ScreenCapture
 	internal class Settings
 	{
 		public Keys Hotkey = Keys.Oemtilde | Keys.Control;
+		//public Keys HotkeyPalette = Keys.Oemtilde | Keys.Control | Keys.Shift;
+		public Keys HotkeyPalette = Keys.F24 | Keys.Shift;
 		public bool DrawBorder = true;
 		public bool DrawShadow = true;
 		public Color PenColor = Color.Lime;

@@ -102,6 +102,12 @@
     <Compile Include="FormPicture.Designer.cs">
       <DependentUpon>FormPicture.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormPicturePalette.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormPicturePalette.Designer.cs">
+      <DependentUpon>FormPicturePalette.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hotkey.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPicture.resx">
       <DependentUpon>FormPicture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormPicturePalette.resx">
+      <DependentUpon>FormPicturePalette.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -9,14 +9,16 @@ namespace ScreenCapture
 {
 	public partial class FormPicture : Form
 	{
+		public Bitmap Picture { get => _picture; }
+
 		private readonly static Icon _iconPencil = Resources.pencil;
 		private readonly static Icon _iconCircle = Resources.circle;
 		private readonly static Cursor _pencil = new Cursor(_iconPencil.Handle);
 		private readonly static Cursor _circle = new Cursor(_iconCircle.Handle);
 		private readonly Bitmap _picture;
 		private readonly Bitmap _drawings;
-		private readonly Pen _penBorder = new Pen(Color.FromArgb(128, 128, 128, 128), 2);
-		private readonly Pen _pen;
+		private Pen _penBorder = new Pen(Color.FromArgb(128, 128, 128, 128), 2);
+		private Pen _pen;
 		private bool _dragging = false;
 		private int _drawing = 0;
 		private Point _dragDif;
@@ -45,6 +47,7 @@ namespace ScreenCapture
 			float minScreenSide = Math.Min(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
 			_minMaxZoom.X = (int)Math.Ceiling(Math.Log(32f / _size.Min(), Program.Settings.ZoomStep));
 			_minMaxZoom.Y = (int)Math.Floor(Math.Log(minScreenSide / _size.Max(), Program.Settings.ZoomStep));
+			Disposed += OnDisposed;
 		}
 		protected override CreateParams CreateParams	 
 		{
@@ -55,6 +58,20 @@ namespace ScreenCapture
 				if (Program.Settings.DrawShadow)
 					cp.ClassStyle |= 0x20000; // CS_DROPSHADOW
 				return cp;
+			}
+		}
+
+		private void OnDisposed(object sender, EventArgs e)
+		{
+			if (_pen != null)
+			{
+				_pen.Dispose();
+				_pen = null;
+			}
+			if (_penBorder != null)
+			{
+				_penBorder.Dispose();
+				_penBorder = null;
 			}
 		}
 

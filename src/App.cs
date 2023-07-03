@@ -13,11 +13,13 @@ namespace ScreenCapture
 	{
 		public static App Ins;
 		public readonly NotifyIcon TrayIcon;
+		public int PicturesCount { get => _pictures.Count; }
 		private readonly List<FormPicture> _pictures = new List<FormPicture>();
 		private readonly ToolStripMenuItem _itemHideAll;
 		private readonly ToolStripMenuItem _itemOpenedCount;
 		private bool _hideAll = false;
 		private FormCapture _formCapture;
+		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
 		private FormAbout _formAbout;
 
@@ -50,7 +52,12 @@ namespace ScreenCapture
 			Program.Hotkey.Pressed += Hotkey_Pressed;
 			var r = Program.Hotkey.TryRegister();
 			if (!r)
-				TrayIcon.ShowBalloonTip(500, "Register Hotkey", "Cannot register hotkey", ToolTipIcon.Error);
+				TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.Hotkey}", ToolTipIcon.Error);
+			
+			Program.HotkeyPalette.Pressed += HotkeyPalette_Pressed;
+			r = Program.HotkeyPalette.TryRegister();
+			if (!r)
+				TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.HotkeyPalette}", ToolTipIcon.Error);
 		}
 
 		public void RegisterPicture(FormPicture picture)
@@ -65,6 +72,12 @@ namespace ScreenCapture
 			UpdateOpenedCount();
 		}
 
+		public IEnumerable<FormPicture> GetPictures()
+		{
+			return _pictures.AsEnumerable();
+		}
+
+
 		private void UpdateOpenedCount()
 		{
 			_itemOpenedCount.Text = $"Pictures: {_pictures.Count}";
@@ -75,6 +88,22 @@ namespace ScreenCapture
 			if (_formSettings?.ChangingHotkey != true)
 			{
 				Capture();
+			}
+		}
+
+		private void HotkeyPalette_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
+		{
+			if (_formSettings?.ChangingHotkey != true)
+			{
+				if (_formPicturePalette == null || _formPicturePalette.IsDisposed)
+				{
+					_formPicturePalette = new FormPicturePalette();
+					_formPicturePalette.Show();
+				}
+				else
+				{
+					_formPicturePalette.Close();
+				}
 			}
 		}
 
