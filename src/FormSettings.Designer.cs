@@ -35,30 +35,30 @@
 			this.CB_shadow = new System.Windows.Forms.CheckBox();
 			this.CB_border = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
-			this.Btn_penColor = new System.Windows.Forms.Button();
-			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.label3 = new System.Windows.Forms.Label();
 			this.TextBox1 = new System.Windows.Forms.TextBox();
 			this.CB_vignette = new System.Windows.Forms.CheckBox();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.Panel_vignette = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel4 = new System.Windows.Forms.Panel();
-			this.Btn_vignette = new System.Windows.Forms.Button();
+			this.ColorInp_vignette = new ColorInput.ColorInput();
 			this.label4 = new System.Windows.Forms.Label();
 			this.panel5 = new System.Windows.Forms.Panel();
-			this.label5 = new System.Windows.Forms.Label();
 			this.Inp_vignette = new System.Windows.Forms.NumericUpDown();
+			this.label5 = new System.Windows.Forms.Label();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.ColorInp_pen = new ColorInput.ColorInput();
+			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.flowLayoutPanel1.SuspendLayout();
-			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
 			this.Panel_vignette.SuspendLayout();
 			this.panel4.SuspendLayout();
 			this.panel5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Inp_vignette)).BeginInit();
+			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -126,19 +126,6 @@
 			this.label2.TabIndex = 5;
 			this.label2.Text = "Pen color";
 			// 
-			// Btn_penColor
-			// 
-			this.Btn_penColor.Location = new System.Drawing.Point(59, 2);
-			this.Btn_penColor.Name = "Btn_penColor";
-			this.Btn_penColor.Size = new System.Drawing.Size(111, 20);
-			this.Btn_penColor.TabIndex = 6;
-			this.Btn_penColor.UseVisualStyleBackColor = true;
-			this.Btn_penColor.Click += new System.EventHandler(this.Btn_penColor_Click);
-			// 
-			// ColorDialog1
-			// 
-			this.ColorDialog1.FullOpen = true;
-			// 
 			// label3
 			// 
 			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -190,17 +177,6 @@
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(175, 204);
 			this.flowLayoutPanel1.TabIndex = 11;
 			// 
-			// panel1
-			// 
-			this.panel1.AutoSize = true;
-			this.panel1.Controls.Add(this.Btn_penColor);
-			this.panel1.Controls.Add(this.label2);
-			this.panel1.Location = new System.Drawing.Point(0, 152);
-			this.panel1.Margin = new System.Windows.Forms.Padding(0);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(173, 25);
-			this.panel1.TabIndex = 12;
-			// 
 			// panel2
 			// 
 			this.panel2.AutoSize = true;
@@ -237,8 +213,7 @@
 			// 
 			// panel4
 			// 
-			this.panel4.AutoSize = true;
-			this.panel4.Controls.Add(this.Btn_vignette);
+			this.panel4.Controls.Add(this.ColorInp_vignette);
 			this.panel4.Controls.Add(this.label4);
 			this.panel4.Location = new System.Drawing.Point(0, 0);
 			this.panel4.Margin = new System.Windows.Forms.Padding(0);
@@ -246,14 +221,14 @@
 			this.panel4.Size = new System.Drawing.Size(152, 25);
 			this.panel4.TabIndex = 13;
 			// 
-			// Btn_vignette
+			// ColorInp_vignette
 			// 
-			this.Btn_vignette.Location = new System.Drawing.Point(56, 2);
-			this.Btn_vignette.Name = "Btn_vignette";
-			this.Btn_vignette.Size = new System.Drawing.Size(93, 20);
-			this.Btn_vignette.TabIndex = 6;
-			this.Btn_vignette.UseVisualStyleBackColor = true;
-			this.Btn_vignette.Click += new System.EventHandler(this.Btn_vignette_Click);
+			this.ColorInp_vignette.Color = System.Drawing.Color.Empty;
+			this.ColorInp_vignette.Location = new System.Drawing.Point(56, 2);
+			this.ColorInp_vignette.Name = "ColorInp_vignette";
+			this.ColorInp_vignette.Size = new System.Drawing.Size(93, 20);
+			this.ColorInp_vignette.TabIndex = 6;
+			this.ColorInp_vignette.ColorChanged += new System.EventHandler(this.ColorInp_vignette_ColorChanged);
 			// 
 			// label4
 			// 
@@ -267,7 +242,6 @@
 			// 
 			// panel5
 			// 
-			this.panel5.AutoSize = true;
 			this.panel5.Controls.Add(this.Inp_vignette);
 			this.panel5.Controls.Add(this.label5);
 			this.panel5.Location = new System.Drawing.Point(0, 25);
@@ -275,16 +249,6 @@
 			this.panel5.Name = "panel5";
 			this.panel5.Size = new System.Drawing.Size(152, 28);
 			this.panel5.TabIndex = 13;
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(0, 7);
-			this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(27, 13);
-			this.label5.TabIndex = 0;
-			this.label5.Text = "Size";
 			// 
 			// Inp_vignette
 			// 
@@ -308,7 +272,35 @@
             0,
             0});
 			this.Inp_vignette.ValueChanged += new System.EventHandler(this.Inp_vignette_ValueChanged);
-			this.Inp_vignette.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Inp_vignette_KeyPress);
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(0, 7);
+			this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(27, 13);
+			this.label5.TabIndex = 0;
+			this.label5.Text = "Size";
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.ColorInp_pen);
+			this.panel1.Controls.Add(this.label2);
+			this.panel1.Location = new System.Drawing.Point(0, 152);
+			this.panel1.Margin = new System.Windows.Forms.Padding(0);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(173, 25);
+			this.panel1.TabIndex = 12;
+			// 
+			// ColorInp_pen
+			// 
+			this.ColorInp_pen.Color = System.Drawing.Color.Empty;
+			this.ColorInp_pen.Location = new System.Drawing.Point(59, 2);
+			this.ColorInp_pen.Name = "ColorInp_pen";
+			this.ColorInp_pen.Size = new System.Drawing.Size(111, 20);
+			this.ColorInp_pen.TabIndex = 6;
+			this.ColorInp_pen.ColorChanged += new System.EventHandler(this.ColorInp_pen_ColorChanged);
 			// 
 			// FormSettings
 			// 
@@ -330,19 +322,18 @@
 			this.Click += new System.EventHandler(this.FormSettings_Click);
 			this.flowLayoutPanel1.ResumeLayout(false);
 			this.flowLayoutPanel1.PerformLayout();
-			this.panel1.ResumeLayout(false);
-			this.panel1.PerformLayout();
 			this.panel2.ResumeLayout(false);
 			this.panel2.PerformLayout();
 			this.panel3.ResumeLayout(false);
 			this.panel3.PerformLayout();
 			this.Panel_vignette.ResumeLayout(false);
-			this.Panel_vignette.PerformLayout();
 			this.panel4.ResumeLayout(false);
 			this.panel4.PerformLayout();
 			this.panel5.ResumeLayout(false);
 			this.panel5.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Inp_vignette)).EndInit();
+			this.panel1.ResumeLayout(false);
+			this.panel1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -356,8 +347,6 @@
 		private System.Windows.Forms.CheckBox CB_shadow;
 		private System.Windows.Forms.CheckBox CB_border;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Button Btn_penColor;
-		private System.Windows.Forms.ColorDialog ColorDialog1;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox TextBox1;
 		private System.Windows.Forms.CheckBox CB_vignette;
@@ -367,10 +356,12 @@
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.FlowLayoutPanel Panel_vignette;
 		private System.Windows.Forms.Panel panel4;
-		private System.Windows.Forms.Button Btn_vignette;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Panel panel5;
 		private System.Windows.Forms.NumericUpDown Inp_vignette;
 		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.ColorDialog ColorDialog1;
+		private ColorInput.ColorInput ColorInp_vignette;
+		private ColorInput.ColorInput ColorInp_pen;
 	}
 }
