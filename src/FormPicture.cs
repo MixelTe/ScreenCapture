@@ -28,7 +28,7 @@ namespace ScreenCapture
 
 		public FormPicture(Bitmap picture, Point location)
 		{
-			App.Ins.Pictures.Add(this);
+			App.Ins.RegisterPicture(this);
 			_picture = picture.Clone(new Rectangle(Point.Empty, picture.Size), picture.PixelFormat);
 			InitializeComponent();						 
 			Location = location;						 
@@ -148,7 +148,7 @@ namespace ScreenCapture
 		private void FormPicture_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			_drawings.Dispose();
-			App.Ins.Pictures.Remove(this);
+			App.Ins.UnregisterPicture(this);
 		}
 
 		private void Draw() => Draw(Point.Empty, false);

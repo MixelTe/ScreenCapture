@@ -57,6 +57,7 @@
 			this.TopMost = true;
 			this.Click += new System.EventHandler(this.FormCapture_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormCapture_Paint);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormCapture_KeyUp);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FormCapture_MouseDown);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormCapture_MouseMove);
 			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormCapture_MouseUp);

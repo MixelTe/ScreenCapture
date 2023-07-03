@@ -67,6 +67,14 @@ namespace ScreenCapture
 			}
 		}
 
+		private void FormCapture_KeyUp(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+			{
+				Close();
+			}
+		}
+
 		private void FormCapture_MouseDown(object sender, MouseEventArgs e)
 		{
 			_selectionStart = e.Location;

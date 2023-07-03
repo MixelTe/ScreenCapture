@@ -13,8 +13,9 @@ namespace ScreenCapture
 	{
 		public static App Ins;
 		public readonly NotifyIcon TrayIcon;
-		public readonly List<Form> Pictures = new List<Form>();
+		private readonly List<FormPicture> _pictures = new List<FormPicture>();
 		private readonly ToolStripMenuItem _itemHideAll;
+		private readonly ToolStripMenuItem _itemOpenedCount;
 		private bool _hideAll = false;
 		private FormCapture _formCapture;
 		private FormSettings _formSettings;
@@ -24,6 +25,8 @@ namespace ScreenCapture
 		{
 			Ins = this;
 			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, TogglePicturesVisibility);
+			_itemOpenedCount = new ToolStripMenuItem("") { Enabled = false };
+			UpdateOpenedCount();
 			TrayIcon = new NotifyIcon()
 			{
 				Icon = Resources.AppIcon,
@@ -33,6 +36,7 @@ namespace ScreenCapture
 						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
 						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
 						_itemHideAll,
+						_itemOpenedCount,
 						new ToolStripSeparator(),
 						new ToolStripMenuItem("About", null, OpenAbout),
 						new ToolStripMenuItem("Quit", Resources.close, Quit),
@@ -47,6 +51,23 @@ namespace ScreenCapture
 			var r = Program.Hotkey.TryRegister();
 			if (!r)
 				TrayIcon.ShowBalloonTip(500, "Register Hotkey", "Cannot register hotkey", ToolTipIcon.Error);
+		}
+
+		public void RegisterPicture(FormPicture picture)
+		{
+			_pictures.Add(picture);
+			UpdateOpenedCount();
+		}
+
+		public void UnregisterPicture(FormPicture picture)
+		{
+			_pictures.Remove(picture);
+			UpdateOpenedCount();
+		}
+
+		private void UpdateOpenedCount()
+		{
+			_itemOpenedCount.Text = $"Pictures: {_pictures.Count}";
 		}
 
 		private void Hotkey_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
@@ -88,7 +109,7 @@ namespace ScreenCapture
 				_formCapture.Close();
 				return;
 			}
-			Pictures.ForEach(f => f.Hide());
+			_pictures.ForEach(f => f.Hide());
 			_formCapture = new FormCapture();
 			_formCapture.FormClosing += (object sender, FormClosingEventArgs e) =>
 			{
@@ -107,9 +128,9 @@ namespace ScreenCapture
 
 		void CloseAll(object sender, EventArgs e)
 		{
-			for (int i = Pictures.Count - 1; i >= 0; i--)
+			for (int i = _pictures.Count - 1; i >= 0; i--)
 			{
-				Pictures[i].Close();
+				_pictures[i].Close();
 			}
 		}
 
@@ -135,14 +156,14 @@ namespace ScreenCapture
 		void HidePictures()
 		{
 			_hideAll = true;
-			Pictures.ForEach(f => f.Hide());
+			_pictures.ForEach(f => f.Hide());
 			_itemHideAll.Text = "Show all";
 			_itemHideAll.Image = Resources.show;
 		}
 		void ShowPictures()
 		{
 			_hideAll = false;
-			Pictures.ForEach(f => f.Show());
+			_pictures.ForEach(f => f.Show());
 			_itemHideAll.Text = "Hide all";
 			_itemHideAll.Image = Resources.hide;
 		}
