@@ -30,7 +30,9 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormPicture));
 			this.PictureDraw = new System.Windows.Forms.PictureBox();
+			this.PB_highlight = new System.Windows.Forms.PictureBox();
 			((System.ComponentModel.ISupportInitialize)(this.PictureDraw)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.PB_highlight)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// PictureDraw
@@ -44,12 +46,22 @@
 			this.PictureDraw.TabIndex = 0;
 			this.PictureDraw.TabStop = false;
 			// 
+			// PB_highlight
+			// 
+			this.PB_highlight.Enabled = false;
+			this.PB_highlight.Location = new System.Drawing.Point(445, 338);
+			this.PB_highlight.Name = "PB_highlight";
+			this.PB_highlight.Size = new System.Drawing.Size(100, 50);
+			this.PB_highlight.TabIndex = 1;
+			this.PB_highlight.TabStop = false;
+			// 
 			// FormPicture
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.PB_highlight);
 			this.Controls.Add(this.PictureDraw);
 			this.DoubleBuffered = true;
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -69,6 +81,7 @@
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseMove);
 			this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FormPicture_MouseUp);
 			((System.ComponentModel.ISupportInitialize)(this.PictureDraw)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.PB_highlight)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -76,5 +89,6 @@
 		#endregion
 
 		private System.Windows.Forms.PictureBox PictureDraw;
+		private System.Windows.Forms.PictureBox PB_highlight;
 	}
 }

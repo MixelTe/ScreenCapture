@@ -41,6 +41,10 @@ namespace ScreenCapture
 			_drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
 			PictureDraw.Dock = DockStyle.Fill;
 			PictureDraw.BackgroundImage = _drawings;
+			
+			PB_highlight.Dock = DockStyle.Fill;
+			PB_highlight.BackColor = Color.FromArgb(120, Color.DarkViolet);
+			PB_highlight.Visible = false;
 
 			_pen = new Pen(Program.Settings.PenColor);
 
@@ -61,6 +65,11 @@ namespace ScreenCapture
 			}
 		}
 
+		public void ToggleHighlight(bool enable)
+		{
+			PB_highlight.Visible = enable;
+		}
+
 		private void OnDisposed(object sender, EventArgs e)
 		{
 			if (_pen != null)
@@ -77,6 +86,7 @@ namespace ScreenCapture
 
 		private void FormPicture_Click(object sender, EventArgs e)
 		{
+			ToggleHighlight(false);
 			if ((e as MouseEventArgs).Button == MouseButtons.Right 
 				&& !ModifierKeys.HasFlag(Keys.Control))
 			{
@@ -84,9 +94,14 @@ namespace ScreenCapture
 			}
 			else if ((e as MouseEventArgs).Button == MouseButtons.Middle)
 			{
-				Clipboard.SetImage(_picture);
-				App.Ins.TrayIcon.ShowBalloonTip(0, "Copy image", "Image is copied!", ToolTipIcon.Info);
+				CopyPictureToClipboard();
 			}
+		}
+
+		public void CopyPictureToClipboard()
+		{
+			Clipboard.SetImage(_picture);
+			App.Ins.TrayIcon.ShowBalloonTip(0, "Copy image", "Image is copied!", ToolTipIcon.Info);
 		}
 
 		private void FormPicture_Paint(object sender, PaintEventArgs e)

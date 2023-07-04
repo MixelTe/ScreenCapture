@@ -65,7 +65,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ScreenCapture: PicturePalette";
 			this.TopMost = true;
-			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.FormPicturePalette_KeyUp);
+			this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.FormPicturePalette_MouseClick);
+			this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.FormPicturePalette_MouseDoubleClick);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FormPicturePalette_MouseMove);
 			((System.ComponentModel.ISupportInitialize)(this.PB_selection)).EndInit();
 			this.ResumeLayout(false);

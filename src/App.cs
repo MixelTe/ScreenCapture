@@ -15,17 +15,21 @@ namespace ScreenCapture
 		public readonly NotifyIcon TrayIcon;
 		public int PicturesCount { get => _pictures.Count; }
 		private readonly List<FormPicture> _pictures = new List<FormPicture>();
+		private readonly ToolStripMenuItem _itemCloseAll;
 		private readonly ToolStripMenuItem _itemHideAll;
 		private readonly ToolStripMenuItem _itemOpenedCount;
-		private bool _hideAll = false;
 		private FormCapture _formCapture;
 		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
 		private FormAbout _formAbout;
+		private int VisiblePictures { get => _pictures.Count(p => p.Visible); }
+		private bool[] _pictureVisibility = new bool[0];
+		private bool _allWasHidden;
 
 		public App()
 		{
 			Ins = this;
+			_itemCloseAll = new ToolStripMenuItem("Close all", Resources.stop, CloseAll);
 			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, TogglePicturesVisibility);
 			_itemOpenedCount = new ToolStripMenuItem("") { Enabled = false };
 			UpdateOpenedCount();
@@ -36,7 +40,7 @@ namespace ScreenCapture
 				{
 					Items = {
 						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
-						new ToolStripMenuItem("Close all", Resources.stop, CloseAll),
+						_itemCloseAll,
 						_itemHideAll,
 						_itemOpenedCount,
 						new ToolStripSeparator(),
@@ -48,6 +52,7 @@ namespace ScreenCapture
 				Text = $"Screen Capture v{Application.ProductVersion}"
 			};
 			TrayIcon.Click += TrayIcon_Click;
+			TrayIcon.ContextMenuStrip.Opened += ContextMenuStrip_Opened;
 
 			Program.Hotkey.Pressed += Hotkey_Pressed;
 			var r = Program.Hotkey.TryRegister();
@@ -77,10 +82,15 @@ namespace ScreenCapture
 			return _pictures.AsEnumerable();
 		}
 
+		public FormPicture GetPicture(int i)
+		{
+			return _pictures[i];
+		}
+
 
 		private void UpdateOpenedCount()
 		{
-			_itemOpenedCount.Text = $"Pictures: {_pictures.Count}";
+			_itemOpenedCount.Text = $"Pictures: {VisiblePictures}/{_pictures.Count}";
 		}
 
 		private void Hotkey_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
@@ -134,16 +144,18 @@ namespace ScreenCapture
 		{
 			if (_formCapture != null && !_formCapture.IsDisposed)
 			{
-				TogglePicturesVisibility();
 				_formCapture.Close();
 				return;
 			}
-			_pictures.ForEach(f => f.Hide());
+			_allWasHidden = VisiblePictures == 0;
+			if (!_allWasHidden)
+				_pictureVisibility = _pictures.Select(p => p.Visible).ToArray();
+			HidePictures();
 			_formCapture = new FormCapture();
 			_formCapture.FormClosing += (object sender, FormClosingEventArgs e) =>
 			{
-				if (_formCapture.PictureCaptured || !_hideAll)
-					ShowPictures();
+				if (_formCapture.PictureCaptured || _allWasHidden)
+					ShowSelectedPictures();
 			};
 			_formCapture.Show();
 		}
@@ -176,25 +188,49 @@ namespace ScreenCapture
 			}
 		}
 
-		void TogglePicturesVisibility(object sender, EventArgs e) => TogglePicturesVisibility();
-		void TogglePicturesVisibility()
+		void TogglePicturesVisibility(object sender, EventArgs e)
 		{
-			if (_hideAll) ShowPictures();
+			if (VisiblePictures == 0) ShowPictures();
 			else HidePictures();
 		}
 		void HidePictures()
 		{
-			_hideAll = true;
 			_pictures.ForEach(f => f.Hide());
-			_itemHideAll.Text = "Show all";
-			_itemHideAll.Image = Resources.show;
 		}
 		void ShowPictures()
 		{
-			_hideAll = false;
 			_pictures.ForEach(f => f.Show());
-			_itemHideAll.Text = "Hide all";
-			_itemHideAll.Image = Resources.hide;
+		}
+		void ShowSelectedPictures()
+		{
+			for (int i = 0; i < Math.Min(_pictures.Count, _pictureVisibility.Length); i++)
+			{
+				if (_pictureVisibility[i])
+					_pictures[i].Show();
+			}
+		}
+
+		private void ContextMenuStrip_Opened(object sender, EventArgs e)
+		{
+			var anyPictures = _pictures.Count > 0;
+			_itemCloseAll.Enabled = anyPictures;
+			_itemHideAll.Enabled = anyPictures;
+			SetShowHideItem(VisiblePictures == 0);
+			UpdateOpenedCount();
+		}
+
+		private void SetShowHideItem(bool hidden)
+		{
+			if (hidden)
+			{
+				_itemHideAll.Text = "Show all";
+				_itemHideAll.Image = Resources.show;
+			}
+			else
+			{
+				_itemHideAll.Text = "Hide all";
+				_itemHideAll.Image = Resources.hide;
+			}
 		}
 
 		void OpenAbout(object sender, EventArgs e)
