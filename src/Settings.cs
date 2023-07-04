@@ -18,7 +18,6 @@ namespace ScreenCapture
 		public Color VignetteColor = Color.FromArgb(128, Color.DarkViolet);
 		public int VignetteSize = 16;
 		public float ZoomStep = 1.15f;
-		// New
 		public Keys HotkeyPalette = Keys.Oemtilde | Keys.Control | Keys.Shift;
 		public bool EnablePalette = true;
 		public int PaletteSize = 100;
