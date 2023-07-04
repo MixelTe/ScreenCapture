@@ -101,7 +101,9 @@ namespace ScreenCapture
 		public void CopyPictureToClipboard()
 		{
 			Clipboard.SetImage(_picture);
-			App.Ins.TrayIcon.ShowBalloonTip(0, "Copy image", "Image is copied!", ToolTipIcon.Info);
+			var title = Program.Settings.Language == 1 ? "Копирование картинки" : "Copy image";
+			var text = Program.Settings.Language == 1 ? "Картинка сопированна!" : "Image is copied!";
+			App.Ins.TrayIcon.ShowBalloonTip(0, title, text, ToolTipIcon.Info);
 		}
 
 		private void FormPicture_Paint(object sender, PaintEventArgs e)

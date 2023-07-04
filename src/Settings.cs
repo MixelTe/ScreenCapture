@@ -22,6 +22,7 @@ namespace ScreenCapture
 		public bool EnablePalette = true;
 		public int PaletteSize = 100;
 		public Color HighlightColor = Color.FromArgb(128, Color.DarkViolet);
+		public int Language = 0; // 0:en; 1:ru
 
 		public void Load()
 		{

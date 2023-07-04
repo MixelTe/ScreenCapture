@@ -30,13 +30,13 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
 			this.pictureBox1 = new System.Windows.Forms.PictureBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.Lbl_title = new System.Windows.Forms.Label();
 			this.Lbl_version = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-			this.Btn_gh = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label2 = new System.Windows.Forms.Label();
+			this.Btn_gh = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -51,15 +51,15 @@
 			this.pictureBox1.TabIndex = 0;
 			this.pictureBox1.TabStop = false;
 			// 
-			// label1
+			// Lbl_title
 			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(3, 0);
-			this.label1.Name = "label1";
-			this.label1.Padding = new System.Windows.Forms.Padding(5);
-			this.label1.Size = new System.Drawing.Size(91, 23);
-			this.label1.TabIndex = 2;
-			this.label1.Text = "Screen Capture";
+			this.Lbl_title.AutoSize = true;
+			this.Lbl_title.Location = new System.Drawing.Point(3, 0);
+			this.Lbl_title.Name = "Lbl_title";
+			this.Lbl_title.Padding = new System.Windows.Forms.Padding(5);
+			this.Lbl_title.Size = new System.Drawing.Size(91, 23);
+			this.Lbl_title.TabIndex = 2;
+			this.Lbl_title.Text = "Screen Capture";
 			// 
 			// Lbl_version
 			// 
@@ -83,7 +83,7 @@
 			// 
 			// flowLayoutPanel1
 			// 
-			this.flowLayoutPanel1.Controls.Add(this.label1);
+			this.flowLayoutPanel1.Controls.Add(this.Lbl_title);
 			this.flowLayoutPanel1.Controls.Add(this.Lbl_version);
 			this.flowLayoutPanel1.Controls.Add(this.panel1);
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
@@ -91,20 +91,6 @@
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
 			this.flowLayoutPanel1.Size = new System.Drawing.Size(116, 80);
 			this.flowLayoutPanel1.TabIndex = 5;
-			// 
-			// Btn_gh
-			// 
-			this.Btn_gh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.Btn_gh.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.Btn_gh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-			this.Btn_gh.ForeColor = System.Drawing.SystemColors.Control;
-			this.Btn_gh.Image = global::ScreenCapture.Properties.Resources.github;
-			this.Btn_gh.Location = new System.Drawing.Point(171, 55);
-			this.Btn_gh.Name = "Btn_gh";
-			this.Btn_gh.Size = new System.Drawing.Size(33, 33);
-			this.Btn_gh.TabIndex = 6;
-			this.Btn_gh.UseVisualStyleBackColor = true;
-			this.Btn_gh.Click += new System.EventHandler(this.Btn_gh_Click);
 			// 
 			// panel1
 			// 
@@ -123,6 +109,20 @@
 			this.label2.Size = new System.Drawing.Size(77, 13);
 			this.label2.TabIndex = 5;
 			this.label2.Text = "Mixel Te, 2023";
+			// 
+			// Btn_gh
+			// 
+			this.Btn_gh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.Btn_gh.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.Btn_gh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.Btn_gh.ForeColor = System.Drawing.SystemColors.Control;
+			this.Btn_gh.Image = global::ScreenCapture.Properties.Resources.github;
+			this.Btn_gh.Location = new System.Drawing.Point(171, 55);
+			this.Btn_gh.Name = "Btn_gh";
+			this.Btn_gh.Size = new System.Drawing.Size(33, 33);
+			this.Btn_gh.TabIndex = 6;
+			this.Btn_gh.UseVisualStyleBackColor = true;
+			this.Btn_gh.Click += new System.EventHandler(this.Btn_gh_Click);
 			// 
 			// FormAbout
 			// 
@@ -152,7 +152,7 @@
 		#endregion
 
 		private System.Windows.Forms.PictureBox pictureBox1;
-		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label Lbl_title;
 		private System.Windows.Forms.Label Lbl_version;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;

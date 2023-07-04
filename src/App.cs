@@ -26,11 +26,26 @@ namespace ScreenCapture
 		private bool[] _pictureVisibility = new bool[0];
 		private bool _allWasHidden;
 
+		private readonly Dictionary<string, string> _texts = new Dictionary<string, string>() {
+			{"settings", Program.Settings.Language == 1 ? "Настройки" : "Settings" },
+			{"close", Program.Settings.Language == 1 ? "Закрыть все" : "Close all" },
+			{"hide", Program.Settings.Language == 1 ? "Скрыть все" : "Close all" },
+			{"show", Program.Settings.Language == 1 ? "Показать все" : "Show all" },
+			{"about", Program.Settings.Language == 1 ? "Про программу" : "About" },
+			{"quit", Program.Settings.Language == 1 ? "Выйти" : "Quit" },
+			{"desc", Program.Settings.Language == 1 ? "Захват экрана v" : "Screen Capture v" },
+			{"hotkeyTitle", Program.Settings.Language == 1 ? "Регистрация горячей клавиши" : "Register Hotkey" },
+			{"hotkeyText", Program.Settings.Language == 1 ? "Ошибка регистрации горячей клавиши" : "Cannot register hotkey" },
+			{"pictures", Program.Settings.Language == 1 ? "Картинок" : "Pictures" },
+			{"openImageTitle", Program.Settings.Language == 1 ? "Открытие картинки" : "Open image" },
+			{"openImageText", Program.Settings.Language == 1 ? "Нет картинки в буфере обмена" : "No image in clipboard!" },
+		};
+
 		public App()
 		{
 			Ins = this;
-			_itemCloseAll = new ToolStripMenuItem("Close all", Resources.stop, CloseAll);
-			_itemHideAll = new ToolStripMenuItem("Hide all", Resources.hide, TogglePicturesVisibility);
+			_itemCloseAll = new ToolStripMenuItem(_texts["close"], Resources.stop, CloseAll);
+			_itemHideAll = new ToolStripMenuItem(_texts["hide"], Resources.hide, TogglePicturesVisibility);
 			_itemOpenedCount = new ToolStripMenuItem("") { Enabled = false };
 			UpdateOpenedCount();
 			TrayIcon = new NotifyIcon()
@@ -39,17 +54,17 @@ namespace ScreenCapture
 				ContextMenuStrip = new ContextMenuStrip()
 				{
 					Items = {
-						new ToolStripMenuItem("Settings", Resources.settings, OpenSettings),
+						new ToolStripMenuItem(_texts["settings"], Resources.settings, OpenSettings),
 						_itemCloseAll,
 						_itemHideAll,
 						_itemOpenedCount,
 						new ToolStripSeparator(),
-						new ToolStripMenuItem("About", null, OpenAbout),
-						new ToolStripMenuItem("Quit", Resources.close, Quit),
+						new ToolStripMenuItem(_texts["about"], null, OpenAbout),
+						new ToolStripMenuItem(_texts["quit"], Resources.close, Quit),
 					}
 				},
 				Visible = true,
-				Text = $"Screen Capture v{Application.ProductVersion}"
+				Text = _texts["desc"] + Application.ProductVersion,
 			};
 			TrayIcon.Click += TrayIcon_Click;
 			TrayIcon.ContextMenuStrip.Opened += ContextMenuStrip_Opened;
@@ -57,14 +72,14 @@ namespace ScreenCapture
 			Program.Hotkey.Pressed += Hotkey_Pressed;
 			var r = Program.Hotkey.TryRegister();
 			if (!r)
-				TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.Hotkey}", ToolTipIcon.Error);
+				TrayIcon.ShowBalloonTip(500, _texts["hotkeyTitle"], $"{_texts["hotkeyText"]}: {Program.Hotkey}", ToolTipIcon.Error);
 			
 			Program.HotkeyPalette.Pressed += HotkeyPalette_Pressed;
 			if (Program.Settings.EnablePalette)
 			{
 				r = Program.HotkeyPalette.TryRegister();
 				if (!r)
-					TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.HotkeyPalette}", ToolTipIcon.Error);
+					TrayIcon.ShowBalloonTip(500, _texts["hotkeyTitle"], $"{_texts["hotkeyText"]}: {Program.HotkeyPalette}", ToolTipIcon.Error);
 			}
 		}
 
@@ -93,7 +108,7 @@ namespace ScreenCapture
 
 		private void UpdateOpenedCount()
 		{
-			_itemOpenedCount.Text = $"Pictures: {VisiblePictures}/{_pictures.Count}";
+			_itemOpenedCount.Text = $"{_texts["pictures"]}: {VisiblePictures}/{_pictures.Count}";
 		}
 
 		private void Hotkey_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
@@ -141,7 +156,7 @@ namespace ScreenCapture
 				}
 				else
 				{
-					TrayIcon.ShowBalloonTip(500, "Open image", "No image in clipboard!", ToolTipIcon.Error);
+					TrayIcon.ShowBalloonTip(500, _texts["openImageTitle"], _texts["openImageText"], ToolTipIcon.Error);
 				}
 			}
 		}
@@ -229,12 +244,12 @@ namespace ScreenCapture
 		{
 			if (hidden)
 			{
-				_itemHideAll.Text = "Show all";
+				_itemHideAll.Text = _texts["show"];
 				_itemHideAll.Image = Resources.show;
 			}
 			else
 			{
-				_itemHideAll.Text = "Hide all";
+				_itemHideAll.Text = _texts["hide"];
 				_itemHideAll.Image = Resources.hide;
 			}
 		}
