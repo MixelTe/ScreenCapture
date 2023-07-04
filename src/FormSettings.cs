@@ -224,6 +224,7 @@ Some settings do not apply to existing popup pictures";
 			Panel_palette.Enabled = CB_palette.Checked;
 			Program.Settings.EnablePalette = CB_palette.Checked;
 			Program.Settings.Save();
+			Program.HotkeyPalette.TryRegister();
 		}
 
 		private void Inp_paletteHotkey_KeyPress(object sender, KeyPressEventArgs e)
