@@ -38,12 +38,14 @@ namespace ScreenCapture
 				{
 					MessageBox.Show($"Error\n{ex.Message}", "Screen Capture", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
-				Hotkey.Unregister();
-				HotkeyPalette.Unregister();
+				Hotkey.TryUnregister();
+				HotkeyPalette.TryUnregister();
 			}
 			else
 			{
-				MessageBox.Show("Already launched", "Screen Capture");
+				var title = Settings.Language == 1 ? "Захват экрана" : "Screen Capture";
+				var text = Settings.Language == 1 ? "Уже запущено" : "Already launched";
+				MessageBox.Show(text, title);
 			}
 		}
 	}

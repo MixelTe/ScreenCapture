@@ -118,6 +118,19 @@ namespace ScreenCapture
 			return true;
 		}
 
+		public bool TryUnregister()
+		{
+			try
+			{
+				Unregister();
+				return true;
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
 		public void Unregister()
 		{
 			if (!_registered)

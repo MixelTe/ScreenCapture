@@ -261,6 +261,7 @@ Some settings do not apply to existing popup pictures";
 			if (_settingValues || Inp_lang.SelectedIndex > 1)
 				return;
 			Program.Settings.Language = Inp_lang.SelectedIndex;
+			Program.Settings.LanguageSelected = true;
 			Program.Settings.Save();
 			App.Ins.UpdateLanguage();
 			SetTexts();

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,10 +24,13 @@ namespace ScreenCapture
 		public int PaletteSize = 100;
 		public Color HighlightColor = Color.FromArgb(128, Color.DarkViolet);
 		public int Language = 0; // 0:en; 1:ru
+		public bool LanguageSelected = false;
 
 		public void Load()
 		{
 			RegSerializer.Load(Program.KeyName, this);
+			if (!LanguageSelected && CultureInfo.CurrentCulture.Name.StartsWith("ru"))
+				Language = 1;
 		}
 
 		public void Save()
