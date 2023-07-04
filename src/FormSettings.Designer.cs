@@ -50,10 +50,22 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.ColorInp_pen = new ColorInput.ColorInput();
-			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.Inp_zoomStep = new System.Windows.Forms.NumericUpDown();
 			this.label6 = new System.Windows.Forms.Label();
+			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.panel7 = new System.Windows.Forms.Panel();
+			this.Panel_palette = new System.Windows.Forms.FlowLayoutPanel();
+			this.panel8 = new System.Windows.Forms.Panel();
+			this.ColorInp_highlight = new ColorInput.ColorInput();
+			this.label7 = new System.Windows.Forms.Label();
+			this.panel9 = new System.Windows.Forms.Panel();
+			this.Inp_paletteSize = new System.Windows.Forms.NumericUpDown();
+			this.label8 = new System.Windows.Forms.Label();
+			this.CB_palette = new System.Windows.Forms.CheckBox();
+			this.panel10 = new System.Windows.Forms.Panel();
+			this.label9 = new System.Windows.Forms.Label();
+			this.Inp_paletteHotkey = new System.Windows.Forms.TextBox();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -64,6 +76,12 @@
 			this.panel1.SuspendLayout();
 			this.panel6.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Inp_zoomStep)).BeginInit();
+			this.panel7.SuspendLayout();
+			this.Panel_palette.SuspendLayout();
+			this.panel8.SuspendLayout();
+			this.panel9.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_paletteSize)).BeginInit();
+			this.panel10.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -90,7 +108,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 219);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 326);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(54, 21);
@@ -138,7 +156,7 @@
 			this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.label3.Location = new System.Drawing.Point(186, 6);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(2, 240);
+			this.label3.Size = new System.Drawing.Size(2, 347);
 			this.label3.TabIndex = 7;
 			// 
 			// TextBox1
@@ -151,7 +169,7 @@
 			this.TextBox1.Multiline = true;
 			this.TextBox1.Name = "TextBox1";
 			this.TextBox1.ReadOnly = true;
-			this.TextBox1.Size = new System.Drawing.Size(197, 226);
+			this.TextBox1.Size = new System.Drawing.Size(197, 333);
 			this.TextBox1.TabIndex = 9;
 			this.TextBox1.Text = resources.GetString("TextBox1.Text");
 			// 
@@ -177,10 +195,11 @@
 			this.flowLayoutPanel1.Controls.Add(this.CB_border);
 			this.flowLayoutPanel1.Controls.Add(this.panel1);
 			this.flowLayoutPanel1.Controls.Add(this.panel6);
+			this.flowLayoutPanel1.Controls.Add(this.panel7);
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(9, 6);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(175, 208);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(175, 315);
 			this.flowLayoutPanel1.TabIndex = 11;
 			// 
 			// panel2
@@ -347,11 +366,150 @@
 			this.label6.TabIndex = 0;
 			this.label6.Text = "Zoom step %";
 			// 
+			// panel7
+			// 
+			this.panel7.Controls.Add(this.Panel_palette);
+			this.panel7.Controls.Add(this.CB_palette);
+			this.panel7.Location = new System.Drawing.Point(0, 205);
+			this.panel7.Margin = new System.Windows.Forms.Padding(0);
+			this.panel7.Name = "panel7";
+			this.panel7.Size = new System.Drawing.Size(172, 105);
+			this.panel7.TabIndex = 15;
+			// 
+			// Panel_palette
+			// 
+			this.Panel_palette.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Panel_palette.Controls.Add(this.panel10);
+			this.Panel_palette.Controls.Add(this.panel9);
+			this.Panel_palette.Controls.Add(this.panel8);
+			this.Panel_palette.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.Panel_palette.Location = new System.Drawing.Point(20, 23);
+			this.Panel_palette.Name = "Panel_palette";
+			this.Panel_palette.Size = new System.Drawing.Size(149, 82);
+			this.Panel_palette.TabIndex = 11;
+			// 
+			// panel8
+			// 
+			this.panel8.Controls.Add(this.ColorInp_highlight);
+			this.panel8.Controls.Add(this.label7);
+			this.panel8.Location = new System.Drawing.Point(0, 53);
+			this.panel8.Margin = new System.Windows.Forms.Padding(0);
+			this.panel8.Name = "panel8";
+			this.panel8.Size = new System.Drawing.Size(152, 25);
+			this.panel8.TabIndex = 13;
+			// 
+			// ColorInp_highlight
+			// 
+			this.ColorInp_highlight.Color = System.Drawing.Color.Empty;
+			this.ColorInp_highlight.Location = new System.Drawing.Point(56, 2);
+			this.ColorInp_highlight.Name = "ColorInp_highlight";
+			this.ColorInp_highlight.Size = new System.Drawing.Size(93, 20);
+			this.ColorInp_highlight.TabIndex = 6;
+			this.ColorInp_highlight.ColorChanged += new System.EventHandler(this.ColorInp_highlight_ColorChanged);
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(0, 6);
+			this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(48, 13);
+			this.label7.TabIndex = 5;
+			this.label7.Text = "Highlight";
+			// 
+			// panel9
+			// 
+			this.panel9.Controls.Add(this.Inp_paletteSize);
+			this.panel9.Controls.Add(this.label8);
+			this.panel9.Location = new System.Drawing.Point(0, 25);
+			this.panel9.Margin = new System.Windows.Forms.Padding(0);
+			this.panel9.Name = "panel9";
+			this.panel9.Size = new System.Drawing.Size(152, 28);
+			this.panel9.TabIndex = 13;
+			// 
+			// Inp_paletteSize
+			// 
+			this.Inp_paletteSize.Location = new System.Drawing.Point(56, 5);
+			this.Inp_paletteSize.Maximum = new decimal(new int[] {
+            512,
+            0,
+            0,
+            0});
+			this.Inp_paletteSize.Minimum = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+			this.Inp_paletteSize.Name = "Inp_paletteSize";
+			this.Inp_paletteSize.Size = new System.Drawing.Size(93, 20);
+			this.Inp_paletteSize.TabIndex = 1;
+			this.Inp_paletteSize.Value = new decimal(new int[] {
+            32,
+            0,
+            0,
+            0});
+			this.Inp_paletteSize.ValueChanged += new System.EventHandler(this.Inp_paletteSize_ValueChanged);
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(0, 7);
+			this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(27, 13);
+			this.label8.TabIndex = 0;
+			this.label8.Text = "Size";
+			// 
+			// CB_palette
+			// 
+			this.CB_palette.AutoSize = true;
+			this.CB_palette.Location = new System.Drawing.Point(3, 5);
+			this.CB_palette.Name = "CB_palette";
+			this.CB_palette.Size = new System.Drawing.Size(59, 17);
+			this.CB_palette.TabIndex = 10;
+			this.CB_palette.Text = "Palette";
+			this.CB_palette.UseVisualStyleBackColor = true;
+			this.CB_palette.CheckedChanged += new System.EventHandler(this.CB_palette_CheckedChanged);
+			// 
+			// panel10
+			// 
+			this.panel10.AutoSize = true;
+			this.panel10.Controls.Add(this.label9);
+			this.panel10.Controls.Add(this.Inp_paletteHotkey);
+			this.panel10.Location = new System.Drawing.Point(0, 0);
+			this.panel10.Margin = new System.Windows.Forms.Padding(0);
+			this.panel10.Name = "panel10";
+			this.panel10.Size = new System.Drawing.Size(151, 25);
+			this.panel10.TabIndex = 14;
+			// 
+			// label9
+			// 
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(0, 5);
+			this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(41, 13);
+			this.label9.TabIndex = 0;
+			this.label9.Text = "Hotkey";
+			// 
+			// Inp_paletteHotkey
+			// 
+			this.Inp_paletteHotkey.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.Inp_paletteHotkey.Location = new System.Drawing.Point(56, 3);
+			this.Inp_paletteHotkey.Margin = new System.Windows.Forms.Padding(2);
+			this.Inp_paletteHotkey.Name = "Inp_paletteHotkey";
+			this.Inp_paletteHotkey.Size = new System.Drawing.Size(93, 20);
+			this.Inp_paletteHotkey.TabIndex = 2;
+			this.Inp_paletteHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inp_paletteHotkey_KeyDown);
+			this.Inp_paletteHotkey.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Inp_paletteHotkey_KeyPress);
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(403, 250);
+			this.ClientSize = new System.Drawing.Size(403, 357);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.TextBox1);
 			this.Controls.Add(this.label3);
@@ -382,6 +540,17 @@
 			this.panel6.ResumeLayout(false);
 			this.panel6.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.Inp_zoomStep)).EndInit();
+			this.panel7.ResumeLayout(false);
+			this.panel7.PerformLayout();
+			this.Panel_palette.ResumeLayout(false);
+			this.Panel_palette.PerformLayout();
+			this.panel8.ResumeLayout(false);
+			this.panel8.PerformLayout();
+			this.panel9.ResumeLayout(false);
+			this.panel9.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_paletteSize)).EndInit();
+			this.panel10.ResumeLayout(false);
+			this.panel10.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -414,5 +583,17 @@
 		private System.Windows.Forms.Panel panel6;
 		private System.Windows.Forms.NumericUpDown Inp_zoomStep;
 		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Panel panel7;
+		private System.Windows.Forms.FlowLayoutPanel Panel_palette;
+		private System.Windows.Forms.Panel panel10;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.TextBox Inp_paletteHotkey;
+		private System.Windows.Forms.Panel panel8;
+		private ColorInput.ColorInput ColorInp_highlight;
+		private System.Windows.Forms.Label label7;
+		private System.Windows.Forms.Panel panel9;
+		private System.Windows.Forms.NumericUpDown Inp_paletteSize;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.CheckBox CB_palette;
 	}
 }

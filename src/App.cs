@@ -60,9 +60,12 @@ namespace ScreenCapture
 				TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.Hotkey}", ToolTipIcon.Error);
 			
 			Program.HotkeyPalette.Pressed += HotkeyPalette_Pressed;
-			r = Program.HotkeyPalette.TryRegister();
-			if (!r)
-				TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.HotkeyPalette}", ToolTipIcon.Error);
+			if (Program.Settings.EnablePalette)
+			{
+				r = Program.HotkeyPalette.TryRegister();
+				if (!r)
+					TrayIcon.ShowBalloonTip(500, "Register Hotkey", $"Cannot register hotkey: {Program.HotkeyPalette}", ToolTipIcon.Error);
+			}
 		}
 
 		public void RegisterPicture(FormPicture picture)
@@ -103,6 +106,9 @@ namespace ScreenCapture
 
 		private void HotkeyPalette_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
 		{
+			if (!Program.Settings.EnablePalette)
+				return;
+
 			if (_formSettings?.ChangingHotkey != true)
 			{
 				if (_formPicturePalette == null || _formPicturePalette.IsDisposed)

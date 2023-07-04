@@ -18,9 +18,10 @@ namespace ScreenCapture
 		private readonly static Bitmap _iconVisible = Resources.show;
 		private readonly static Bitmap _iconHidden = Resources.hide;
 		private readonly static Bitmap _iconClosed = Resources.close;
-		private readonly int _pictureSize = 100;
-		private readonly int _pictureMargin = 2;
-		private readonly int _padding = 2;
+		private readonly int _pictureSize = Program.Settings.PaletteSize;
+		private readonly int _pictureMargin = 4;
+		private readonly int _pictureCorner = 8;
+		private readonly int _padding = 4;
 		private readonly int _cornerR = 8;
 		private readonly FormPicture[] _pictures;
 		private Rectangle _formRect;
@@ -120,7 +121,7 @@ namespace ScreenCapture
 						rect.X + (_pictureSize - w) / 2,
 						rect.Y + (_pictureSize - h) / 2,
 						w, h);
-					g.FillRoundedRectangle(brush, rect, 8);
+					g.FillRoundedRectangle(brush, rect, _pictureCorner);
 					g.DrawImage(picture, dst, src, GraphicsUnit.Pixel);
 				}
 			}
@@ -174,7 +175,7 @@ namespace ScreenCapture
 				g.Clear(Color.Transparent);
 				if (_selected >= 0)
 				{
-					g.FillRoundedRectangle(_selectionBrush, GetPictureRect(_selected), 8);
+					g.FillRoundedRectangle(_selectionBrush, GetPictureRect(_selected), _pictureCorner);
 				}
 
 				for (int i = 0; i < _pictures.Length; i++)

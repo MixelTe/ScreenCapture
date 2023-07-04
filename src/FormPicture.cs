@@ -43,7 +43,7 @@ namespace ScreenCapture
 			PictureDraw.BackgroundImage = _drawings;
 			
 			PB_highlight.Dock = DockStyle.Fill;
-			PB_highlight.BackColor = Color.FromArgb(120, Color.DarkViolet);
+			PB_highlight.BackColor = Program.Settings.HighlightColor;
 			PB_highlight.Visible = false;
 
 			_pen = new Pen(Program.Settings.PenColor);
