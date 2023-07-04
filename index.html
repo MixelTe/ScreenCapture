@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta property="og:image" content="https://raw.githubusercontent.com/MixelTe/ScreenCapture/master/docs/logo.png" />
+	<meta property="og:description" content="Небольшой учебник для тех, кто хочет начать изучать HTML, CSS и javascript." />
+	<meta property="og:title" content="ScreenCapture" />
+	<title>ScreenCapture</title>
+	<link rel="icon" type="image/x-icon" href="./favicon.ico">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT Sans|PT Sans Caption|PT Mono">
+	<script src="./marked.js"></script>
+	<style>
+		* {
+			font-family: Arial, Helvetica, sans-serif;
+			box-sizing: border-box;
+		}
+		body {
+			background-color: antiquewhite;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0;
+		}
+		.box {
+			width: 100%;
+			max-width: 800px;
+			background-color: white;
+			padding: 1em 2em;
+		}
+		@media screen and (min-width: 800px) {
+			.box {
+				margin: 3em;
+				border-radius: 1em;
+				padding: 2em 4em;
+			}
+			.box + .box {
+				margin-top: 0;
+			}
+		}
+		.box + .box {
+			margin-top: 2em;
+		}
+		.content {
+			min-height: 100vh;
+		}
+		img {
+			max-width: 100%;
+		}
+		p:has(img), .box:has(.lds-spinner) {
+			text-align: center;
+		}
+		h1 {
+			text-align: center;
+			padding-bottom: 0.5em;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+		}
+		a {
+			color: rgb(9, 105, 218);
+			text-decoration-skip-ink: none;
+			text-decoration: none;
+		}
+		a:hover, a:focus-visible {
+			text-decoration: underline;
+		}
+
+		.footer {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+		.gh img {
+			width: 2em;
+		}
+	</style>
+	<style>
+		.lds-spinner {
+			display: inline-block;
+			position: relative;
+			width: 80px;
+			height: 80px;
+		}
+
+		.lds-spinner div {
+			display: inline-block;
+			position: absolute;
+			left: 8px;
+			width: 16px;
+			background: darkviolet;
+			border-radius: 4px;
+			animation: lds-spinner 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+		}
+
+		.lds-spinner div:nth-child(1) {
+			left: 8px;
+			animation-delay: -0.24s;
+		}
+
+		.lds-spinner div:nth-child(2) {
+			left: 32px;
+			animation-delay: -0.12s;
+		}
+
+		.lds-spinner div:nth-child(3) {
+			left: 56px;
+			animation-delay: 0;
+		}
+
+		@keyframes lds-spinner {
+			0% {
+				top: 8px;
+				height: 64px;
+			}
+
+			50%,
+			100% {
+				top: 24px;
+				height: 32px;
+			}
+		}
+
+	</style>
+</head>
+<body>
+	<div class="box content" id="description">
+		<div class="lds-spinner"><div></div><div></div><div></div></div>
+	</div>
+	<div class="box footer">
+		<a class="gh" href="https://github.com/MixelTe/ScreenCapture" target="_blank">
+			<img src="./gitHub.png">
+		</a>
+		<span>
+			&copy; Mixel Te, 2023
+		</span>
+	</div>
+
+	<script>
+		async function load() {
+			const urlbase = "https://raw.githubusercontent.com/MixelTe/ScreenCapture/master/";
+			const data = await fetch(urlbase + "/README.md");
+			const markdown = await data.text();
+
+			const description = document.getElementById("description");
+			description.innerHTML = marked.parse(markdown);
+
+			description.querySelectorAll("img").forEach(img => {
+				img.src = urlbase + img.getAttribute("src");
+			});
+		}
+		load();
+	</script>
+</body>
+</html>
