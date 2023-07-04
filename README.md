@@ -1,6 +1,6 @@
 # Screen Capture / Захват экрана
 
-### [Download](https://github.com/MixelTe/ScreenCapture/releases/download/v1.5/ScreenCapture.exe)
+### [Download / Скачать [v1.5]](https://github.com/MixelTe/ScreenCapture/releases/download/v1.5/ScreenCapture.exe)
 Capture screen zone and show it as floating topmost window.
 
 Сохраняет часть экрана и отображает её в виде окна поверх всего.
