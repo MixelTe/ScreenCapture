@@ -5,9 +5,13 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenCapture", "ScreenCapture.csproj", "{8F4E81DE-66B8-4A6E-80A3-40DA56F749BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ColorInput", "..\ColorInput\ColorInput.csproj", "{DF8F56EC-E6B5-4AF5-B867-12EE73AD97C8}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ColorInput2", "..\ColorInput\ColorInput2.shproj", "{E1B1AB27-E067-45A5-987C-4AEB3F295AF3}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\ColorInput\ColorInput2.projitems*{8f4e81de-66b8-4a6e-80a3-40da56f749bf}*SharedItemsImports = 4
+		..\ColorInput\ColorInput2.projitems*{e1b1ab27-e067-45a5-987c-4aeb3f295af3}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -17,10 +21,6 @@ Global
 		{8F4E81DE-66B8-4A6E-80A3-40DA56F749BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F4E81DE-66B8-4A6E-80A3-40DA56F749BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F4E81DE-66B8-4A6E-80A3-40DA56F749BF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DF8F56EC-E6B5-4AF5-B867-12EE73AD97C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DF8F56EC-E6B5-4AF5-B867-12EE73AD97C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DF8F56EC-E6B5-4AF5-B867-12EE73AD97C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DF8F56EC-E6B5-4AF5-B867-12EE73AD97C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
