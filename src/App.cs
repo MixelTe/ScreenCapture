@@ -15,9 +15,12 @@ namespace ScreenCapture
 		public readonly NotifyIcon TrayIcon;
 		public int PicturesCount { get => _pictures.Count; }
 		private readonly List<FormPicture> _pictures = new List<FormPicture>();
+		private readonly ToolStripMenuItem _itemSettings;
 		private readonly ToolStripMenuItem _itemCloseAll;
 		private readonly ToolStripMenuItem _itemHideAll;
 		private readonly ToolStripMenuItem _itemOpenedCount;
+		private readonly ToolStripMenuItem _itemAbout;
+		private readonly ToolStripMenuItem _itemQuit;
 		private FormCapture _formCapture;
 		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
@@ -26,27 +29,19 @@ namespace ScreenCapture
 		private bool[] _pictureVisibility = new bool[0];
 		private bool _allWasHidden;
 
-		private readonly Dictionary<string, string> _texts = new Dictionary<string, string>() {
-			{"settings", Program.Settings.Language == 1 ? "Настройки" : "Settings" },
-			{"close", Program.Settings.Language == 1 ? "Закрыть все" : "Close all" },
-			{"hide", Program.Settings.Language == 1 ? "Скрыть все" : "Close all" },
-			{"show", Program.Settings.Language == 1 ? "Показать все" : "Show all" },
-			{"about", Program.Settings.Language == 1 ? "Про программу" : "About" },
-			{"quit", Program.Settings.Language == 1 ? "Выйти" : "Quit" },
-			{"desc", Program.Settings.Language == 1 ? "Захват экрана v" : "Screen Capture v" },
-			{"hotkeyTitle", Program.Settings.Language == 1 ? "Регистрация горячей клавиши" : "Register Hotkey" },
-			{"hotkeyText", Program.Settings.Language == 1 ? "Ошибка регистрации горячей клавиши" : "Cannot register hotkey" },
-			{"pictures", Program.Settings.Language == 1 ? "Картинок" : "Pictures" },
-			{"openImageTitle", Program.Settings.Language == 1 ? "Открытие картинки" : "Open image" },
-			{"openImageText", Program.Settings.Language == 1 ? "Нет картинки в буфере обмена" : "No image in clipboard!" },
-		};
+		private Dictionary<string, string> _texts;
 
 		public App()
 		{
 			Ins = this;
-			_itemCloseAll = new ToolStripMenuItem(_texts["close"], Resources.stop, CloseAll);
-			_itemHideAll = new ToolStripMenuItem(_texts["hide"], Resources.hide, TogglePicturesVisibility);
+			_itemSettings = new ToolStripMenuItem("", Resources.settings, OpenSettings);
+			_itemCloseAll = new ToolStripMenuItem("", Resources.stop, CloseAll);
+			_itemHideAll = new ToolStripMenuItem("", Resources.hide, TogglePicturesVisibility);
 			_itemOpenedCount = new ToolStripMenuItem("") { Enabled = false };
+			_itemAbout = new ToolStripMenuItem("", null, OpenAbout);
+			_itemQuit = new ToolStripMenuItem("", Resources.close, Quit);
+
+			UpdateLanguage();
 			UpdateOpenedCount();
 			TrayIcon = new NotifyIcon()
 			{
@@ -54,13 +49,13 @@ namespace ScreenCapture
 				ContextMenuStrip = new ContextMenuStrip()
 				{
 					Items = {
-						new ToolStripMenuItem(_texts["settings"], Resources.settings, OpenSettings),
+						_itemSettings,
 						_itemCloseAll,
 						_itemHideAll,
 						_itemOpenedCount,
 						new ToolStripSeparator(),
-						new ToolStripMenuItem(_texts["about"], null, OpenAbout),
-						new ToolStripMenuItem(_texts["quit"], Resources.close, Quit),
+						_itemAbout,
+						_itemQuit,
 					}
 				},
 				Visible = true,
@@ -81,6 +76,28 @@ namespace ScreenCapture
 				if (!r)
 					TrayIcon.ShowBalloonTip(500, _texts["hotkeyTitle"], $"{_texts["hotkeyText"]}: {Program.HotkeyPalette}", ToolTipIcon.Error);
 			}
+		}
+
+		public void UpdateLanguage()
+		{
+			_texts = new Dictionary<string, string>() {
+				{"settings", Program.Settings.Language == 1 ? "Настройки" : "Settings" },
+				{"close", Program.Settings.Language == 1 ? "Закрыть все" : "Close all" },
+				{"hide", Program.Settings.Language == 1 ? "Скрыть все" : "Close all" },
+				{"show", Program.Settings.Language == 1 ? "Показать все" : "Show all" },
+				{"about", Program.Settings.Language == 1 ? "Про программу" : "About" },
+				{"quit", Program.Settings.Language == 1 ? "Выйти" : "Quit" },
+				{"desc", Program.Settings.Language == 1 ? "Захват экрана v" : "Screen Capture v" },
+				{"hotkeyTitle", Program.Settings.Language == 1 ? "Регистрация горячей клавиши" : "Register Hotkey" },
+				{"hotkeyText", Program.Settings.Language == 1 ? "Ошибка регистрации горячей клавиши" : "Cannot register hotkey" },
+				{"pictures", Program.Settings.Language == 1 ? "Картинок" : "Pictures" },
+				{"openImageTitle", Program.Settings.Language == 1 ? "Открытие картинки" : "Open image" },
+				{"openImageText", Program.Settings.Language == 1 ? "Нет картинки в буфере обмена" : "No image in clipboard!" },
+			};
+			_itemSettings.Text = _texts["settings"];
+			_itemCloseAll.Text = _texts["close"];
+			_itemAbout.Text = _texts["about"];
+			_itemQuit.Text = _texts["quit"];
 		}
 
 		public void RegisterPicture(FormPicture picture)

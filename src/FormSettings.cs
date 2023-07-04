@@ -165,6 +165,7 @@ Some settings do not apply to existing popup pictures";
 			Program.HotkeyPalette.SetHotkey(Program.Settings.HotkeyPalette);
 			Program.HotkeyPalette.TryRegister();
 
+			App.Ins.UpdateLanguage();
 			SetValues();
 			SetTexts();
 		}
@@ -261,6 +262,7 @@ Some settings do not apply to existing popup pictures";
 				return;
 			Program.Settings.Language = Inp_lang.SelectedIndex;
 			Program.Settings.Save();
+			App.Ins.UpdateLanguage();
 			SetTexts();
 		}
 	}
