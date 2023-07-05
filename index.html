@@ -38,6 +38,9 @@
 			background-color: white;
 			padding: 1em 2em;
 		}
+		.box + .box {
+			margin-top: 2em;
+		}
 		@media screen and (min-width: 800px) {
 			.box {
 				margin: 3em;
@@ -47,9 +50,6 @@
 			.box + .box {
 				margin-top: 0;
 			}
-		}
-		.box + .box {
-			margin-top: 2em;
 		}
 		.content {
 			min-height: 100vh;
@@ -135,6 +135,9 @@
 	<div class="box content" id="description">
 		<div class="lds-spinner"><div></div><div></div><div></div></div>
 	</div>
+	<div class="box">
+		<div id="vk_comments"></div>
+	</div>
 	<div class="box footer">
 		<a class="gh" href="https://github.com/MixelTe/ScreenCapture" target="_blank">
 			<img src="./gitHub.png">
@@ -159,5 +162,30 @@
 		}
 		load();
 	</script>
+
+	<!-- Yandex.Metrika counter -->
+	<script type="text/javascript" >
+		(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+		m[i].l=1*new Date();
+		for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+		k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+		(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+		ym(94215937, "init", {
+			clickmap:true,
+			trackLinks:true,
+			accurateTrackBounce:true
+		});
+	</script>
+	<noscript><div><img src="https://mc.yandex.ru/watch/94215937" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+	<!-- /Yandex.Metrika counter -->
+
+	<!-- VK comments -->
+	<script type="text/javascript" src="https://vk.com/js/api/openapi.js?168"></script>
+	<script type="text/javascript">
+	  VK.init({ apiId: 51696398, onlyWidgets: true });
+	  VK.Widgets.Comments("vk_comments", {limit: 15, attach: "graffiti,photo,video,link"});
+	</script>
+	<!-- /VK comments -->
 </body>
 </html>
