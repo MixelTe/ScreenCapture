@@ -11,25 +11,25 @@ For example, you can cut a list from one place and move it closer to the workspa
 
 Например, вы можете вырезать какой-то список из одного места и переместить его поближе к рабочей области.
 
-![Alt text](docs/capture.png)
+![Screenshot: Capture example](docs/capture.png)
 
 You can use the palette to manage all the images. There you can show/hide, close and move to the cursor any image.
 
 С помощью палитры вы можете управлять всеми изображениями. Там вы можете показывать/скрывать, закрывать и перемещать к курсору изображения.
 
-![Alt text](docs/palette.png)
+![Screenshot: Palette](docs/palette.png)
 
 The app is located on the taskbar.
 
 Приложение размещено на панели задач.
 
-![Alt text](docs/menu.png) ![Alt text](menu_ru.png)
+![Screenshot: Menu](docs/menu.png) ![Screenshot: Menu](docs/menu_ru.png)
 
 You can change almost anything in the settings.
 
 В настройках можно изменить практически все, что угодно.
 
-![Alt text](docs/settings.png)
+![Screenshot: Settings](docs/settings.png)
 
 # Usage
 
