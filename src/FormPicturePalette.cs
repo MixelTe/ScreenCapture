@@ -47,10 +47,21 @@ namespace ScreenCapture
 
 		private void OnDisposed(object sender, EventArgs e)
 		{
+			Debug.WriteLine("OnDisposed");
 			if (_selectionBrush != null)
 			{
 				_selectionBrush.Dispose();
 				_selectionBrush = null;
+			}
+			if (BackgroundImage != null)
+			{
+				BackgroundImage.Dispose();
+				BackgroundImage = null;
+			}
+			if (PB_selection.BackgroundImage != null)
+			{
+				PB_selection.BackgroundImage.Dispose();
+				PB_selection.BackgroundImage = null;
 			}
 			foreach (var picture in _pictures)
 			{
@@ -125,7 +136,6 @@ namespace ScreenCapture
 					g.DrawImage(picture, dst, src, GraphicsUnit.Pixel);
 				}
 			}
-			BackgroundImage = BackgroundImage;
 		}
 
 		private void Timer_checkCursor_Tick(object sender, EventArgs e)
@@ -189,7 +199,6 @@ namespace ScreenCapture
 					g.DrawImage(icon, dst, src, GraphicsUnit.Pixel);
 				}
 			}
-			PB_selection.BackgroundImage = PB_selection.BackgroundImage;
 			PB_selection.Refresh();
 		}
 

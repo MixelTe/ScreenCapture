@@ -21,7 +21,7 @@ namespace ScreenCapture
 		private readonly ToolStripMenuItem _itemOpenedCount;
 		private readonly ToolStripMenuItem _itemAbout;
 		private readonly ToolStripMenuItem _itemQuit;
-		private FormCapture _formCapture = new FormCapture();
+		private readonly FormCapture _formCapture = new FormCapture();
 		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
 		private FormAbout _formAbout;

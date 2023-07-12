@@ -15,9 +15,8 @@ namespace ScreenCapture
 		private readonly static Icon _iconCircle = Resources.circle;
 		private readonly static Cursor _pencil = new Cursor(_iconPencil.Handle);
 		private readonly static Cursor _circle = new Cursor(_iconCircle.Handle);
-		private readonly Bitmap _picture;
-		private readonly Bitmap _drawings;
-		private Pen _penBorder = new Pen(Color.FromArgb(128, 128, 128, 128), 2);
+		private readonly static Pen _penBorder = new Pen(Color.FromArgb(128, 128, 128, 128), 2);
+		private Bitmap _picture;
 		private Pen _pen;
 		private bool _dragging = false;
 		private int _drawing = 0;
@@ -31,16 +30,16 @@ namespace ScreenCapture
 		public FormPicture(Bitmap picture, Point location)
 		{
 			App.Ins.RegisterPicture(this);
-			_picture = picture.Clone(new Rectangle(Point.Empty, picture.Size), picture.PixelFormat);
-			InitializeComponent();						 
-			Location = location;						 
+			_picture = picture;
+			InitializeComponent();
+			Location = location;
 			Size = picture.Size;
 			_size = Size;
 			BackgroundImage = picture;
 			
-			_drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
+			var drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
 			PictureDraw.Dock = DockStyle.Fill;
-			PictureDraw.BackgroundImage = _drawings;
+			PictureDraw.BackgroundImage = drawings;
 			
 			PB_highlight.Dock = DockStyle.Fill;
 			PB_highlight.BackColor = Program.Settings.HighlightColor;
@@ -77,10 +76,15 @@ namespace ScreenCapture
 				_pen.Dispose();
 				_pen = null;
 			}
-			if (_penBorder != null)
+			if (_picture != null)
 			{
-				_penBorder.Dispose();
-				_penBorder = null;
+				_picture.Dispose();
+				_picture = null;
+			}
+			if (PictureDraw.BackgroundImage != null)
+			{
+				PictureDraw.BackgroundImage.Dispose();
+				PictureDraw.BackgroundImage = null;
 			}
 		}
 
@@ -108,7 +112,7 @@ namespace ScreenCapture
 
 		private void FormPicture_Paint(object sender, PaintEventArgs e)
 		{
-			if (!Program.Settings.DrawBorder) 
+			if (!Program.Settings.DrawBorder || _penBorder == null) 
 				return;
 			var g = e.Graphics;
 			g.DrawRectangle(
@@ -181,7 +185,6 @@ namespace ScreenCapture
 
 		private void FormPicture_FormClosed(object sender, FormClosedEventArgs e)
 		{
-			_drawings.Dispose();
 			App.Ins.UnregisterPicture(this);
 		}
 
@@ -198,7 +201,8 @@ namespace ScreenCapture
 				if (_drawing > 0)
 				{
 					if (pointExist)
-						g.DrawLine(_pen, lastPos, point);
+						if (_pen != null)
+							g.DrawLine(_pen, lastPos, point);
 					else
 						g.FillEllipse(Brushes.Lime, new Rectangle(lastPos, new Size(1, 1)));
 				}
@@ -207,7 +211,6 @@ namespace ScreenCapture
 					g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
 					g.FillEllipse(Brushes.Transparent, new Rectangle(point, Size.Empty).Inflate(16 / Zoom));
 				}
-				PictureDraw.BackgroundImage = PictureDraw.BackgroundImage;
 				PictureDraw.Refresh();
 			}
 		}
