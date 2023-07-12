@@ -48,7 +48,7 @@ namespace ScreenCapture
 
 			_pen = new Pen(Program.Settings.PenColor);
 
-			float minScreenSide = Math.Min(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+			float minScreenSide = Screen.PrimaryScreen.Bounds.Size.Min();
 			_minMaxZoom.X = (int)Math.Ceiling(Math.Log(32f / _size.Min(), Program.Settings.ZoomStep));
 			_minMaxZoom.Y = (int)Math.Floor(Math.Log(minScreenSide / _size.Max(), Program.Settings.ZoomStep));
 			Disposed += OnDisposed;

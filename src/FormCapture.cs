@@ -19,20 +19,53 @@ namespace ScreenCapture
 
 		public FormCapture()
 		{
-			var size = new Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+			InitializeComponent();
+			Cursor = Cursors.Cross;
+			Disposed += OnDisposed;
+		}
+
+		public new void Show()
+		{
+			PictureCaptured = false;
+			_selectionStart = new Point(-1, -1);
+			_selection = Rectangle.Empty;
+
+			base.Show();
+			var size = Screen.PrimaryScreen.Bounds.Size;
 			var screenPicture = new Bitmap(size.Width, size.Height);
 			using (var g = Graphics.FromImage(screenPicture))
 			{
 				g.CopyFromScreen(0, 0, 0, 0, size);
 			}
-			InitializeComponent();
+			if (BackgroundImage != null)
+				BackgroundImage.Dispose();
 			BackgroundImage = screenPicture;
 			Size = size;
-			Cursor = Cursors.Cross;
+			if (_pen != null)
+				_pen.Dispose();
 			_pen = new Pen(Program.Settings.PenColor);
 			if (Program.Settings.DrawVignette)
 				DrawVignette();
-			Disposed += OnDisposed;
+		}
+
+		public new void Hide()
+		{
+			base.Hide();
+			if (BackgroundImage != null)
+			{
+				BackgroundImage.Dispose();
+				BackgroundImage = null;
+			}
+			if (PB_vignette.Image != null)
+			{
+				PB_vignette.Image.Dispose();
+				PB_vignette.Image = null;
+			}
+			if (_pen != null)
+			{
+				_pen.Dispose();
+				_pen = null;
+			}
 		}
 
 		private void OnDisposed(object sender, EventArgs e)
@@ -69,6 +102,8 @@ namespace ScreenCapture
 					}
 				}
 			}
+			if (PB_vignette.Image != null)
+				PB_vignette.Image.Dispose();
 			PB_vignette.Image = image;
 		}
 
@@ -76,7 +111,7 @@ namespace ScreenCapture
 		{
 			if ((e as MouseEventArgs).Button == MouseButtons.Right)
 			{
-				Close();
+				Hide();
 			}
 		}
 
@@ -84,7 +119,7 @@ namespace ScreenCapture
 		{
 			if (e.KeyCode == Keys.Escape)
 			{
-				Close();
+				Hide();
 			}
 		}
 
@@ -107,6 +142,7 @@ namespace ScreenCapture
 
 		private void FormCapture_Paint(object sender, PaintEventArgs e)
 		{
+			if (_pen == null) return;
 			e.Graphics.DrawRectangle(_pen, _selection);
 		}
 
@@ -135,7 +171,7 @@ namespace ScreenCapture
 			var form = new FormPicture(picture, _selection.Location);
 			form.Show();
 			PictureCaptured = true;
-			Close();
+			Hide();
 		}
 	}
 }

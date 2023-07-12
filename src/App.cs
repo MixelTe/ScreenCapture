@@ -21,7 +21,7 @@ namespace ScreenCapture
 		private readonly ToolStripMenuItem _itemOpenedCount;
 		private readonly ToolStripMenuItem _itemAbout;
 		private readonly ToolStripMenuItem _itemQuit;
-		private FormCapture _formCapture;
+		private FormCapture _formCapture = new FormCapture();
 		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
 		private FormAbout _formAbout;
@@ -63,6 +63,13 @@ namespace ScreenCapture
 			};
 			TrayIcon.Click += TrayIcon_Click;
 			TrayIcon.ContextMenuStrip.Opened += ContextMenuStrip_Opened;
+
+			_formCapture.VisibleChanged += (object sender, EventArgs e) =>
+			{
+				if (_formCapture.Visible) return;
+				if (_formCapture.PictureCaptured || _allWasHidden)
+					ShowSelectedPictures();
+			};
 
 			Program.Hotkey.Pressed += Hotkey_Pressed;
 			var r = Program.Hotkey.TryRegister();
@@ -180,21 +187,15 @@ namespace ScreenCapture
 
 		void Capture()
 		{
-			if (_formCapture != null && !_formCapture.IsDisposed)
+			if (_formCapture.Visible)
 			{
-				_formCapture.Close();
+				_formCapture.Hide();
 				return;
 			}
 			_allWasHidden = VisiblePictures == 0;
 			if (!_allWasHidden)
 				_pictureVisibility = _pictures.Select(p => p.Visible).ToArray();
 			HidePictures();
-			_formCapture = new FormCapture();
-			_formCapture.FormClosing += (object sender, FormClosingEventArgs e) =>
-			{
-				if (_formCapture.PictureCaptured || _allWasHidden)
-					ShowSelectedPictures();
-			};
 			_formCapture.Show();
 		}
 
