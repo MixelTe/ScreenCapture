@@ -34,7 +34,7 @@
 			this.Inp_hotkey = new System.Windows.Forms.TextBox();
 			this.Btn_reset = new System.Windows.Forms.Button();
 			this.CB_shadow = new System.Windows.Forms.CheckBox();
-			this.CB_border = new System.Windows.Forms.CheckBox();
+			this.CB_hideOnCapture = new System.Windows.Forms.CheckBox();
 			this.Lbl_pColor = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
 			this.TextBoxHelp = new System.Windows.Forms.TextBox();
@@ -42,19 +42,19 @@
 			this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
+			this.label1 = new System.Windows.Forms.Label();
 			this.Panel_vignette = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel4 = new System.Windows.Forms.Panel();
-			this.ColorInp_vignette = new ColorInput.ColorInput();
 			this.Lbl_vColor = new System.Windows.Forms.Label();
 			this.panel5 = new System.Windows.Forms.Panel();
 			this.Inp_vignette = new System.Windows.Forms.NumericUpDown();
 			this.Lbl_vSize = new System.Windows.Forms.Label();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.ColorInp_pen = new ColorInput.ColorInput();
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.Inp_zoomStep = new System.Windows.Forms.NumericUpDown();
 			this.Lbl_zoom = new System.Windows.Forms.Label();
 			this.panel7 = new System.Windows.Forms.Panel();
+			this.label2 = new System.Windows.Forms.Label();
 			this.Panel_palette = new System.Windows.Forms.FlowLayoutPanel();
 			this.panel10 = new System.Windows.Forms.Panel();
 			this.Lbl_pHotkey = new System.Windows.Forms.Label();
@@ -63,15 +63,16 @@
 			this.Inp_paletteSize = new System.Windows.Forms.NumericUpDown();
 			this.Lbl_pSize = new System.Windows.Forms.Label();
 			this.panel8 = new System.Windows.Forms.Panel();
-			this.ColorInp_highlight = new ColorInput.ColorInput();
 			this.Lbl_highlight = new System.Windows.Forms.Label();
 			this.CB_palette = new System.Windows.Forms.CheckBox();
-			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
 			this.panel11 = new System.Windows.Forms.Panel();
-			this.Lbl_lang = new System.Windows.Forms.Label();
 			this.Inp_lang = new System.Windows.Forms.ComboBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
+			this.Lbl_lang = new System.Windows.Forms.Label();
+			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
+			this.CB_border = new System.Windows.Forms.CheckBox();
+			this.ColorInp_vignette = new ColorInput.ColorInput();
+			this.ColorInp_pen = new ColorInput.ColorInput();
+			this.ColorInp_highlight = new ColorInput.ColorInput();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -109,7 +110,7 @@
 			this.Inp_hotkey.Location = new System.Drawing.Point(79, 3);
 			this.Inp_hotkey.Margin = new System.Windows.Forms.Padding(2);
 			this.Inp_hotkey.Name = "Inp_hotkey";
-			this.Inp_hotkey.Size = new System.Drawing.Size(118, 20);
+			this.Inp_hotkey.Size = new System.Drawing.Size(125, 20);
 			this.Inp_hotkey.TabIndex = 2;
 			this.Inp_hotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inp_hotkey_KeyDown);
 			this.Inp_hotkey.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Inp_hotkey_KeyPress);
@@ -117,7 +118,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 350);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 375);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(77, 21);
@@ -137,16 +138,16 @@
 			this.CB_shadow.UseVisualStyleBackColor = true;
 			this.CB_shadow.CheckedChanged += new System.EventHandler(this.CB_shadow_CheckedChanged);
 			// 
-			// CB_border
+			// CB_hideOnCapture
 			// 
-			this.CB_border.AutoSize = true;
-			this.CB_border.Location = new System.Drawing.Point(3, 132);
-			this.CB_border.Name = "CB_border";
-			this.CB_border.Size = new System.Drawing.Size(84, 17);
-			this.CB_border.TabIndex = 4;
-			this.CB_border.Text = "Draw border";
-			this.CB_border.UseVisualStyleBackColor = true;
-			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
+			this.CB_hideOnCapture.AutoSize = true;
+			this.CB_hideOnCapture.Location = new System.Drawing.Point(3, 155);
+			this.CB_hideOnCapture.Name = "CB_hideOnCapture";
+			this.CB_hideOnCapture.Size = new System.Drawing.Size(142, 17);
+			this.CB_hideOnCapture.TabIndex = 4;
+			this.CB_hideOnCapture.Text = "Hide pictures on capture";
+			this.CB_hideOnCapture.UseVisualStyleBackColor = true;
+			this.CB_hideOnCapture.CheckedChanged += new System.EventHandler(this.CB_hideOnCapture_CheckedChanged);
 			// 
 			// Lbl_pColor
 			// 
@@ -160,26 +161,24 @@
 			// 
 			// label3
 			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
 			this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label3.Location = new System.Drawing.Point(214, 6);
+			this.label3.Location = new System.Drawing.Point(219, 6);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(2, 371);
+			this.label3.Size = new System.Drawing.Size(2, 396);
 			this.label3.TabIndex = 7;
 			// 
 			// TextBoxHelp
 			// 
-			this.TextBoxHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+			this.TextBoxHelp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.TextBoxHelp.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.TextBoxHelp.Cursor = System.Windows.Forms.Cursors.Default;
-			this.TextBoxHelp.Location = new System.Drawing.Point(222, 12);
+			this.TextBoxHelp.Location = new System.Drawing.Point(232, 12);
 			this.TextBoxHelp.Multiline = true;
 			this.TextBoxHelp.Name = "TextBoxHelp";
 			this.TextBoxHelp.ReadOnly = true;
-			this.TextBoxHelp.Size = new System.Drawing.Size(251, 357);
+			this.TextBoxHelp.Size = new System.Drawing.Size(251, 382);
 			this.TextBoxHelp.TabIndex = 9;
 			this.TextBoxHelp.Text = resources.GetString("TextBoxHelp.Text");
 			// 
@@ -196,10 +195,13 @@
 			// 
 			// flowLayoutPanel1
 			// 
+			this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.flowLayoutPanel1.Controls.Add(this.panel2);
 			this.flowLayoutPanel1.Controls.Add(this.panel3);
 			this.flowLayoutPanel1.Controls.Add(this.CB_shadow);
 			this.flowLayoutPanel1.Controls.Add(this.CB_border);
+			this.flowLayoutPanel1.Controls.Add(this.CB_hideOnCapture);
 			this.flowLayoutPanel1.Controls.Add(this.panel1);
 			this.flowLayoutPanel1.Controls.Add(this.panel6);
 			this.flowLayoutPanel1.Controls.Add(this.panel7);
@@ -207,7 +209,7 @@
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(9, 6);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(199, 339);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(206, 364);
 			this.flowLayoutPanel1.TabIndex = 11;
 			// 
 			// panel2
@@ -217,7 +219,7 @@
 			this.panel2.Location = new System.Drawing.Point(0, 0);
 			this.panel2.Margin = new System.Windows.Forms.Padding(0);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(199, 25);
+			this.panel2.Size = new System.Drawing.Size(206, 25);
 			this.panel2.TabIndex = 12;
 			// 
 			// panel3
@@ -228,8 +230,18 @@
 			this.panel3.Location = new System.Drawing.Point(0, 25);
 			this.panel3.Margin = new System.Windows.Forms.Padding(0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(199, 81);
+			this.panel3.Size = new System.Drawing.Size(206, 81);
 			this.panel3.TabIndex = 13;
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.label1.Location = new System.Drawing.Point(23, 23);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(2, 56);
+			this.label1.TabIndex = 12;
 			// 
 			// Panel_vignette
 			// 
@@ -241,7 +253,7 @@
 			this.Panel_vignette.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.Panel_vignette.Location = new System.Drawing.Point(27, 23);
 			this.Panel_vignette.Name = "Panel_vignette";
-			this.Panel_vignette.Size = new System.Drawing.Size(171, 58);
+			this.Panel_vignette.Size = new System.Drawing.Size(178, 58);
 			this.Panel_vignette.TabIndex = 11;
 			// 
 			// panel4
@@ -251,19 +263,8 @@
 			this.panel4.Location = new System.Drawing.Point(0, 0);
 			this.panel4.Margin = new System.Windows.Forms.Padding(0);
 			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(172, 25);
+			this.panel4.Size = new System.Drawing.Size(179, 25);
 			this.panel4.TabIndex = 13;
-			// 
-			// ColorInp_vignette
-			// 
-			this.ColorInp_vignette.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorInp_vignette.Color = System.Drawing.Color.Empty;
-			this.ColorInp_vignette.Location = new System.Drawing.Point(98, 2);
-			this.ColorInp_vignette.Name = "ColorInp_vignette";
-			this.ColorInp_vignette.Size = new System.Drawing.Size(72, 20);
-			this.ColorInp_vignette.TabIndex = 6;
-			this.ColorInp_vignette.ColorChanged += new System.EventHandler(this.ColorInp_vignette_ColorChanged);
 			// 
 			// Lbl_vColor
 			// 
@@ -282,7 +283,7 @@
 			this.panel5.Location = new System.Drawing.Point(0, 25);
 			this.panel5.Margin = new System.Windows.Forms.Padding(0);
 			this.panel5.Name = "panel5";
-			this.panel5.Size = new System.Drawing.Size(172, 28);
+			this.panel5.Size = new System.Drawing.Size(179, 28);
 			this.panel5.TabIndex = 13;
 			// 
 			// Inp_vignette
@@ -301,7 +302,7 @@
             0,
             0});
 			this.Inp_vignette.Name = "Inp_vignette";
-			this.Inp_vignette.Size = new System.Drawing.Size(72, 20);
+			this.Inp_vignette.Size = new System.Drawing.Size(79, 20);
 			this.Inp_vignette.TabIndex = 1;
 			this.Inp_vignette.Value = new decimal(new int[] {
             1,
@@ -324,31 +325,20 @@
 			// 
 			this.panel1.Controls.Add(this.ColorInp_pen);
 			this.panel1.Controls.Add(this.Lbl_pColor);
-			this.panel1.Location = new System.Drawing.Point(0, 152);
+			this.panel1.Location = new System.Drawing.Point(0, 175);
 			this.panel1.Margin = new System.Windows.Forms.Padding(0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(199, 25);
+			this.panel1.Size = new System.Drawing.Size(206, 25);
 			this.panel1.TabIndex = 12;
-			// 
-			// ColorInp_pen
-			// 
-			this.ColorInp_pen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorInp_pen.Color = System.Drawing.Color.Empty;
-			this.ColorInp_pen.Location = new System.Drawing.Point(79, 2);
-			this.ColorInp_pen.Name = "ColorInp_pen";
-			this.ColorInp_pen.Size = new System.Drawing.Size(118, 20);
-			this.ColorInp_pen.TabIndex = 6;
-			this.ColorInp_pen.ColorChanged += new System.EventHandler(this.ColorInp_pen_ColorChanged);
 			// 
 			// panel6
 			// 
 			this.panel6.Controls.Add(this.Inp_zoomStep);
 			this.panel6.Controls.Add(this.Lbl_zoom);
-			this.panel6.Location = new System.Drawing.Point(0, 177);
+			this.panel6.Location = new System.Drawing.Point(0, 200);
 			this.panel6.Margin = new System.Windows.Forms.Padding(0);
 			this.panel6.Name = "panel6";
-			this.panel6.Size = new System.Drawing.Size(198, 28);
+			this.panel6.Size = new System.Drawing.Size(206, 28);
 			this.panel6.TabIndex = 14;
 			// 
 			// Inp_zoomStep
@@ -362,7 +352,7 @@
             0,
             0});
 			this.Inp_zoomStep.Name = "Inp_zoomStep";
-			this.Inp_zoomStep.Size = new System.Drawing.Size(118, 20);
+			this.Inp_zoomStep.Size = new System.Drawing.Size(126, 20);
 			this.Inp_zoomStep.TabIndex = 1;
 			this.Inp_zoomStep.Value = new decimal(new int[] {
             1,
@@ -386,11 +376,21 @@
 			this.panel7.Controls.Add(this.label2);
 			this.panel7.Controls.Add(this.Panel_palette);
 			this.panel7.Controls.Add(this.CB_palette);
-			this.panel7.Location = new System.Drawing.Point(0, 205);
+			this.panel7.Location = new System.Drawing.Point(0, 228);
 			this.panel7.Margin = new System.Windows.Forms.Padding(0);
 			this.panel7.Name = "panel7";
-			this.panel7.Size = new System.Drawing.Size(199, 105);
+			this.panel7.Size = new System.Drawing.Size(206, 105);
 			this.panel7.TabIndex = 15;
+			// 
+			// label2
+			// 
+			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.label2.Location = new System.Drawing.Point(23, 23);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(2, 80);
+			this.label2.TabIndex = 13;
 			// 
 			// Panel_palette
 			// 
@@ -403,7 +403,7 @@
 			this.Panel_palette.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.Panel_palette.Location = new System.Drawing.Point(27, 23);
 			this.Panel_palette.Name = "Panel_palette";
-			this.Panel_palette.Size = new System.Drawing.Size(172, 82);
+			this.Panel_palette.Size = new System.Drawing.Size(179, 82);
 			this.Panel_palette.TabIndex = 11;
 			// 
 			// panel10
@@ -414,7 +414,7 @@
 			this.panel10.Location = new System.Drawing.Point(0, 0);
 			this.panel10.Margin = new System.Windows.Forms.Padding(0);
 			this.panel10.Name = "panel10";
-			this.panel10.Size = new System.Drawing.Size(191, 25);
+			this.panel10.Size = new System.Drawing.Size(179, 25);
 			this.panel10.TabIndex = 14;
 			// 
 			// Lbl_pHotkey
@@ -435,7 +435,7 @@
 			this.Inp_paletteHotkey.Location = new System.Drawing.Point(52, 3);
 			this.Inp_paletteHotkey.Margin = new System.Windows.Forms.Padding(2);
 			this.Inp_paletteHotkey.Name = "Inp_paletteHotkey";
-			this.Inp_paletteHotkey.Size = new System.Drawing.Size(118, 20);
+			this.Inp_paletteHotkey.Size = new System.Drawing.Size(125, 20);
 			this.Inp_paletteHotkey.TabIndex = 2;
 			this.Inp_paletteHotkey.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inp_paletteHotkey_KeyDown);
 			this.Inp_paletteHotkey.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Inp_paletteHotkey_KeyPress);
@@ -447,7 +447,7 @@
 			this.panel9.Location = new System.Drawing.Point(0, 25);
 			this.panel9.Margin = new System.Windows.Forms.Padding(0);
 			this.panel9.Name = "panel9";
-			this.panel9.Size = new System.Drawing.Size(172, 28);
+			this.panel9.Size = new System.Drawing.Size(179, 28);
 			this.panel9.TabIndex = 13;
 			// 
 			// Inp_paletteSize
@@ -466,7 +466,7 @@
             0,
             0});
 			this.Inp_paletteSize.Name = "Inp_paletteSize";
-			this.Inp_paletteSize.Size = new System.Drawing.Size(72, 20);
+			this.Inp_paletteSize.Size = new System.Drawing.Size(79, 20);
 			this.Inp_paletteSize.TabIndex = 1;
 			this.Inp_paletteSize.Value = new decimal(new int[] {
             32,
@@ -492,19 +492,8 @@
 			this.panel8.Location = new System.Drawing.Point(0, 53);
 			this.panel8.Margin = new System.Windows.Forms.Padding(0);
 			this.panel8.Name = "panel8";
-			this.panel8.Size = new System.Drawing.Size(172, 25);
+			this.panel8.Size = new System.Drawing.Size(179, 25);
 			this.panel8.TabIndex = 13;
-			// 
-			// ColorInp_highlight
-			// 
-			this.ColorInp_highlight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.ColorInp_highlight.Color = System.Drawing.Color.Empty;
-			this.ColorInp_highlight.Location = new System.Drawing.Point(98, 2);
-			this.ColorInp_highlight.Name = "ColorInp_highlight";
-			this.ColorInp_highlight.Size = new System.Drawing.Size(72, 20);
-			this.ColorInp_highlight.TabIndex = 6;
-			this.ColorInp_highlight.ColorChanged += new System.EventHandler(this.ColorInp_highlight_ColorChanged);
 			// 
 			// Lbl_highlight
 			// 
@@ -531,21 +520,11 @@
 			// 
 			this.panel11.Controls.Add(this.Inp_lang);
 			this.panel11.Controls.Add(this.Lbl_lang);
-			this.panel11.Location = new System.Drawing.Point(0, 310);
+			this.panel11.Location = new System.Drawing.Point(0, 333);
 			this.panel11.Margin = new System.Windows.Forms.Padding(0);
 			this.panel11.Name = "panel11";
-			this.panel11.Size = new System.Drawing.Size(199, 28);
+			this.panel11.Size = new System.Drawing.Size(206, 28);
 			this.panel11.TabIndex = 16;
-			// 
-			// Lbl_lang
-			// 
-			this.Lbl_lang.AutoSize = true;
-			this.Lbl_lang.Location = new System.Drawing.Point(0, 7);
-			this.Lbl_lang.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-			this.Lbl_lang.Name = "Lbl_lang";
-			this.Lbl_lang.Size = new System.Drawing.Size(55, 13);
-			this.Lbl_lang.TabIndex = 0;
-			this.Lbl_lang.Text = "Language";
 			// 
 			// Inp_lang
 			// 
@@ -558,35 +537,69 @@
             "ru"});
 			this.Inp_lang.Location = new System.Drawing.Point(79, 5);
 			this.Inp_lang.Name = "Inp_lang";
-			this.Inp_lang.Size = new System.Drawing.Size(118, 21);
+			this.Inp_lang.Size = new System.Drawing.Size(125, 21);
 			this.Inp_lang.TabIndex = 1;
 			this.Inp_lang.SelectedIndexChanged += new System.EventHandler(this.Inp_lang_SelectedIndexChanged);
 			// 
-			// label1
+			// Lbl_lang
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label1.Location = new System.Drawing.Point(23, 23);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(2, 56);
-			this.label1.TabIndex = 12;
+			this.Lbl_lang.AutoSize = true;
+			this.Lbl_lang.Location = new System.Drawing.Point(0, 7);
+			this.Lbl_lang.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_lang.Name = "Lbl_lang";
+			this.Lbl_lang.Size = new System.Drawing.Size(55, 13);
+			this.Lbl_lang.TabIndex = 0;
+			this.Lbl_lang.Text = "Language";
 			// 
-			// label2
+			// CB_border
 			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-			this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.label2.Location = new System.Drawing.Point(23, 23);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(2, 80);
-			this.label2.TabIndex = 13;
+			this.CB_border.AutoSize = true;
+			this.CB_border.Location = new System.Drawing.Point(3, 132);
+			this.CB_border.Name = "CB_border";
+			this.CB_border.Size = new System.Drawing.Size(84, 17);
+			this.CB_border.TabIndex = 17;
+			this.CB_border.Text = "Draw border";
+			this.CB_border.UseVisualStyleBackColor = true;
+			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
+			// 
+			// ColorInp_vignette
+			// 
+			this.ColorInp_vignette.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_vignette.Color = System.Drawing.Color.Empty;
+			this.ColorInp_vignette.Location = new System.Drawing.Point(98, 2);
+			this.ColorInp_vignette.Name = "ColorInp_vignette";
+			this.ColorInp_vignette.Size = new System.Drawing.Size(79, 20);
+			this.ColorInp_vignette.TabIndex = 6;
+			this.ColorInp_vignette.ColorChanged += new System.EventHandler(this.ColorInp_vignette_ColorChanged);
+			// 
+			// ColorInp_pen
+			// 
+			this.ColorInp_pen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_pen.Color = System.Drawing.Color.Empty;
+			this.ColorInp_pen.Location = new System.Drawing.Point(79, 2);
+			this.ColorInp_pen.Name = "ColorInp_pen";
+			this.ColorInp_pen.Size = new System.Drawing.Size(125, 20);
+			this.ColorInp_pen.TabIndex = 6;
+			this.ColorInp_pen.ColorChanged += new System.EventHandler(this.ColorInp_pen_ColorChanged);
+			// 
+			// ColorInp_highlight
+			// 
+			this.ColorInp_highlight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_highlight.Color = System.Drawing.Color.Empty;
+			this.ColorInp_highlight.Location = new System.Drawing.Point(98, 2);
+			this.ColorInp_highlight.Name = "ColorInp_highlight";
+			this.ColorInp_highlight.Size = new System.Drawing.Size(79, 20);
+			this.ColorInp_highlight.TabIndex = 6;
+			this.ColorInp_highlight.ColorChanged += new System.EventHandler(this.ColorInp_highlight_ColorChanged);
 			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(485, 381);
+			this.ClientSize = new System.Drawing.Size(495, 406);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.TextBoxHelp);
 			this.Controls.Add(this.label3);
@@ -641,7 +654,7 @@
 		private System.Windows.Forms.TextBox Inp_hotkey;
 		private System.Windows.Forms.Button Btn_reset;
 		private System.Windows.Forms.CheckBox CB_shadow;
-		private System.Windows.Forms.CheckBox CB_border;
+		private System.Windows.Forms.CheckBox CB_hideOnCapture;
 		private System.Windows.Forms.Label Lbl_pColor;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.TextBox TextBoxHelp;
@@ -679,5 +692,6 @@
 		private System.Windows.Forms.Label Lbl_lang;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.CheckBox CB_border;
 	}
 }

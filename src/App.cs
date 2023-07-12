@@ -195,7 +195,8 @@ namespace ScreenCapture
 			_allWasHidden = VisiblePictures == 0;
 			if (!_allWasHidden)
 				_pictureVisibility = _pictures.Select(p => p.Visible).ToArray();
-			HidePictures();
+			if (Program.Settings.HideOnCapture)
+				HidePictures();
 			_formCapture.Show();
 		}
 

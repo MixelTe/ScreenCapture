@@ -29,6 +29,7 @@ namespace ScreenCapture
 			Inp_hotkey.Text = Program.Hotkey.ToString();
 			CB_border.Checked = Program.Settings.DrawBorder;
 			CB_shadow.Checked = Program.Settings.DrawShadow;
+			CB_hideOnCapture.Checked = Program.Settings.HideOnCapture;
 			ColorInp_pen.Color = Program.Settings.PenColor;
 			CB_vignette.Checked = Program.Settings.DrawVignette;
 			Panel_vignette.Enabled = Program.Settings.DrawVignette;
@@ -55,6 +56,7 @@ namespace ScreenCapture
 				Lbl_vSize.Text = "Размер";
 				CB_shadow.Text = "Тень";
 				CB_border.Text = "Рамка";
+				CB_hideOnCapture.Text = "Скрывать картинки при вырезании";
 				Lbl_pColor.Text = "Размер ручки";
 				Lbl_zoom.Text = "Шаг зума %";
 				CB_palette.Text = "Палитра";
@@ -97,6 +99,7 @@ Ctrl + ПКМ -> стирать
 				Lbl_vSize.Text = "Size";
 				CB_shadow.Text = "Draw shadow";
 				CB_border.Text = "Draw border";
+				CB_hideOnCapture.Text = "Hide pictures on capture";
 				Lbl_pColor.Text = "Pen color";
 				Lbl_zoom.Text = "Zoom step %";
 				CB_palette.Text = "Palette";
@@ -181,6 +184,13 @@ Some settings do not apply to existing popup pictures";
 		{
 			if (_settingValues) return;
 			Program.Settings.DrawBorder = CB_border.Checked;
+			Program.Settings.Save();
+		}
+
+		private void CB_hideOnCapture_CheckedChanged(object sender, EventArgs e)
+		{
+			if (_settingValues) return;
+			Program.Settings.HideOnCapture = CB_hideOnCapture.Checked;
 			Program.Settings.Save();
 		}
 

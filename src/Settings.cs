@@ -16,6 +16,7 @@ namespace ScreenCapture
 		public bool DrawShadow = true;
 		public Color PenColor = Color.Lime;
 		public bool DrawVignette = true;
+		public bool HideOnCapture = true;
 		public Color VignetteColor = Color.FromArgb(128, Color.DarkViolet);
 		public int VignetteSize = 16;
 		public float ZoomStep = 1.15f;
