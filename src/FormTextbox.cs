@@ -10,14 +10,16 @@ using System.Windows.Forms;
 
 namespace ScreenCapture
 {
-	public partial class FormTextbox : Form
+	public partial class FormTextbox : Form, IFloatingWindow
 	{
 		private readonly TextboxMod _textbox = new TextboxMod();
+		private Bitmap _preview = null;
 		private bool _dragging = false;
 		private Point _dragDif;
 
 		public FormTextbox(Point location, Size size)
 		{
+			App.Ins.RegisterWindow(this);
 			InitializeComponent();
 			Location = location;
 			Size = size;
@@ -26,9 +28,11 @@ namespace ScreenCapture
 			_textbox.BorderStyle = BorderStyle.None;
 			_textbox.Dock = DockStyle.Fill;
 			_textbox.ReadOnly = true;
-			_textbox.BackColor = Program.Settings.TextBgColor;
-			_textbox.ForeColor = Program.Settings.TextColor;
+			_textbox.BackColor = Program.Settings.TextBgColor.MakeOpaque();
+			_textbox.ForeColor = Program.Settings.TextColor.MakeOpaque();
 			_textbox.Font = new Font(_textbox.Font.FontFamily, Program.Settings.TextSize);
+
+			Disposed += OnDisposed;
 		}
 
 		protected override CreateParams CreateParams
@@ -64,6 +68,24 @@ namespace ScreenCapture
 			base.WndProc(ref m);
 		}
 
+		private void OnDisposed(object sender, EventArgs e)
+		{
+			App.Ins.UnregisterWindow(this);
+			if (_preview != null)
+			{
+				_preview.Dispose();
+				_preview = null;
+			}
+		}
+
+		public void ToggleHighlight(bool enable)
+		{
+			if (enable)
+				_textbox.BackColor = Program.Settings.HighlightColor.MakeOpaque();
+			else
+				_textbox.BackColor = Program.Settings.TextBgColor.MakeOpaque();
+		}
+
 		private void FormTextbox_MouseDown(object sender, MouseEventArgs e)
 		{
 			_dragging = true;
@@ -94,7 +116,7 @@ namespace ScreenCapture
 			if (e.KeyCode == Keys.Escape)
 			{
 				_textbox.ReadOnly = true;
-				_textbox.BackColor = Program.Settings.TextBgColor;
+				_textbox.BackColor = Program.Settings.TextBgColor.MakeOpaque();
 				button1.Focus();
 			}
 		}
@@ -112,6 +134,10 @@ namespace ScreenCapture
 			{
 				Close();
 			}
+			if ((e as MouseEventArgs).Button == MouseButtons.Middle)
+			{
+				CopyToClipboard(ModifierKeys.HasFlag(Keys.Control));
+			}
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e)
@@ -121,6 +147,38 @@ namespace ScreenCapture
 			{
 				_textbox.Font = new Font(_textbox.Font.FontFamily, Math.Max(_textbox.Font.Size + Math.Sign(e.Delta), 2));
 			}
+		}
+
+		public Bitmap GetPicture()
+		{
+			_preview = new Bitmap(Width, Height);
+			using (var g = Graphics.FromImage(_preview))
+			using (var bb = new SolidBrush(Program.Settings.TextBgColor))
+			using (var bt = new SolidBrush(Program.Settings.TextColor))
+			{
+				g.FillRectangle(bb, 0, 0, Width, Height);
+				g.DrawString(_textbox.Text, _textbox.Font, bt, new RectangleF(0, 0, Width, Height));
+			}
+			return _preview;
+		}
+
+		public void CopyToClipboard(bool ctrl)
+		{
+			_textbox.SelectAll();
+			_textbox.Copy();
+			_textbox.DeselectAll();
+			var title = Program.Settings.Language == 1 ? "Копирование заметки" : "Copy note";
+			var text = Program.Settings.Language == 1 ? "Заметка сопированна!" : "Note is copied!";
+			App.Ins.TrayIcon.ShowBalloonTip(0, title, text, ToolTipIcon.Info);
+		}
+
+		public void SetTextRtf(string text)
+		{
+			_textbox.Rtf = text;
+		}
+		public void SetText(string text)
+		{
+			_textbox.Text = text;
 		}
 	}
 	class TextboxMod : RichTextBox

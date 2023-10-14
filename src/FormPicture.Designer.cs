@@ -71,7 +71,6 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "ScreenCapture";
 			this.TopMost = true;
-			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormPicture_FormClosed);
 			this.Click += new System.EventHandler(this.FormPicture_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPicture_Paint);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPicture_Key);

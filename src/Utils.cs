@@ -50,6 +50,11 @@ namespace ScreenCapture
 			return Math.Min(Math.Max(value, minMax.X), minMax.Y);
 		}
 
+		public static Color MakeOpaque(this Color color)
+		{
+			return Color.FromArgb(255, color.R, color.G, color.B);
+		}
+
 		public static GraphicsPath RoundedRect(Rectangle bounds, int radius)
 		{
 			int diameter = radius * 2;

@@ -13,8 +13,8 @@ namespace ScreenCapture
 	{
 		public static App Ins;
 		public readonly NotifyIcon TrayIcon;
-		public int PicturesCount { get => _pictures.Count; }
-		private readonly List<FormPicture> _pictures = new List<FormPicture>();
+		public int WindowsCount { get => _windows.Count; }
+		private readonly List<IFloatingWindow> _windows = new List<IFloatingWindow>();
 		private readonly ToolStripMenuItem _itemSettings;
 		private readonly ToolStripMenuItem _itemCloseAll;
 		private readonly ToolStripMenuItem _itemHideAll;
@@ -25,8 +25,8 @@ namespace ScreenCapture
 		private FormPicturePalette _formPicturePalette;
 		private FormSettings _formSettings;
 		private FormAbout _formAbout;
-		private int VisiblePictures { get => _pictures.Count(p => p.Visible); }
-		private bool[] _pictureVisibility = new bool[0];
+		private int VisiblePictures { get => _windows.Count(p => p.Visible); }
+		private bool[] _windowVisibility = new bool[0];
 		private bool _allWasHidden;
 
 		private Dictionary<string, string> _texts;
@@ -68,7 +68,7 @@ namespace ScreenCapture
 			{
 				if (_formCapture.Visible) return;
 				if (_formCapture.PictureCaptured || _allWasHidden)
-					ShowSelectedPictures();
+					ShowSelectedWindows();
 			};
 
 			Program.Hotkey.Pressed += Hotkey_Pressed;
@@ -98,8 +98,6 @@ namespace ScreenCapture
 				{"hotkeyTitle", Program.Settings.Language == 1 ? "Регистрация горячей клавиши" : "Register Hotkey" },
 				{"hotkeyText", Program.Settings.Language == 1 ? "Ошибка регистрации горячей клавиши" : "Cannot register hotkey" },
 				{"pictures", Program.Settings.Language == 1 ? "Картинок" : "Pictures" },
-				{"openImageTitle", Program.Settings.Language == 1 ? "Открытие картинки" : "Open image" },
-				{"openImageText", Program.Settings.Language == 1 ? "Нет картинки в буфере обмена" : "No image in clipboard!" },
 			};
 			_itemSettings.Text = _texts["settings"];
 			_itemCloseAll.Text = _texts["close"];
@@ -107,32 +105,32 @@ namespace ScreenCapture
 			_itemQuit.Text = _texts["quit"];
 		}
 
-		public void RegisterPicture(FormPicture picture)
+		public void RegisterWindow(IFloatingWindow picture)
 		{
-			_pictures.Add(picture);
+			_windows.Add(picture);
 			UpdateOpenedCount();
 		}
 
-		public void UnregisterPicture(FormPicture picture)
+		public void UnregisterWindow(IFloatingWindow picture)
 		{
-			_pictures.Remove(picture);
+			_windows.Remove(picture);
 			UpdateOpenedCount();
 		}
 
-		public IEnumerable<FormPicture> GetPictures()
+		public IEnumerable<IFloatingWindow> GetWindows()
 		{
-			return _pictures.AsEnumerable();
+			return _windows.AsEnumerable();
 		}
 
-		public FormPicture GetPicture(int i)
+		public IFloatingWindow GetWindow(int i)
 		{
-			return _pictures[i];
+			return _windows[i];
 		}
 
 
 		private void UpdateOpenedCount()
 		{
-			_itemOpenedCount.Text = $"{_texts["pictures"]}: {VisiblePictures}/{_pictures.Count}";
+			_itemOpenedCount.Text = $"{_texts["pictures"]}: {VisiblePictures}/{_windows.Count}";
 		}
 
 		private void Hotkey_Pressed(object sender, System.ComponentModel.HandledEventArgs e)
@@ -180,7 +178,16 @@ namespace ScreenCapture
 				}
 				else
 				{
-					TrayIcon.ShowBalloonTip(500, _texts["openImageTitle"], _texts["openImageText"], ToolTipIcon.Error);
+					var size = new Size(300, 200);
+					var location = new Point(Cursor.Position.X - size.Width / 2, Cursor.Position.Y - size.Height - 10);
+					var form = new FormTextbox(location, size);
+
+					var text = Clipboard.GetText(TextDataFormat.Rtf);
+					if (text == string.Empty)
+						form.SetText(Clipboard.GetText());
+					else
+						form.SetTextRtf(text);
+					form.Show();
 				}
 			}
 		}
@@ -194,9 +201,9 @@ namespace ScreenCapture
 			}
 			_allWasHidden = VisiblePictures == 0;
 			if (!_allWasHidden)
-				_pictureVisibility = _pictures.Select(p => p.Visible).ToArray();
+				_windowVisibility = _windows.Select(p => p.Visible).ToArray();
 			if (Program.Settings.HideOnCapture)
-				HidePictures();
+				HideWindows();
 			_formCapture.Show();
 		}
 
@@ -209,9 +216,9 @@ namespace ScreenCapture
 
 		void CloseAll(object sender, EventArgs e)
 		{
-			for (int i = _pictures.Count - 1; i >= 0; i--)
+			for (int i = _windows.Count - 1; i >= 0; i--)
 			{
-				_pictures[i].Close();
+				_windows[i].Close();
 			}
 		}
 
@@ -230,31 +237,31 @@ namespace ScreenCapture
 
 		void TogglePicturesVisibility(object sender, EventArgs e)
 		{
-			if (VisiblePictures == 0) ShowPictures();
-			else HidePictures();
+			if (VisiblePictures == 0) ShowWindows();
+			else HideWindows();
 		}
-		void HidePictures()
+		void HideWindows()
 		{
-			_pictures.ForEach(f => f.Hide());
+			_windows.ForEach(f => f.Hide());
 		}
-		void ShowPictures()
+		void ShowWindows()
 		{
-			_pictures.ForEach(f => f.Show());
+			_windows.ForEach(f => f.Show());
 		}
-		void ShowSelectedPictures()
+		void ShowSelectedWindows()
 		{
-			for (int i = 0; i < Math.Min(_pictures.Count, _pictureVisibility.Length); i++)
+			for (int i = 0; i < Math.Min(_windows.Count, _windowVisibility.Length); i++)
 			{
-				if (_pictureVisibility[i])
-					_pictures[i].Show();
+				if (_windowVisibility[i])
+					_windows[i].Show();
 			}
 		}
 
 		private void ContextMenuStrip_Opened(object sender, EventArgs e)
 		{
-			var anyPictures = _pictures.Count > 0;
-			_itemCloseAll.Enabled = anyPictures;
-			_itemHideAll.Enabled = anyPictures;
+			var anyWindows = _windows.Count > 0;
+			_itemCloseAll.Enabled = anyWindows;
+			_itemHideAll.Enabled = anyWindows;
 			SetShowHideItem(VisiblePictures == 0);
 			UpdateOpenedCount();
 		}

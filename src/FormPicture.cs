@@ -7,10 +7,8 @@ using System.Windows.Forms;
 
 namespace ScreenCapture
 {
-	public partial class FormPicture : Form
+	public partial class FormPicture : Form, IFloatingWindow
 	{
-		public Bitmap Picture { get => _picture; }
-
 		private readonly static Icon _iconPencil = Resources.pencil;
 		private readonly static Icon _iconCircle = Resources.circle;
 		private readonly static Cursor _pencil = new Cursor(_iconPencil.Handle);
@@ -30,7 +28,7 @@ namespace ScreenCapture
 
 		public FormPicture(Bitmap picture, Point location)
 		{
-			App.Ins.RegisterPicture(this);
+			App.Ins.RegisterWindow(this);
 			_picture = picture;
 			InitializeComponent();
 			Location = location;
@@ -73,6 +71,7 @@ namespace ScreenCapture
 
 		private void OnDisposed(object sender, EventArgs e)
 		{
+			App.Ins.UnregisterWindow(this);
 			if (_pen != null)
 			{
 				_pen.Dispose();
@@ -110,7 +109,7 @@ namespace ScreenCapture
 			}
 		}
 
-		public void CopyPictureToClipboard(bool withDrawings = false)
+		private void CopyPictureToClipboard(bool withDrawings)
 		{
 			if (withDrawings)
 			{
@@ -205,11 +204,6 @@ namespace ScreenCapture
 			_drawing = 0;
 		}
 
-		private void FormPicture_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			App.Ins.UnregisterPicture(this);
-		}
-
 		private void Draw() => Draw(Point.Empty, false);
 		private void Draw(Point p) => Draw(p, true);
 		private void Draw(Point p, bool pointExist)
@@ -275,6 +269,16 @@ namespace ScreenCapture
 		{
 			_zoom = zoom.MinMax(_minMaxZoom);
 			Size = _size.Multiply(Zoom);
+		}
+
+		public Bitmap GetPicture()
+		{
+			return _picture;
+		}
+
+		public void CopyToClipboard(bool ctrl)
+		{
+			CopyPictureToClipboard(ctrl);
 		}
 	}
 }

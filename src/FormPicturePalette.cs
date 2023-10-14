@@ -23,7 +23,7 @@ namespace ScreenCapture
 		private readonly int _pictureCorner = 8;
 		private readonly int _padding = 4;
 		private readonly int _cornerR = 8;
-		private readonly FormPicture[] _pictures;
+		private readonly IFloatingWindow[] _windows;
 		private Rectangle _formRect;
 		private Brush _selectionBrush = new SolidBrush(Color.FromArgb(96, 128, 128, 128));
 		private Size _size;
@@ -31,7 +31,7 @@ namespace ScreenCapture
 
 		public FormPicturePalette()
 		{
-			_pictures = App.Ins.GetPictures().ToArray();
+			_windows = App.Ins.GetWindows().ToArray();
 			SetSizeAndLocation();
 			var back = DrawBack();
 			InitializeComponent();
@@ -47,7 +47,6 @@ namespace ScreenCapture
 
 		private void OnDisposed(object sender, EventArgs e)
 		{
-			Debug.WriteLine("OnDisposed");
 			if (_selectionBrush != null)
 			{
 				_selectionBrush.Dispose();
@@ -63,7 +62,7 @@ namespace ScreenCapture
 				PB_selection.BackgroundImage.Dispose();
 				PB_selection.BackgroundImage = null;
 			}
-			foreach (var picture in _pictures)
+			foreach (var picture in _windows)
 			{
 				if (!picture.IsDisposed)
 					picture.ToggleHighlight(false);
@@ -91,9 +90,9 @@ namespace ScreenCapture
 		private void SetSizeAndLocation()
 		{
 			var maxCountX = Screen.PrimaryScreen.Bounds.Width / _pictureSize;
-			var countSide = (int)Math.Ceiling(Math.Sqrt(_pictures.Length));
+			var countSide = (int)Math.Ceiling(Math.Sqrt(_windows.Length));
 			var countX = Math.Min(countSide, maxCountX);
-			var countY = (int)Math.Ceiling(_pictures.Length / (float)countX);
+			var countY = (int)Math.Ceiling(_windows.Length / (float)countX);
 			var pictureSize = _pictureSize + _pictureMargin * 2;
 			_size = new Size(countX, countY);
 			Size = new Size(countX * pictureSize + _padding * 2, countY * pictureSize + _padding * 2);
@@ -119,9 +118,9 @@ namespace ScreenCapture
 			using (var g = Graphics.FromImage(BackgroundImage))
 			using (var brush = new SolidBrush(Color.FromArgb(64, 128, 128, 128)))
 			{
-				for (int i = 0; i < _pictures.Length; i++)
+				for (int i = 0; i < _windows.Length; i++)
 				{
-					var picture = _pictures[i].Picture;
+					var picture = _windows[i].GetPicture();
 					var rect = GetPictureRect(i);
 					var src = new Rectangle(0, 0, picture.Width, picture.Height);
 					var max = Math.Max(src.Width, src.Height);
@@ -158,7 +157,7 @@ namespace ScreenCapture
 			if (ix >= 0 && ix < _size.Width && iy >= 0 && iy < _size.Height)
 			{
 				i = iy * _size.Width + ix;
-				if (i >= _pictures.Length)
+				if (i >= _windows.Length)
 					i = -1;
 			}
 
@@ -175,9 +174,9 @@ namespace ScreenCapture
 			if (selected == _selected && !forceRedraw || IsDisposed)
 				return;
 
-			ToggleSelectedPictureHighlight(false);
+			ToggleSelectedWindowHighlight(false);
 			_selected = selected;
-			ToggleSelectedPictureHighlight(true);
+			ToggleSelectedWindowHighlight(true);
 
 			using (var g = Graphics.FromImage(PB_selection.BackgroundImage))
 			using (var brushIcon = new SolidBrush(Color.FromArgb(255, 128, 128, 128)))
@@ -188,9 +187,9 @@ namespace ScreenCapture
 					g.FillRoundedRectangle(_selectionBrush, GetPictureRect(_selected), _pictureCorner);
 				}
 
-				for (int i = 0; i < _pictures.Length; i++)
+				for (int i = 0; i < _windows.Length; i++)
 				{
-					var picture = _pictures[i];
+					var picture = _windows[i];
 					var rect = GetPictureRect(i);
 					var icon = picture.IsDisposed ? _iconClosed : (picture.Visible ? _iconVisible : _iconHidden);
 					var src = new Rectangle(0, 0, icon.Width, icon.Height);
@@ -202,21 +201,21 @@ namespace ScreenCapture
 			PB_selection.Refresh();
 		}
 
-		private void ToggleSelectedPictureHighlight(bool enable)
+		private void ToggleSelectedWindowHighlight(bool enable)
 		{
 			if (GetSelectedPicture(out var picture))
 				picture.ToggleHighlight(enable);
 		}
 
-		private bool GetSelectedPicture(out FormPicture picture)
+		private bool GetSelectedPicture(out IFloatingWindow window)
 		{
-			picture = null;
-			if (_selected >= 0 && _selected < _pictures.Length)
+			window = null;
+			if (_selected >= 0 && _selected < _windows.Length)
 			{
-				var p = _pictures[_selected];
+				var p = _windows[_selected];
 				if (!p.IsDisposed)
 				{
-					picture = p;
+					window = p;
 					return true;
 				}
 			}
@@ -234,24 +233,24 @@ namespace ScreenCapture
 
 		private void FormPicturePalette_MouseClick(object sender, MouseEventArgs e)
 		{
-			if (!GetSelectedPicture(out var picture) || IsDisposed)
+			if (!GetSelectedPicture(out var window) || IsDisposed)
 				return;
 
 			if (e.Button == MouseButtons.Left)
 			{
-				if (picture.Visible)
-					picture.Hide();
+				if (window.Visible)
+					window.Hide();
 				else
-					picture.Show();
+					window.Show();
 				BringToFront();
 			}
 			else if (e.Button == MouseButtons.Right)
 			{
-				picture.Close();
+				window.Close();
 			}
 			else if (e.Button == MouseButtons.Middle)
 			{
-				picture.CopyPictureToClipboard();
+				window.CopyToClipboard(ModifierKeys.HasFlag(Keys.Control));
 			}
 
 			DrawSelection();
