@@ -181,12 +181,7 @@ namespace ScreenCapture
 					var size = new Size(300, 200);
 					var location = new Point(Cursor.Position.X - size.Width / 2, Cursor.Position.Y - size.Height - 10);
 					var form = new FormTextbox(location, size);
-
-					var text = Clipboard.GetText(TextDataFormat.Rtf);
-					if (text == string.Empty)
-						form.SetText(Clipboard.GetText());
-					else
-						form.SetTextRtf(text);
+					form.SetTextFromClipboard();
 					form.Show();
 				}
 			}

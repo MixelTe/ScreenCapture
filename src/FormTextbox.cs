@@ -172,13 +172,11 @@ namespace ScreenCapture
 			App.Ins.TrayIcon.ShowBalloonTip(0, title, text, ToolTipIcon.Info);
 		}
 
-		public void SetTextRtf(string text)
+		public void SetTextFromClipboard()
 		{
-			_textbox.Rtf = text;
-		}
-		public void SetText(string text)
-		{
-			_textbox.Text = text;
+			_textbox.ReadOnly = false;
+			_textbox.Paste();
+			_textbox.ReadOnly = true;
 		}
 	}
 	class TextboxMod : RichTextBox
