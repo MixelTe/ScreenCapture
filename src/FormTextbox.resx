@@ -117,45 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TextBoxHelp.Text" xml:space="preserve">
-    <value>                             ---   Hotkey   ---
-Press -&gt; capture
-Double press -&gt; hide/show pictures
-Press -&gt; capture holding Ctrl -&gt; create note
-
-                   ---   App icon in taskbar   ---
-Left click -&gt; capture
-Middle click -&gt; open image from clipboard
-
-                 ---  Captured Image popup   ---
-Right click -&gt; close
-Ctrl + Left button -&gt; draw
-Ctrl + Right button -&gt; erase
-Ctrl + Shift + Right button -&gt; erase with color
-Middle click -&gt; copy
-Ctrl + Middle click -&gt; copy with drawing
-Scroll wheel -&gt; zoom
-Key 0 -&gt; reset zoom
-
-                              ---   Palette   ---
-Hotkey -&gt; open
-Left click -&gt; hide/show picture
-Middle click -&gt; copy picture
-Right click -&gt; close picture
-Double left click -&gt; picture to cursor
-
-                               ---   Note   ---
-Double left button - edit
-Escape - end editing
-Right button -&gt; close
-Ctrl + scroll wheel -&gt; change font size
-
-
-Some settings do not apply to existing popup pictures</value>
-  </data>
-  <metadata name="ColorDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

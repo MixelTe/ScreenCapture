@@ -49,6 +49,7 @@
 			this.panel5 = new System.Windows.Forms.Panel();
 			this.Inp_vignette = new System.Windows.Forms.NumericUpDown();
 			this.Lbl_vSize = new System.Windows.Forms.Label();
+			this.CB_border = new System.Windows.Forms.CheckBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.Inp_zoomStep = new System.Windows.Forms.NumericUpDown();
@@ -69,10 +70,27 @@
 			this.Inp_lang = new System.Windows.Forms.ComboBox();
 			this.Lbl_lang = new System.Windows.Forms.Label();
 			this.ColorDialog1 = new System.Windows.Forms.ColorDialog();
-			this.CB_border = new System.Windows.Forms.CheckBox();
+			this.panel12 = new System.Windows.Forms.Panel();
+			this.Lbl_eColor = new System.Windows.Forms.Label();
+			this.panel13 = new System.Windows.Forms.Panel();
+			this.label4 = new System.Windows.Forms.Label();
+			this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+			this.panel14 = new System.Windows.Forms.Panel();
+			this.Lbl_textColor = new System.Windows.Forms.Label();
+			this.panel15 = new System.Windows.Forms.Panel();
+			this.Inp_textSize = new System.Windows.Forms.NumericUpDown();
+			this.Lbl_textSize = new System.Windows.Forms.Label();
+			this.Lbl_textbox = new System.Windows.Forms.Label();
+			this.panel16 = new System.Windows.Forms.Panel();
+			this.Lbl_textBgColor = new System.Windows.Forms.Label();
 			this.ColorInp_vignette = new ColorInput.ColorInput();
 			this.ColorInp_pen = new ColorInput.ColorInput();
+			this.ColorInp_eraser = new ColorInput.ColorInput();
 			this.ColorInp_highlight = new ColorInput.ColorInput();
+			this.ColorInp_text = new ColorInput.ColorInput();
+			this.ColorInp_textBg = new ColorInput.ColorInput();
+			this.Btn_textLight = new System.Windows.Forms.Button();
+			this.Btn_textDark = new System.Windows.Forms.Button();
 			this.flowLayoutPanel1.SuspendLayout();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
@@ -90,6 +108,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.Inp_paletteSize)).BeginInit();
 			this.panel8.SuspendLayout();
 			this.panel11.SuspendLayout();
+			this.panel12.SuspendLayout();
+			this.panel13.SuspendLayout();
+			this.flowLayoutPanel2.SuspendLayout();
+			this.panel14.SuspendLayout();
+			this.panel15.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_textSize)).BeginInit();
+			this.panel16.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// Lbl_hotkey
@@ -118,7 +143,7 @@
 			// Btn_reset
 			// 
 			this.Btn_reset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.Btn_reset.Location = new System.Drawing.Point(9, 375);
+			this.Btn_reset.Location = new System.Drawing.Point(9, 504);
 			this.Btn_reset.Margin = new System.Windows.Forms.Padding(2);
 			this.Btn_reset.Name = "Btn_reset";
 			this.Btn_reset.Size = new System.Drawing.Size(77, 21);
@@ -161,24 +186,26 @@
 			// 
 			// label3
 			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
 			this.label3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.label3.Location = new System.Drawing.Point(219, 6);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(2, 396);
+			this.label3.Size = new System.Drawing.Size(2, 525);
 			this.label3.TabIndex = 7;
 			// 
 			// TextBoxHelp
 			// 
-			this.TextBoxHelp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			this.TextBoxHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.TextBoxHelp.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.TextBoxHelp.Cursor = System.Windows.Forms.Cursors.Default;
-			this.TextBoxHelp.Location = new System.Drawing.Point(232, 12);
+			this.TextBoxHelp.Location = new System.Drawing.Point(227, 12);
 			this.TextBoxHelp.Multiline = true;
 			this.TextBoxHelp.Name = "TextBoxHelp";
 			this.TextBoxHelp.ReadOnly = true;
-			this.TextBoxHelp.Size = new System.Drawing.Size(251, 382);
+			this.TextBoxHelp.Size = new System.Drawing.Size(260, 511);
 			this.TextBoxHelp.TabIndex = 9;
 			this.TextBoxHelp.Text = resources.GetString("TextBoxHelp.Text");
 			// 
@@ -203,13 +230,15 @@
 			this.flowLayoutPanel1.Controls.Add(this.CB_border);
 			this.flowLayoutPanel1.Controls.Add(this.CB_hideOnCapture);
 			this.flowLayoutPanel1.Controls.Add(this.panel1);
+			this.flowLayoutPanel1.Controls.Add(this.panel12);
 			this.flowLayoutPanel1.Controls.Add(this.panel6);
 			this.flowLayoutPanel1.Controls.Add(this.panel7);
+			this.flowLayoutPanel1.Controls.Add(this.panel13);
 			this.flowLayoutPanel1.Controls.Add(this.panel11);
 			this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.flowLayoutPanel1.Location = new System.Drawing.Point(9, 6);
 			this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-			this.flowLayoutPanel1.Size = new System.Drawing.Size(206, 364);
+			this.flowLayoutPanel1.Size = new System.Drawing.Size(206, 493);
 			this.flowLayoutPanel1.TabIndex = 11;
 			// 
 			// panel2
@@ -321,6 +350,17 @@
 			this.Lbl_vSize.TabIndex = 0;
 			this.Lbl_vSize.Text = "Size";
 			// 
+			// CB_border
+			// 
+			this.CB_border.AutoSize = true;
+			this.CB_border.Location = new System.Drawing.Point(3, 132);
+			this.CB_border.Name = "CB_border";
+			this.CB_border.Size = new System.Drawing.Size(84, 17);
+			this.CB_border.TabIndex = 17;
+			this.CB_border.Text = "Draw border";
+			this.CB_border.UseVisualStyleBackColor = true;
+			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
+			// 
 			// panel1
 			// 
 			this.panel1.Controls.Add(this.ColorInp_pen);
@@ -335,7 +375,7 @@
 			// 
 			this.panel6.Controls.Add(this.Inp_zoomStep);
 			this.panel6.Controls.Add(this.Lbl_zoom);
-			this.panel6.Location = new System.Drawing.Point(0, 200);
+			this.panel6.Location = new System.Drawing.Point(0, 225);
 			this.panel6.Margin = new System.Windows.Forms.Padding(0);
 			this.panel6.Name = "panel6";
 			this.panel6.Size = new System.Drawing.Size(206, 28);
@@ -376,7 +416,7 @@
 			this.panel7.Controls.Add(this.label2);
 			this.panel7.Controls.Add(this.Panel_palette);
 			this.panel7.Controls.Add(this.CB_palette);
-			this.panel7.Location = new System.Drawing.Point(0, 228);
+			this.panel7.Location = new System.Drawing.Point(0, 253);
 			this.panel7.Margin = new System.Windows.Forms.Padding(0);
 			this.panel7.Name = "panel7";
 			this.panel7.Size = new System.Drawing.Size(206, 105);
@@ -520,7 +560,7 @@
 			// 
 			this.panel11.Controls.Add(this.Inp_lang);
 			this.panel11.Controls.Add(this.Lbl_lang);
-			this.panel11.Location = new System.Drawing.Point(0, 333);
+			this.panel11.Location = new System.Drawing.Point(0, 462);
 			this.panel11.Margin = new System.Windows.Forms.Padding(0);
 			this.panel11.Name = "panel11";
 			this.panel11.Size = new System.Drawing.Size(206, 28);
@@ -551,16 +591,157 @@
 			this.Lbl_lang.TabIndex = 0;
 			this.Lbl_lang.Text = "Language";
 			// 
-			// CB_border
+			// panel12
 			// 
-			this.CB_border.AutoSize = true;
-			this.CB_border.Location = new System.Drawing.Point(3, 132);
-			this.CB_border.Name = "CB_border";
-			this.CB_border.Size = new System.Drawing.Size(84, 17);
-			this.CB_border.TabIndex = 17;
-			this.CB_border.Text = "Draw border";
-			this.CB_border.UseVisualStyleBackColor = true;
-			this.CB_border.CheckedChanged += new System.EventHandler(this.CB_border_CheckedChanged);
+			this.panel12.Controls.Add(this.ColorInp_eraser);
+			this.panel12.Controls.Add(this.Lbl_eColor);
+			this.panel12.Location = new System.Drawing.Point(0, 200);
+			this.panel12.Margin = new System.Windows.Forms.Padding(0);
+			this.panel12.Name = "panel12";
+			this.panel12.Size = new System.Drawing.Size(206, 25);
+			this.panel12.TabIndex = 13;
+			// 
+			// Lbl_eColor
+			// 
+			this.Lbl_eColor.AutoSize = true;
+			this.Lbl_eColor.Location = new System.Drawing.Point(0, 6);
+			this.Lbl_eColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_eColor.Name = "Lbl_eColor";
+			this.Lbl_eColor.Size = new System.Drawing.Size(63, 13);
+			this.Lbl_eColor.TabIndex = 5;
+			this.Lbl_eColor.Text = "Eraser color";
+			// 
+			// panel13
+			// 
+			this.panel13.Controls.Add(this.Btn_textDark);
+			this.panel13.Controls.Add(this.Btn_textLight);
+			this.panel13.Controls.Add(this.Lbl_textbox);
+			this.panel13.Controls.Add(this.label4);
+			this.panel13.Controls.Add(this.flowLayoutPanel2);
+			this.panel13.Location = new System.Drawing.Point(0, 358);
+			this.panel13.Margin = new System.Windows.Forms.Padding(0);
+			this.panel13.Name = "panel13";
+			this.panel13.Size = new System.Drawing.Size(206, 104);
+			this.panel13.TabIndex = 14;
+			// 
+			// label4
+			// 
+			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.label4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.label4.Location = new System.Drawing.Point(23, 23);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(2, 79);
+			this.label4.TabIndex = 12;
+			// 
+			// flowLayoutPanel2
+			// 
+			this.flowLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.flowLayoutPanel2.Controls.Add(this.panel14);
+			this.flowLayoutPanel2.Controls.Add(this.panel16);
+			this.flowLayoutPanel2.Controls.Add(this.panel15);
+			this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.flowLayoutPanel2.Location = new System.Drawing.Point(27, 23);
+			this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+			this.flowLayoutPanel2.Size = new System.Drawing.Size(178, 81);
+			this.flowLayoutPanel2.TabIndex = 11;
+			// 
+			// panel14
+			// 
+			this.panel14.Controls.Add(this.ColorInp_text);
+			this.panel14.Controls.Add(this.Lbl_textColor);
+			this.panel14.Location = new System.Drawing.Point(0, 0);
+			this.panel14.Margin = new System.Windows.Forms.Padding(0);
+			this.panel14.Name = "panel14";
+			this.panel14.Size = new System.Drawing.Size(179, 25);
+			this.panel14.TabIndex = 13;
+			// 
+			// Lbl_textColor
+			// 
+			this.Lbl_textColor.AutoSize = true;
+			this.Lbl_textColor.Location = new System.Drawing.Point(0, 6);
+			this.Lbl_textColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_textColor.Name = "Lbl_textColor";
+			this.Lbl_textColor.Size = new System.Drawing.Size(54, 13);
+			this.Lbl_textColor.TabIndex = 5;
+			this.Lbl_textColor.Text = "Text color";
+			// 
+			// panel15
+			// 
+			this.panel15.Controls.Add(this.Inp_textSize);
+			this.panel15.Controls.Add(this.Lbl_textSize);
+			this.panel15.Location = new System.Drawing.Point(0, 50);
+			this.panel15.Margin = new System.Windows.Forms.Padding(0);
+			this.panel15.Name = "panel15";
+			this.panel15.Size = new System.Drawing.Size(179, 28);
+			this.panel15.TabIndex = 13;
+			// 
+			// Inp_textSize
+			// 
+			this.Inp_textSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.Inp_textSize.Location = new System.Drawing.Point(98, 5);
+			this.Inp_textSize.Maximum = new decimal(new int[] {
+            256,
+            0,
+            0,
+            0});
+			this.Inp_textSize.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.Inp_textSize.Name = "Inp_textSize";
+			this.Inp_textSize.Size = new System.Drawing.Size(79, 20);
+			this.Inp_textSize.TabIndex = 1;
+			this.Inp_textSize.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.Inp_textSize.ValueChanged += new System.EventHandler(this.Inp_textSize_ValueChanged);
+			// 
+			// Lbl_textSize
+			// 
+			this.Lbl_textSize.AutoSize = true;
+			this.Lbl_textSize.Location = new System.Drawing.Point(0, 7);
+			this.Lbl_textSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_textSize.Name = "Lbl_textSize";
+			this.Lbl_textSize.Size = new System.Drawing.Size(49, 13);
+			this.Lbl_textSize.TabIndex = 0;
+			this.Lbl_textSize.Text = "Font size";
+			// 
+			// Lbl_textbox
+			// 
+			this.Lbl_textbox.AutoSize = true;
+			this.Lbl_textbox.Location = new System.Drawing.Point(2, 7);
+			this.Lbl_textbox.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_textbox.Name = "Lbl_textbox";
+			this.Lbl_textbox.Size = new System.Drawing.Size(30, 13);
+			this.Lbl_textbox.TabIndex = 3;
+			this.Lbl_textbox.Text = "Note";
+			// 
+			// panel16
+			// 
+			this.panel16.Controls.Add(this.ColorInp_textBg);
+			this.panel16.Controls.Add(this.Lbl_textBgColor);
+			this.panel16.Location = new System.Drawing.Point(0, 25);
+			this.panel16.Margin = new System.Windows.Forms.Padding(0);
+			this.panel16.Name = "panel16";
+			this.panel16.Size = new System.Drawing.Size(179, 25);
+			this.panel16.TabIndex = 14;
+			// 
+			// Lbl_textBgColor
+			// 
+			this.Lbl_textBgColor.AutoSize = true;
+			this.Lbl_textBgColor.Location = new System.Drawing.Point(0, 6);
+			this.Lbl_textBgColor.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+			this.Lbl_textBgColor.Name = "Lbl_textBgColor";
+			this.Lbl_textBgColor.Size = new System.Drawing.Size(91, 13);
+			this.Lbl_textBgColor.TabIndex = 5;
+			this.Lbl_textBgColor.Text = "Background color";
 			// 
 			// ColorInp_vignette
 			// 
@@ -584,6 +765,17 @@
 			this.ColorInp_pen.TabIndex = 6;
 			this.ColorInp_pen.ColorChanged += new System.EventHandler(this.ColorInp_pen_ColorChanged);
 			// 
+			// ColorInp_eraser
+			// 
+			this.ColorInp_eraser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_eraser.Color = System.Drawing.Color.Empty;
+			this.ColorInp_eraser.Location = new System.Drawing.Point(79, 2);
+			this.ColorInp_eraser.Name = "ColorInp_eraser";
+			this.ColorInp_eraser.Size = new System.Drawing.Size(125, 20);
+			this.ColorInp_eraser.TabIndex = 6;
+			this.ColorInp_eraser.ColorChanged += new System.EventHandler(this.ColorInp_eraser_ColorChanged);
+			// 
 			// ColorInp_highlight
 			// 
 			this.ColorInp_highlight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -595,11 +787,53 @@
 			this.ColorInp_highlight.TabIndex = 6;
 			this.ColorInp_highlight.ColorChanged += new System.EventHandler(this.ColorInp_highlight_ColorChanged);
 			// 
+			// ColorInp_text
+			// 
+			this.ColorInp_text.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_text.Color = System.Drawing.Color.Empty;
+			this.ColorInp_text.Location = new System.Drawing.Point(98, 2);
+			this.ColorInp_text.Name = "ColorInp_text";
+			this.ColorInp_text.Size = new System.Drawing.Size(79, 20);
+			this.ColorInp_text.TabIndex = 6;
+			this.ColorInp_text.ColorChanged += new System.EventHandler(this.ColorInp_text_ColorChanged);
+			// 
+			// ColorInp_textBg
+			// 
+			this.ColorInp_textBg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.ColorInp_textBg.Color = System.Drawing.Color.Empty;
+			this.ColorInp_textBg.Location = new System.Drawing.Point(98, 2);
+			this.ColorInp_textBg.Name = "ColorInp_textBg";
+			this.ColorInp_textBg.Size = new System.Drawing.Size(79, 20);
+			this.ColorInp_textBg.TabIndex = 6;
+			this.ColorInp_textBg.ColorChanged += new System.EventHandler(this.ColorInp_textBg_ColorChanged);
+			// 
+			// Btn_textLight
+			// 
+			this.Btn_textLight.BackColor = System.Drawing.SystemColors.ControlLightLight;
+			this.Btn_textLight.Location = new System.Drawing.Point(183, 2);
+			this.Btn_textLight.Name = "Btn_textLight";
+			this.Btn_textLight.Size = new System.Drawing.Size(20, 20);
+			this.Btn_textLight.TabIndex = 13;
+			this.Btn_textLight.UseVisualStyleBackColor = false;
+			this.Btn_textLight.Click += new System.EventHandler(this.Btn_textLight_Click);
+			// 
+			// Btn_textDark
+			// 
+			this.Btn_textDark.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+			this.Btn_textDark.Location = new System.Drawing.Point(157, 2);
+			this.Btn_textDark.Name = "Btn_textDark";
+			this.Btn_textDark.Size = new System.Drawing.Size(20, 20);
+			this.Btn_textDark.TabIndex = 14;
+			this.Btn_textDark.UseVisualStyleBackColor = false;
+			this.Btn_textDark.Click += new System.EventHandler(this.Btn_textDark_Click);
+			// 
 			// FormSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(495, 406);
+			this.ClientSize = new System.Drawing.Size(499, 535);
 			this.Controls.Add(this.flowLayoutPanel1);
 			this.Controls.Add(this.TextBoxHelp);
 			this.Controls.Add(this.label3);
@@ -643,6 +877,18 @@
 			this.panel8.PerformLayout();
 			this.panel11.ResumeLayout(false);
 			this.panel11.PerformLayout();
+			this.panel12.ResumeLayout(false);
+			this.panel12.PerformLayout();
+			this.panel13.ResumeLayout(false);
+			this.panel13.PerformLayout();
+			this.flowLayoutPanel2.ResumeLayout(false);
+			this.panel14.ResumeLayout(false);
+			this.panel14.PerformLayout();
+			this.panel15.ResumeLayout(false);
+			this.panel15.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.Inp_textSize)).EndInit();
+			this.panel16.ResumeLayout(false);
+			this.panel16.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -693,5 +939,23 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.CheckBox CB_border;
+		private System.Windows.Forms.Panel panel12;
+		private ColorInput.ColorInput ColorInp_eraser;
+		private System.Windows.Forms.Label Lbl_eColor;
+		private System.Windows.Forms.Panel panel13;
+		private System.Windows.Forms.Label Lbl_textbox;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
+		private System.Windows.Forms.Panel panel14;
+		private ColorInput.ColorInput ColorInp_text;
+		private System.Windows.Forms.Label Lbl_textColor;
+		private System.Windows.Forms.Panel panel15;
+		private System.Windows.Forms.NumericUpDown Inp_textSize;
+		private System.Windows.Forms.Label Lbl_textSize;
+		private System.Windows.Forms.Panel panel16;
+		private ColorInput.ColorInput ColorInp_textBg;
+		private System.Windows.Forms.Label Lbl_textBgColor;
+		private System.Windows.Forms.Button Btn_textDark;
+		private System.Windows.Forms.Button Btn_textLight;
 	}
 }

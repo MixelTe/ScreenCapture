@@ -31,6 +31,7 @@ namespace ScreenCapture
 			CB_shadow.Checked = Program.Settings.DrawShadow;
 			CB_hideOnCapture.Checked = Program.Settings.HideOnCapture;
 			ColorInp_pen.Color = Program.Settings.PenColor;
+			ColorInp_eraser.Color = Program.Settings.EraserColor;
 			CB_vignette.Checked = Program.Settings.DrawVignette;
 			Panel_vignette.Enabled = Program.Settings.DrawVignette;
 			ColorInp_vignette.Color = Program.Settings.VignetteColor;
@@ -41,6 +42,9 @@ namespace ScreenCapture
 			Inp_paletteHotkey.Text = Program.HotkeyPalette.ToString();
 			Inp_paletteSize.Value = Program.Settings.PaletteSize;
 			ColorInp_highlight.Color = Program.Settings.HighlightColor;
+			ColorInp_text.Color = Program.Settings.TextColor;
+			ColorInp_textBg.Color = Program.Settings.TextBgColor;
+			Inp_textSize.Value = Program.Settings.TextSize;
 			Inp_lang.SelectedIndex = Program.Settings.Language;
 			_settingValues = false;
 		}
@@ -57,27 +61,35 @@ namespace ScreenCapture
 				CB_shadow.Text = "Тень";
 				CB_border.Text = "Рамка";
 				CB_hideOnCapture.Text = "Скрывать картинки при вырезании";
-				Lbl_pColor.Text = "Размер ручки";
+				Lbl_pColor.Text = "Цвет ручки";
+				Lbl_eColor.Text = "Цвет ластика";
 				Lbl_zoom.Text = "Шаг зума %";
 				CB_palette.Text = "Палитра";
 				Lbl_pHotkey.Text = "Клавиша";
 				Lbl_pSize.Text = "Размер";
 				Lbl_highlight.Text = "Подсветка";
+				Lbl_textbox.Text = "Заметка";
+				Lbl_textColor.Text = "Цвет текста";
+				Lbl_textBgColor.Text = "Цвет фона";
+				Lbl_textSize.Text = "Размер шрифта";
 				Lbl_lang.Text = "Язык";
 				Btn_reset.Text = "Сбросить";
 				TextBoxHelp.Text = @"                   ---   Горячая клавиша   ---
 Нажатие -> вырезать часть экрана
 Двойное нажатие -> скрыть/показать картинки
+Нажатие -> выделение c Ctrl -> создать заметку
 
           ---   Иконка приложения на панели   ---
 Нажатие ЛКМ -> вырезать часть экрана
 Нажатие СКМ -> открыть скопированную картинку
 
              ---  Окно вырезанной картинки   ---
-Нажатие СКМ -> скопировать
 Нажатие ПКМ -> закрыть
 Ctrl + ЛКМ -> рисовать
 Ctrl + ПКМ -> стирать
+Ctrl + Shift + ПКМ -> стирать цветом
+Нажатие СКМ -> скопировать
+Ctrl + СКМ -> скопировать c пометками
 Колесо мыши -> зум
 Клавиша 0 -> сбросить зум
 
@@ -87,6 +99,12 @@ Ctrl + ПКМ -> стирать
 Нажатие СКМ -> скопировать картинку
 Нажатие ПКМ -> закрыть картинку
 Двойное нажатие ЛКМ -> картинку к курсору
+
+                            ---   Заметка   ---
+Двойное нажатие ЛКМ - редактировать
+Escape - завершить редактирование
+Нажатие ПКМ -> закрыть
+Ctrl + колесо мыши -> изменить размер шрифта
 
 Некоторые настройки не применяются к уже открытым картинкам";
 			}
@@ -101,26 +119,34 @@ Ctrl + ПКМ -> стирать
 				CB_border.Text = "Draw border";
 				CB_hideOnCapture.Text = "Hide pictures on capture";
 				Lbl_pColor.Text = "Pen color";
+				Lbl_eColor.Text = "Eraser color";
 				Lbl_zoom.Text = "Zoom step %";
 				CB_palette.Text = "Palette";
 				Lbl_pHotkey.Text = "Hotkey";
 				Lbl_pSize.Text = "Size";
 				Lbl_highlight.Text = "Highlight";
+				Lbl_textbox.Text = "Note";
+				Lbl_textColor.Text = "Text color";
+				Lbl_textBgColor.Text = "Background color";
+				Lbl_textSize.Text = "Font size";
 				Lbl_lang.Text = "Language";
 				Btn_reset.Text = "Reset";
 				TextBoxHelp.Text = @"                             ---   Hotkey   ---
 Press -> capture
 Double press -> hide/show pictures
+Press -> capture holding Ctrl -> create note
 
                    ---   App icon in taskbar   ---
 Left click -> capture
 Middle click -> open image from clipboard
 
                  ---  Captured Image popup   ---
-Middle click -> copy
 Right click -> close
 Ctrl + Left button -> draw
 Ctrl + Right button -> erase
+Ctrl + Shift + Right button -> erase with color
+Middle click -> copy
+Ctrl + Middle click -> copy with drawing
 Scroll wheel -> zoom
 Key 0 -> reset zoom
 
@@ -130,6 +156,13 @@ Left click -> hide/show picture
 Middle click -> copy picture
 Right click -> close picture
 Double left click -> picture to cursor
+
+                               ---   Note   ---
+Double left button - edit
+Escape - end editing
+Right button -> close
+Ctrl + scroll wheel -> change font size
+
 
 Some settings do not apply to existing popup pictures";
 			}
@@ -215,6 +248,12 @@ Some settings do not apply to existing popup pictures";
 			Program.Settings.Save();
 		}
 
+		private void ColorInp_eraser_ColorChanged(object sender, EventArgs e)
+		{
+			Program.Settings.EraserColor = ColorInp_eraser.Color;
+			Program.Settings.Save();
+		}
+
 		private void ColorInp_vignette_ColorChanged(object sender, EventArgs e)
 		{
 			Program.Settings.VignetteColor = ColorInp_vignette.Color;
@@ -267,6 +306,25 @@ Some settings do not apply to existing popup pictures";
 			Program.Settings.Save();
 		}
 
+		private void ColorInp_text_ColorChanged(object sender, EventArgs e)
+		{
+			Program.Settings.TextColor = ColorInp_text.Color;
+			Program.Settings.Save();
+		}
+
+		private void ColorInp_textBg_ColorChanged(object sender, EventArgs e)
+		{
+			Program.Settings.TextBgColor = ColorInp_textBg.Color;
+			Program.Settings.Save();
+		}
+
+		private void Inp_textSize_ValueChanged(object sender, EventArgs e)
+		{
+			if (_settingValues) return;
+			Program.Settings.TextSize = (int)Inp_textSize.Value;
+			Program.Settings.Save();
+		}
+
 		private void Inp_lang_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (_settingValues || Inp_lang.SelectedIndex > 1)
@@ -276,6 +334,24 @@ Some settings do not apply to existing popup pictures";
 			Program.Settings.Save();
 			App.Ins.UpdateLanguage();
 			SetTexts();
+		}
+
+		private void Btn_textLight_Click(object sender, EventArgs e)
+		{
+			Program.Settings.TextColor = Color.Black;
+			Program.Settings.TextBgColor = Color.White;
+			Program.Settings.Save();
+			ColorInp_text.Color = Program.Settings.TextColor;
+			ColorInp_textBg.Color = Program.Settings.TextBgColor;
+		}
+
+		private void Btn_textDark_Click(object sender, EventArgs e)
+		{
+			Program.Settings.TextColor = Color.FromArgb(212, 212, 212);
+			Program.Settings.TextBgColor = Color.FromArgb(30, 30, 30);
+			Program.Settings.Save();
+			ColorInp_text.Color = Program.Settings.TextColor;
+			ColorInp_textBg.Color = Program.Settings.TextBgColor;
 		}
 	}
 }

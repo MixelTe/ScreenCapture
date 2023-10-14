@@ -18,6 +18,7 @@ namespace ScreenCapture
 		private readonly static Pen _penBorder = new Pen(Color.FromArgb(128, 128, 128, 128), 2);
 		private Bitmap _picture;
 		private Pen _pen;
+		private Brush _eraser;
 		private bool _dragging = false;
 		private int _drawing = 0;
 		private Point _dragDif;
@@ -36,23 +37,24 @@ namespace ScreenCapture
 			Size = picture.Size;
 			_size = Size;
 			BackgroundImage = picture;
-			
+
 			var drawings = new Bitmap(picture.Size.Width, picture.Size.Height);
 			PictureDraw.Dock = DockStyle.Fill;
 			PictureDraw.BackgroundImage = drawings;
-			
+
 			PB_highlight.Dock = DockStyle.Fill;
 			PB_highlight.BackColor = Program.Settings.HighlightColor;
 			PB_highlight.Visible = false;
 
 			_pen = new Pen(Program.Settings.PenColor);
+			_eraser = new SolidBrush(Program.Settings.EraserColor);
 
 			float minScreenSide = Screen.PrimaryScreen.Bounds.Size.Min();
 			_minMaxZoom.X = (int)Math.Ceiling(Math.Log(32f / _size.Min(), Program.Settings.ZoomStep));
 			_minMaxZoom.Y = (int)Math.Floor(Math.Log(minScreenSide / _size.Max(), Program.Settings.ZoomStep));
 			Disposed += OnDisposed;
 		}
-		protected override CreateParams CreateParams	 
+		protected override CreateParams CreateParams
 		{
 			get
 			{
@@ -76,6 +78,11 @@ namespace ScreenCapture
 				_pen.Dispose();
 				_pen = null;
 			}
+			if (_eraser != null)
+			{
+				_eraser.Dispose();
+				_eraser = null;
+			}
 			if (_picture != null)
 			{
 				_picture.Dispose();
@@ -91,20 +98,35 @@ namespace ScreenCapture
 		private void FormPicture_Click(object sender, EventArgs e)
 		{
 			ToggleHighlight(false);
-			if ((e as MouseEventArgs).Button == MouseButtons.Right 
-				&& !ModifierKeys.HasFlag(Keys.Control))
+			if ((e as MouseEventArgs).Button == MouseButtons.Right
+				&& !ModifierKeys.HasFlag(Keys.Control) 
+				&& _drawing == 0)
 			{
 				Close();
 			}
 			else if ((e as MouseEventArgs).Button == MouseButtons.Middle)
 			{
-				CopyPictureToClipboard();
+				CopyPictureToClipboard(ModifierKeys.HasFlag(Keys.Control));
 			}
 		}
 
-		public void CopyPictureToClipboard()
+		public void CopyPictureToClipboard(bool withDrawings = false)
 		{
-			Clipboard.SetImage(_picture);
+			if (withDrawings)
+			{
+				using (var drawings = new Bitmap(_picture))
+				{
+					using (var g = Graphics.FromImage(drawings))
+					{
+						g.DrawImage(PictureDraw.BackgroundImage, Point.Empty);
+					}
+					Clipboard.SetImage(drawings);
+				}
+			}
+			else
+			{
+				Clipboard.SetImage(_picture);
+			}
 			var title = Program.Settings.Language == 1 ? "Копирование картинки" : "Copy image";
 			var text = Program.Settings.Language == 1 ? "Картинка сопированна!" : "Image is copied!";
 			App.Ins.TrayIcon.ShowBalloonTip(0, title, text, ToolTipIcon.Info);
@@ -112,7 +134,7 @@ namespace ScreenCapture
 
 		private void FormPicture_Paint(object sender, PaintEventArgs e)
 		{
-			if (!Program.Settings.DrawBorder || _penBorder == null) 
+			if (!Program.Settings.DrawBorder || _penBorder == null)
 				return;
 			var g = e.Graphics;
 			g.DrawRectangle(
@@ -203,13 +225,20 @@ namespace ScreenCapture
 					if (pointExist)
 						if (_pen != null)
 							g.DrawLine(_pen, lastPos, point);
-					else
-						g.FillEllipse(Brushes.Lime, new Rectangle(lastPos, new Size(1, 1)));
+						else
+							g.FillEllipse(Brushes.Lime, new Rectangle(lastPos, new Size(1, 1)));
 				}
 				else
 				{
-					g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
-					g.FillEllipse(Brushes.Transparent, new Rectangle(point, Size.Empty).Inflate(16 / Zoom));
+					if (ModifierKeys.HasFlag(Keys.Shift) && _eraser != null)
+					{
+						g.FillEllipse(_eraser, new Rectangle(point, Size.Empty).Inflate(16 / Zoom));
+					}
+					else
+					{
+						g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceCopy;
+						g.FillEllipse(Brushes.Transparent, new Rectangle(point, Size.Empty).Inflate(16 / Zoom));
+					}
 				}
 				PictureDraw.Refresh();
 			}

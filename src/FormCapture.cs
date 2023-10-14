@@ -131,7 +131,10 @@ namespace ScreenCapture
 		private void FormCapture_MouseUp(object sender, MouseEventArgs e)
 		{
 			UpdateSelection(e.Location);
-			CapturePicture();
+			if (ModifierKeys.HasFlag(Keys.Control))
+				CreateTextbox();
+			else
+				CapturePicture();
 		}
 
 		private void FormCapture_MouseMove(object sender, MouseEventArgs e)
@@ -169,6 +172,16 @@ namespace ScreenCapture
 			}
 
 			var form = new FormPicture(picture, _selection.Location);
+			form.Show();
+			PictureCaptured = true;
+			Hide();
+		}
+
+		private void CreateTextbox()
+		{
+			if (_selection.Width <= 0 || _selection.Height <= 0) return;
+
+			var form = new FormTextbox(_selection.Location, _selection.Size);
 			form.Show();
 			PictureCaptured = true;
 			Hide();

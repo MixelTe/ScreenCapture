@@ -15,6 +15,7 @@ namespace ScreenCapture
 		public bool DrawBorder = true;
 		public bool DrawShadow = true;
 		public Color PenColor = Color.Lime;
+		public Color EraserColor = Color.White;
 		public bool DrawVignette = true;
 		public bool HideOnCapture = true;
 		public Color VignetteColor = Color.FromArgb(128, Color.DarkViolet);
@@ -26,6 +27,10 @@ namespace ScreenCapture
 		public Color HighlightColor = Color.FromArgb(128, Color.DarkViolet);
 		public int Language = 0; // 0:en; 1:ru
 		public bool LanguageSelected = false;
+		public Color TextColor = Color.Black;
+		public Color TextBgColor = Color.White;
+		public int TextSize = 14;
+
 
 		public void Load()
 		{
