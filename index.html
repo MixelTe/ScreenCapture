@@ -18,15 +18,32 @@
 	<meta name="twitter:image:src" content="https://raw.githubusercontent.com/MixelTe/ScreenCapture/master/docs/logo.png">
 	<title>ScreenCapture</title>
 	<link rel="icon" type="image/x-icon" href="./favicon.ico">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT Sans|PT Sans Caption|PT Mono">
 	<script src="./marked.js"></script>
 	<style>
+		:root {
+			--c-back: antiquewhite;
+			--c-box: white;
+			--c-text: black;
+			--c-link: #0969da;
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--c-back: #17353d;
+				--c-box: #1e1e1e;
+				--c-text: #d4d4d4;
+				--c-link: #00ffff;
+			}
+			.gh img {
+				filter: invert(1);
+			}
+		}
 		* {
-			font-family: Arial, Helvetica, sans-serif;
+			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
 			box-sizing: border-box;
 		}
 		body {
-			background-color: antiquewhite;
+			background-color: var(--c-back);
+			color: var(--c-text);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -35,7 +52,7 @@
 		.box {
 			width: 100%;
 			max-width: 800px;
-			background-color: white;
+			background-color: var(--c-box);
 			padding: 1em 2em;
 		}
 		.box + .box {
@@ -56,17 +73,38 @@
 		}
 		img {
 			max-width: 100%;
+			border-radius: 0.5rem;
 		}
 		p:has(img), .box:has(.lds-spinner) {
 			text-align: center;
 		}
+		h1, h2, h3, h4, h5, h6 {
+			font-weight: 600;
+		}
 		h1 {
 			text-align: center;
 			padding-bottom: 0.5em;
-			border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+			border-bottom: 1px solid var(--c-text);
+			border-bottom-color: color-mix(in srgb, var(--c-text) 50%, transparent);
+			font-size: 2rem;
+		}
+		h2 {
+			font-size: 1.5rem;
+		}
+		h3 {
+			font-size: 1.25rem;
+		}
+		h4 {
+			font-size: 1rem;
+		}
+		h5 {
+			font-size: 0.875rem;
+		}
+		h5 {
+			font-size: 0.75rem;
 		}
 		a {
-			color: rgb(9, 105, 218);
+			color: var(--c-link);
 			text-decoration-skip-ink: none;
 			text-decoration: none;
 		}
